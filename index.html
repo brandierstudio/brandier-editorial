@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brandier Studio — AI Advertising & Creative Intelligence</title>
+  <meta name="description" content="An editorial and visual learning publication covering AI advertising, AI video, UGC, creative strategy, tools, campaign breakdowns, and the future of advertising." />
+
+  <!-- Brandier Visual DNA Fonts: Cormorant Garamond (Expressive Serif), Syne (Editorial Sans), Inter (Reading Body), JetBrains Mono (Tech Specs) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="editorial-body">
+
+  <!-- Ambient Fluid Shimmer Background -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Custom Cursor / Dot Indicator -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- ══════════════════════════════════════════
+       01 — TOP NAVIGATION (Liquid Glass)
+  ══════════════════════════════════════════ -->
+  <header class="site-header" id="site-header">
+    <div class="nav-container">
+      
+      <!-- Brandier Official Logo & Wordmark -->
+      <a href="#hero" class="brand-link" aria-label="Brandier Studio Editorial Home">
+        <img src="assets/brandier-logo.png" alt="Brandier Logo" class="brand-logo-img" />
+        <div class="brand-text-block">
+          <span class="brand-name">BRANDIER</span>
+          <span class="brand-sub">EDITORIAL &bull; INTELLIGENCE</span>
+        </div>
+      </a>
+
+      <!-- Center Editorial Navigation -->
+      <nav class="nav-center" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#insights" class="nav-item">INSIGHTS</a></li>
+          <li><a href="#breakdowns" class="nav-item">AI ADS</a></li>
+          <li><a href="#breakdowns" class="nav-item">BREAKDOWNS</a></li>
+          <li><a href="#tools" class="nav-item">TOOLS</a></li>
+          <li><a href="#guides" class="nav-item">GUIDES</a></li>
+          <li><a href="#trends" class="nav-item">TRENDS</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right Utility Controls: Search & Watch Live -->
+      <div class="nav-right">
+        <button class="nav-search-btn" id="open-search-btn" aria-label="Search publication">
+          <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="search-label">SEARCH</span>
+          <span class="search-kbd">⌘K</span>
+        </button>
+
+        <a href="#watch" class="nav-watch-btn">
+          <span class="live-indicator"></span>
+          <span>WATCH</span>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Off-Canvas Menu -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <div class="brand-text-block">
+        <span class="brand-name">BRANDIER</span>
+        <span class="brand-sub">EDITORIAL &bull; INTELLIGENCE</span>
+      </div>
+      <button class="mobile-close" id="mobile-close" aria-label="Close menu">✕</button>
+    </div>
+    <nav class="mobile-nav-list">
+      <a href="#insights" class="mobile-nav-link" onclick="closeMobileMenu()">INSIGHTS</a>
+      <a href="#breakdowns" class="mobile-nav-link" onclick="closeMobileMenu()">AI ADS & BREAKDOWNS</a>
+      <a href="#watch" class="mobile-nav-link" onclick="closeMobileMenu()">WATCH THE IDEA</a>
+      <a href="#tools" class="mobile-nav-link" onclick="closeMobileMenu()">TOOLS WE'RE TESTING</a>
+      <a href="#guides" class="mobile-nav-link" onclick="closeMobileMenu()">PRACTICAL GUIDES</a>
+      <a href="#trends" class="mobile-nav-link" onclick="closeMobileMenu()">WHAT'S CHANGING (TRENDS)</a>
+      <a href="#originals" class="mobile-nav-link" onclick="closeMobileMenu()">BRANDIER ORIGINALS</a>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <button class="btn-clipped btn-primary w-full" id="mobile-search-trigger" onclick="closeMobileMenu(); openSearchModal();">OPEN SEARCH (⌘K)</button>
+      <div class="mobile-ecosystem-links">
+        <a href="https://brandierstudio.online/" target="_blank" rel="noopener">Brandier Studio ↗</a>
+        <a href="https://tv.brandierstudio.online/" target="_blank" rel="noopener">Brandier TV ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ══════════════════════════════════════════
+         02 — EDITORIAL HERO
+    ══════════════════════════════════════════ -->
+    <section class="hero-section" id="hero">
+      <div class="hero-grid">
+        
+        <!-- Left Editorial Copy -->
+        <div class="hero-copy-col">
+          <div class="hero-badge">
+            <span class="pulse-beacon"></span>
+            <span class="badge-text">VOLUME 01 &bull; ISSUE 2026</span>
+            <span class="badge-separator">|</span>
+            <span class="badge-tag">CREATIVE INTELLIGENCE</span>
+          </div>
+
+          <h1 class="hero-title">
+            THE FUTURE OF<br />
+            <span class="serif-italic-accent">ADVERTISING</span><br />
+            IS ALREADY HERE.
+          </h1>
+
+          <p class="hero-subtitle">
+            "Where AI, creativity and advertising collide." An editorial and visual learning platform decoding high-performance generative campaigns, cinematic synthetic film, and commercial intelligence.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#insights" class="btn-clipped btn-primary">
+              EXPLORE INSIGHTS
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            
+            <a href="#watch" class="btn-liquid-glass btn-watch">
+              <span class="glass-play-ring">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </span>
+              WATCH LATEST
+            </a>
+          </div>
+
+          <div class="hero-editorial-meta">
+            <div class="meta-stat-pill">
+              <span class="meta-num">48+</span>
+              <span class="meta-lbl">Ad Breakdowns</span>
+            </div>
+            <div class="meta-stat-pill">
+              <span class="meta-num">14</span>
+              <span class="meta-lbl">Benchmarked Tools</span>
+            </div>
+            <div class="meta-stat-pill">
+              <span class="meta-num">100%</span>
+              <span class="meta-lbl">Commercial Rigor</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Cinematic Visual / Video Area -->
+        <div class="hero-visual-col">
+          <div class="hero-cinematic-card" id="hero-cinematic-card">
+            <div class="card-glass-frame">
+              <div class="cinematic-canvas-preview">
+                <div class="cinematic-backdrop">
+                  <!-- Simulated High-End Generative Commercial Video Loop -->
+                  <div class="simulated-film-strip">
+                    <div class="film-grain-overlay"></div>
+                    <div class="film-light-leak"></div>
+                    <div class="film-scanline"></div>
+                    <div class="film-center-subject">
+                      <div class="subject-badge">CASE REEL &bull; 4K 60FPS</div>
+                      <div class="subject-headline">NEURAL KINETICS 01</div>
+                      <div class="subject-brand">BRANDIER RESEARCH LAB</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Floating Editorial Overlay Tags -->
+                <div class="floating-glass-tag f-tag-top">
+                  <span class="tag-dot"></span>
+                  <span class="tag-title">RUNWAY GEN-3 × KLING 1.5</span>
+                  <span class="tag-val">0.82s Latency</span>
+                </div>
+
+                <div class="floating-glass-tag f-tag-bottom">
+                  <div class="tag-icon">⚡</div>
+                  <div class="tag-text">
+                    <span class="tag-name">COMMERCIAL ROI</span>
+                    <span class="tag-desc">+340% Hook Retention</span>
+                  </div>
+                </div>
+
+                <button class="hero-card-play-btn" onclick="openVideoModal('hero-reel')" aria-label="Play cinematic intro">
+                  <div class="play-pulse-ring"></div>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+                </button>
+              </div>
+
+              <div class="cinematic-hud-bar">
+                <div class="hud-left">
+                  <span class="hud-label">CURRENT BROADCAST</span>
+                  <span class="hud-title">The Synthetic Luxury Benchmark &bull; 02:45</span>
+                </div>
+                <div class="hud-right">
+                  <span class="hud-codec">PRORES RAW</span>
+                  <span class="hud-status">LIVE SYNC</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Editorial Scroll Hint -->
+      <div class="hero-scroll-cue">
+        <span class="cue-line"></span>
+        <span class="cue-text">SCROLL TO DISCOVER</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         03 — LIVE / LATEST SIGNAL (Ticker)
+    ══════════════════════════════════════════ -->
+    <div class="live-signal-ticker" aria-hidden="true">
+      <div class="ticker-header-tag">
+        <span class="signal-dot"></span>
+        <span>LIVE SIGNAL</span>
+      </div>
+      <div class="ticker-track">
+        <div class="ticker-content">
+          <span class="ticker-item">AI ADVERTISING</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item highlight">NEW MODELS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item">CREATIVE TRENDS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item highlight">CAMPAIGN BREAKDOWNS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item">AI VIDEO</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item highlight">TOOLS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item">EXPERIMENTS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item">CINEMATIC SYNTHETICS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item highlight">AI UGC ADVERTISING</span>
+          <span class="ticker-sep">✦</span>
+        </div>
+        <div class="ticker-content">
+          <span class="ticker-item">AI ADVERTISING</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item highlight">NEW MODELS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item">CREATIVE TRENDS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item highlight">CAMPAIGN BREAKDOWNS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item">AI VIDEO</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item highlight">TOOLS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item">EXPERIMENTS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item">CINEMATIC SYNTHETICS</span>
+          <span class="ticker-sep">✦</span>
+          <span class="ticker-item highlight">AI UGC ADVERTISING</span>
+          <span class="ticker-sep">✦</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         04 — FEATURED STORY (Read + Watch Core)
+    ══════════════════════════════════════════ -->
+    <section class="section featured-section" id="featured">
+      <div class="section-container">
+        
+        <div class="section-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">COVER STORY &bull; SPECIAL REPORT</span>
+        </div>
+
+        <div class="featured-story-card" data-article-id="art-featured-01">
+          <div class="featured-card-grid">
+            
+            <!-- Left Editorial Text Content -->
+            <div class="featured-card-text">
+              <div class="featured-meta-row">
+                <span class="badge-pill featured-badge">FEATURED</span>
+                <span class="meta-cat">STRATEGIC ESSAY</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-date">SEP 2026</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-time">7 MIN READ</span>
+                <span class="meta-watch-badge">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  WATCH BREAKDOWN
+                </span>
+              </div>
+
+              <h2 class="featured-title">
+                Why AI Advertising Is Becoming Essential for Modern Brands
+              </h2>
+
+              <p class="featured-lead">
+                Legacy advertising cycles of 6-month TV commercial sprints are officially dead. Leading brands are deploying continuous, neural creative pipelines that generate, test, and personalize cinematic commercial assets in hours, slashing production costs by 80% while scaling creative output.
+              </p>
+
+              <!-- In Short Callout Block inside featured teaser -->
+              <div class="in-short-preview">
+                <span class="in-short-title">THE CORE SHIFT:</span>
+                <ul>
+                  <li><strong>Velocity over bureaucracy:</strong> Realtime concept-to-screen deployment in 48 hours.</li>
+                  <li><strong>Creative abundance:</strong> From 3 variants per campaign to 300 segmented iterations.</li>
+                  <li><strong>The New Director:</strong> Strategic curation and prompt architecture replacing manual rendering.</li>
+                </ul>
+              </div>
+
+              <div class="featured-card-actions">
+                <button class="btn-clipped btn-primary" onclick="openArticleModal('art-featured-01')">
+                  READ STORY
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                
+                <button class="btn-liquid-glass" onclick="openVideoModal('vid-featured-01')">
+                  <span class="glass-play-ring">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  </span>
+                  WATCH BREAKDOWN (09:42)
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Monumental Visual -->
+            <div class="featured-card-visual" onclick="openArticleModal('art-featured-01')">
+              <div class="featured-image-container">
+                <div class="editorial-image-layer featured-cover-art">
+                  <div class="cover-art-motif">
+                    <div class="geometric-halo"></div>
+                    <div class="monolith-reflection"></div>
+                    <div class="cover-art-caption">
+                      <span class="art-tag">BRANDIER INTELLIGENCE CASE STUDY</span>
+                      <span class="art-sub">NEURAL COMMERCE EXPERIMENT 08</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-hover-reveal">
+                  <span>CLICK TO READ COMPLETE DISPATCH ↗</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         05 — LATEST INSIGHTS (Editorial Grid)
+    ══════════════════════════════════════════ -->
+    <section class="section insights-section" id="insights">
+      <div class="section-container">
+        
+        <div class="section-header-flex">
+          <div>
+            <div class="section-eyebrow">
+              <span class="eyebrow-line"></span>
+              <span class="eyebrow-text">CURATED EDITORIAL</span>
+            </div>
+            <h2 class="section-title">LATEST INSIGHTS</h2>
+            <p class="section-desc">Deep-dive critical analyses, technical essays, and executive creative perspectives on the AI advertising revolution.</p>
+          </div>
+
+          <!-- Category Filters -->
+          <div class="filter-pills" id="insights-filter-group">
+            <button class="filter-btn active" data-filter="all">ALL</button>
+            <button class="filter-btn" data-filter="ai-video">AI VIDEO</button>
+            <button class="filter-btn" data-filter="strategy">STRATEGY</button>
+            <button class="filter-btn" data-filter="ai-ugc">AI UGC</button>
+            <button class="filter-btn" data-filter="models">MODELS</button>
+          </div>
+        </div>
+
+        <!-- Asymmetric Editorial Grid: Large Feature + Medium Stories + Small Briefs -->
+        <div class="insights-grid" id="insights-grid">
+          
+          <!-- Card 1: Large Feature Story -->
+          <article class="story-card card-large" data-category="ai-video" data-article-id="art-01">
+            <div class="story-visual-wrap">
+              <div class="story-image img-synth-cinema">
+                <div class="story-tag-pill">AI VIDEO</div>
+                <div class="story-watch-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  WATCH BREAKDOWN
+                </div>
+              </div>
+            </div>
+            <div class="story-content">
+              <div class="story-meta">
+                <span class="meta-author">By Brandier Studio Editorial</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-date">SEP 04, 2026</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-time">6 MIN READ</span>
+              </div>
+              <h3 class="story-title">The Death of Uncanny Valley: How Veo 2 & Kling 1.5 Reached True Commercial Fidelity</h3>
+              <p class="story-excerpt">Examining lighting physics, sub-surface skin scattering, and micro-expressions in modern neural video generators. Why consumers can no longer spot synthetic talent.</p>
+              <div class="story-footer">
+                <button class="btn-text-link" onclick="openArticleModal('art-01')">READ DISPATCH →</button>
+                <button class="btn-icon-watch" onclick="openVideoModal('vid-01')" title="Watch Video Breakdown">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Medium Story -->
+          <article class="story-card card-medium" data-category="ai-ugc" data-article-id="art-02">
+            <div class="story-visual-wrap">
+              <div class="story-image img-ugc-mesh">
+                <div class="story-tag-pill">AI UGC</div>
+                <div class="story-watch-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  WATCH TEST
+                </div>
+              </div>
+            </div>
+            <div class="story-content">
+              <div class="story-meta">
+                <span class="meta-author">By Brandier Lab</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-time">4 MIN READ</span>
+              </div>
+              <h3 class="story-title">Deconstructing Synthetic UGC: The 3-Second Hook Formula Driving $4.2M in Meta Ad Spend</h3>
+              <p class="story-excerpt">We analyzed 150 top-performing synthetic TikTok ads. Here are the exact vocal pacing cadences and pacing rhythms that trick algorithmic feeds.</p>
+              <div class="story-footer">
+                <button class="btn-text-link" onclick="openArticleModal('art-02')">READ DISPATCH →</button>
+                <button class="btn-icon-watch" onclick="openVideoModal('vid-02')" title="Watch Video Breakdown">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Medium Story -->
+          <article class="story-card card-medium" data-category="strategy" data-article-id="art-03">
+            <div class="story-visual-wrap">
+              <div class="story-image img-prompt-directing">
+                <div class="story-tag-pill">STRATEGY</div>
+                <div class="story-watch-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  WATCH WORKSHOP
+                </div>
+              </div>
+            </div>
+            <div class="story-content">
+              <div class="story-meta">
+                <span class="meta-author">By Brandier Research</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-time">5 MIN READ</span>
+              </div>
+              <h3 class="story-title">From Prompt Engineer to Prompt Director: The New High-Table Agency Hierarchy</h3>
+              <p class="story-excerpt">The creative director of tomorrow doesn't write storyboards with markers. They design semantic style loras, motion seeds, and iterative lighting topologies.</p>
+              <div class="story-footer">
+                <button class="btn-text-link" onclick="openArticleModal('art-03')">READ DISPATCH →</button>
+                <button class="btn-icon-watch" onclick="openVideoModal('vid-03')" title="Watch Video Breakdown">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: Small Story Brief -->
+          <article class="story-card card-small" data-category="models" data-article-id="art-04">
+            <div class="story-content">
+              <div class="story-meta">
+                <span class="story-tag-inline">MODELS</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-time">3 MIN</span>
+              </div>
+              <h4 class="story-title">Seedance & Flux 1.1 Pro: First Commercial Benchmark Results</h4>
+              <p class="story-excerpt">How the newest photoreal distillation engines handle product reflections and hands in close-up beauty macro shoots.</p>
+              <div class="story-footer">
+                <button class="btn-text-link" onclick="openArticleModal('art-04')">READ →</button>
+                <span class="has-video-dot" title="Video breakdown included">⚡ VIDEO</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5: Small Story Brief -->
+          <article class="story-card card-small" data-category="strategy" data-article-id="art-05">
+            <div class="story-content">
+              <div class="story-meta">
+                <span class="story-tag-inline">STRATEGY</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-time">4 MIN</span>
+              </div>
+              <h4 class="story-title">The Legal Blueprint for Generative Actor Likeness in 2026</h4>
+              <p class="story-excerpt">Navigating synthetic talent licensing, SAG-AFTRA commercial contracts, and voice clone clearances across global markets.</p>
+              <div class="story-footer">
+                <button class="btn-text-link" onclick="openArticleModal('art-05')">READ →</button>
+                <span class="has-video-dot">⚡ VIDEO</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6: Small Story Brief -->
+          <article class="story-card card-small" data-category="ai-video" data-article-id="art-06">
+            <div class="story-content">
+              <div class="story-meta">
+                <span class="story-tag-inline">AI VIDEO</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-time">3 MIN</span>
+              </div>
+              <h4 class="story-title">Motion Vector Rigging: Eliminating Floating Limbs in AI Sports Ads</h4>
+              <p class="story-excerpt">A technical breakdown on integrating Blender depth maps into Kling camera-control passes for high-speed athletics.</p>
+              <div class="story-footer">
+                <button class="btn-text-link" onclick="openArticleModal('art-06')">READ →</button>
+                <span class="has-video-dot">⚡ VIDEO</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         06 — AI AD BREAKDOWNS (Dark Studio Section)
+    ══════════════════════════════════════════ -->
+    <section class="section breakdowns-section dark-studio-section" id="breakdowns">
+      <div class="section-container">
+        
+        <div class="section-eyebrow eyebrow-light">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">INTELLIGENCE LABORATORY &bull; CAMPAIGN DECONSTRUCTION</span>
+        </div>
+
+        <div class="breakdowns-header">
+          <div>
+            <h2 class="section-title title-light">AD BREAKDOWNS</h2>
+            <p class="breakdown-subhead">
+              "We don't just watch ads.<br />
+              <span class="iridescent-text">We break down why they work.</span>"
+            </p>
+          </div>
+          <div class="breakdowns-badge-box">
+            <span class="badge-accent">COMMERCIAL CASE STUDIES</span>
+            <span class="badge-sub">GROUNDED IN PERFORMANCE &bull; NOT HYPE</span>
+          </div>
+        </div>
+
+        <!-- Breakdowns Grid -->
+        <div class="breakdowns-grid">
+          
+          <!-- Breakdown 1: Nike Spec Commercial -->
+          <div class="breakdown-card" data-breakdown-id="bd-01">
+            <div class="breakdown-visual-col">
+              <div class="breakdown-visual-frame img-nike-spec">
+                <div class="breakdown-badge-tag">AI SPEC COMMERCIAL</div>
+                <div class="breakdown-play-overlay" onclick="openVideoModal('vid-bd-01')">
+                  <div class="glass-play-ring">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  </div>
+                  <span>WATCH BREAKDOWN (08:14)</span>
+                </div>
+              </div>
+              <div class="breakdown-tools-used">
+                <span class="tool-chip">KLING 1.5</span>
+                <span class="tool-chip">RUNWAY GEN-3</span>
+                <span class="tool-chip">TOPAZ AI</span>
+                <span class="tool-chip">SUNO V3</span>
+              </div>
+            </div>
+
+            <div class="breakdown-specs-col">
+              <div class="spec-header">
+                <div class="spec-brand-title">
+                  <span class="spec-label">BRAND:</span>
+                  <span class="spec-value brand-highlight">NIKE SPEED LAB (SPEC STUDY)</span>
+                </div>
+                <div class="spec-campaign-title">
+                  <span class="spec-label">CAMPAIGN:</span>
+                  <span class="spec-value">"Zero Gravity Gravity"</span>
+                </div>
+              </div>
+
+              <div class="spec-detail-block">
+                <div class="spec-item">
+                  <span class="spec-kpi-label">THE HOOK (00:00–00:03)</span>
+                  <p class="spec-kpi-desc">A runner's sneaker dissolves into chromatic mercury droplets at 1000fps before reforming mid-stride over neon wet asphalt.</p>
+                </div>
+
+                <div class="spec-item">
+                  <span class="spec-kpi-label">THE CREATIVE IDEA</span>
+                  <p class="spec-kpi-desc">Visualizing speed not through sweat and exhaustion, but through physical transcendence and liquid aerodynamic morphing.</p>
+                </div>
+
+                <div class="spec-item spec-winner">
+                  <span class="spec-kpi-label">WHY IT WORKS (THE PSYCHOLOGY)</span>
+                  <p class="spec-kpi-desc">Combines hyper-real footwear textures with impossible fluid dynamics. Stops the scroll instantly because the human brain tries to resolve whether the shoe is real or physics-breaking.</p>
+                </div>
+              </div>
+
+              <div class="breakdown-actions">
+                <button class="btn-clipped btn-light" onclick="openArticleModal('art-bd-01')">
+                  READ BREAKDOWN
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <button class="btn-liquid-glass btn-dark-glass" onclick="openVideoModal('vid-bd-01')">
+                  <span class="glass-play-ring">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  </span>
+                  WATCH BREAKDOWN
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Breakdown 2: Rimowa Synthetics Case Study -->
+          <div class="breakdown-card" data-breakdown-id="bd-02">
+            <div class="breakdown-visual-col">
+              <div class="breakdown-visual-frame img-rimowa-spec">
+                <div class="breakdown-badge-tag">LUXURY PRODUCT LAUNCH</div>
+                <div class="breakdown-play-overlay" onclick="openVideoModal('vid-bd-02')">
+                  <div class="glass-play-ring">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  </div>
+                  <span>WATCH BREAKDOWN (06:30)</span>
+                </div>
+              </div>
+              <div class="breakdown-tools-used">
+                <span class="tool-chip">FLUX 1.1 PRO</span>
+                <span class="tool-chip">VEO 2</span>
+                <span class="tool-chip">AFTER EFFECTS</span>
+              </div>
+            </div>
+
+            <div class="breakdown-specs-col">
+              <div class="spec-header">
+                <div class="spec-brand-title">
+                  <span class="spec-label">BRAND:</span>
+                  <span class="spec-value brand-highlight">RIMOWA × SPATIAL ODYSSEY</span>
+                </div>
+                <div class="spec-campaign-title">
+                  <span class="spec-label">CAMPAIGN:</span>
+                  <span class="spec-value">"The Indestructible Horizon"</span>
+                </div>
+              </div>
+
+              <div class="spec-detail-block">
+                <div class="spec-item">
+                  <span class="spec-kpi-label">THE HOOK (00:00–00:03)</span>
+                  <p class="spec-kpi-desc">Close-up macro of grooved aluminum suitcase surviving a Mach 3 reentry burn through orbital clouds.</p>
+                </div>
+
+                <div class="spec-item">
+                  <span class="spec-kpi-label">THE CREATIVE IDEA</span>
+                  <p class="spec-kpi-desc">Treating luxury travel luggage like an interstellar space vehicle through brutalist metallic reflections and sterile soundscapes.</p>
+                </div>
+
+                <div class="spec-item spec-winner">
+                  <span class="spec-kpi-label">WHY IT WORKS (THE PSYCHOLOGY)</span>
+                  <p class="spec-kpi-desc">High-luxury cues paired with extreme durability proofing. Demonstrates how AI renders pristine metal reflections without millions in physical CGI rendering farms.</p>
+                </div>
+              </div>
+
+              <div class="breakdown-actions">
+                <button class="btn-clipped btn-light" onclick="openArticleModal('art-bd-02')">
+                  READ BREAKDOWN
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <button class="btn-liquid-glass btn-dark-glass" onclick="openVideoModal('vid-bd-02')">
+                  <span class="glass-play-ring">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  </span>
+                  WATCH BREAKDOWN
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         07 — WATCH (Dedicated Video Hub)
+    ══════════════════════════════════════════ -->
+    <section class="section watch-section" id="watch">
+      <div class="section-container">
+        
+        <div class="section-header-flex">
+          <div>
+            <div class="section-eyebrow">
+              <span class="eyebrow-line"></span>
+              <span class="eyebrow-text">BROADCAST &bull; CINEMATIC HUB</span>
+            </div>
+            <h2 class="section-title">WATCH THE IDEA</h2>
+            <p class="section-desc">Every transformative editorial concept accompanied by high-production video breakdowns, tool demonstrations, and creative experiments.</p>
+          </div>
+
+          <!-- Video Channel Filter Categories -->
+          <div class="video-channel-tabs" id="video-filter-group">
+            <button class="v-tab-btn active" data-vfilter="all">ALL VIDEOS</button>
+            <button class="v-tab-btn" data-vfilter="ai-ads">AI ADS</button>
+            <button class="v-tab-btn" data-vfilter="breakdowns">AD BREAKDOWNS</button>
+            <button class="v-tab-btn" data-vfilter="tutorials">TUTORIALS</button>
+            <button class="v-tab-btn" data-vfilter="tool-tests">TOOL TESTS</button>
+            <button class="v-tab-btn" data-vfilter="experiments">EXPERIMENTS</button>
+          </div>
+        </div>
+
+        <!-- Featured Cinema Player Theatre -->
+        <div class="theatre-container">
+          <div class="theatre-player-frame">
+            <div class="video-canvas-mock" id="theatre-canvas">
+              <div class="theatre-screen-content">
+                <div class="theatre-ambient-glow"></div>
+                <div class="theatre-screen-center">
+                  <div class="theatre-badge">BRANDIER TV SYNC &bull; 4K PRORES</div>
+                  <h3 class="theatre-headline" id="theatre-current-title">Building a 100% Synthetic Commercial in 48 Hours: Full Breakdown</h3>
+                  <p class="theatre-sub" id="theatre-current-desc">From raw prompt architecture to multi-model composition in Kling 1.5, voice cloning with ElevenLabs, and finishing in Premiere Pro.</p>
+                  <button class="btn-theatre-play" id="theatre-main-play-btn" onclick="openVideoModal('vid-theatre-main')">
+                    <span class="play-icon-triangle"></span>
+                    <span>START CINEMATIC PLAYBACK (14:18)</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive Custom Video HUD Controls -->
+              <div class="theatre-controls-hud">
+                <div class="hud-timeline-bar">
+                  <div class="hud-timeline-progress" style="width: 38%;"></div>
+                </div>
+                <div class="hud-control-row">
+                  <div class="hud-control-left">
+                    <button class="hud-icon-btn" onclick="openVideoModal('vid-theatre-main')" aria-label="Play">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </button>
+                    <span class="hud-timestamp">05:28 / 14:18</span>
+                    <span class="hud-quality-pill">4K UHD</span>
+                  </div>
+                  <div class="hud-control-right">
+                    <button class="btn-link-sm" onclick="openArticleModal('art-theatre-sync')">READ ACCOMPANYING DISPATCH →</button>
+                    <button class="hud-icon-btn" onclick="toggleTheatreFullscreen()" aria-label="Fullscreen">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Previews Carousel / Grid Underneath -->
+        <div class="video-previews-grid" id="video-previews-grid">
+          
+          <!-- Video 1 -->
+          <div class="video-card-item" data-vcat="ai-ads" onclick="openVideoModal('vid-01')">
+            <div class="vcard-thumb img-v1">
+              <span class="vcard-duration">08:14</span>
+              <div class="vcard-play-pill">▶</div>
+            </div>
+            <div class="vcard-meta">
+              <span class="vcard-cat">AI ADS</span>
+              <h4 class="vcard-title">Nike Spec Breakdown: Dissecting 1000fps Fluid Generative Dynamics</h4>
+              <span class="vcard-link">WATCH BREAKDOWN →</span>
+            </div>
+          </div>
+
+          <!-- Video 2 -->
+          <div class="video-card-item" data-vcat="tool-tests" onclick="openVideoModal('vid-02')">
+            <div class="vcard-thumb img-v2">
+              <span class="vcard-duration">11:02</span>
+              <div class="vcard-play-pill">▶</div>
+            </div>
+            <div class="vcard-meta">
+              <span class="vcard-cat">TOOL TESTS</span>
+              <h4 class="vcard-title">Kling 1.5 vs Runway Gen-3 vs Veo: The Real Ad Production Stress Test</h4>
+              <span class="vcard-link">WATCH TEST →</span>
+            </div>
+          </div>
+
+          <!-- Video 3 -->
+          <div class="video-card-item" data-vcat="tutorials" onclick="openVideoModal('vid-03')">
+            <div class="vcard-thumb img-v3">
+              <span class="vcard-duration">15:45</span>
+              <div class="vcard-play-pill">▶</div>
+            </div>
+            <div class="vcard-meta">
+              <span class="vcard-cat">TUTORIALS</span>
+              <h4 class="vcard-title">Prompt Directing Masterclass: Crafting Exact Commercial Lighting</h4>
+              <span class="vcard-link">WATCH TUTORIAL →</span>
+            </div>
+          </div>
+
+          <!-- Video 4 -->
+          <div class="video-card-item" data-vcat="experiments" onclick="openVideoModal('vid-04')">
+            <div class="vcard-thumb img-v4">
+              <span class="vcard-duration">06:20</span>
+              <div class="vcard-play-pill">▶</div>
+            </div>
+            <div class="vcard-meta">
+              <span class="vcard-cat">EXPERIMENTS</span>
+              <h4 class="vcard-title">Can an AI UGC Ad Sell Luxury Watches? $10,000 Live Ad Spend Experiment</h4>
+              <span class="vcard-link">WATCH EXPERIMENT →</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         08 — TOOLS (Research / Editorial Library)
+    ══════════════════════════════════════════ -->
+    <section class="section tools-section" id="tools">
+      <div class="section-container">
+        
+        <div class="section-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">RESEARCH LABORATORY &bull; BENCHMARKS</span>
+        </div>
+
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">TOOLS WE'RE TESTING</h2>
+            <p class="section-desc">Not an affiliate directory or app store. An ongoing editorial and technical benchmark of foundation models applied strictly to commercial advertising workflows.</p>
+          </div>
+          <div class="tools-benchmark-legend">
+            <span class="legend-badge">BENCHMARK CRITERIA: Temporal Consistency &bull; Prompt Adherence &bull; Commercial Rights</span>
+          </div>
+        </div>
+
+        <!-- Editorial Tool Cards -->
+        <div class="tools-editorial-grid">
+          
+          <!-- Tool 1: Kling -->
+          <div class="tool-editorial-card">
+            <div class="tool-card-head">
+              <div class="tool-identity">
+                <span class="tool-initial">K</span>
+                <div>
+                  <h3 class="tool-name">KLING 1.5 PRO</h3>
+                  <span class="tool-maker">Kuaishou AI Research</span>
+                </div>
+              </div>
+              <div class="tool-score-badge">
+                <span class="score-num">9.4</span>
+                <span class="score-label">AD UTILITY</span>
+              </div>
+            </div>
+
+            <div class="tool-card-body">
+              <div class="tool-metric-row">
+                <span class="metric-key">WHAT IT DOES:</span>
+                <span class="metric-val">High-fidelity text-to-video and image-to-video with native 1080p motion simulation.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">ADVERTISING USE CASE:</span>
+                <span class="metric-val">Photorealistic human motion, complex physical camera crane and dolly passes.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">BRANDIER TEST:</span>
+                <span class="metric-val highlighted-val">Highest temporal stability in cloth simulations; minimal facial warping in 5-second bursts.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">BEST USE CASE:</span>
+                <span class="metric-val">Fashion commercials, dynamic sports sneakers, and high-impact kinetic product reveals.</span>
+              </div>
+            </div>
+
+            <div class="tool-card-footer">
+              <button class="btn-link-underline" onclick="openArticleModal('art-tool-kling')">READ RESEARCH TEST →</button>
+              <button class="btn-liquid-pill" onclick="openVideoModal('vid-tool-kling')">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH BENCHMARK (07:12)
+              </button>
+            </div>
+          </div>
+
+          <!-- Tool 2: Google Veo -->
+          <div class="tool-editorial-card">
+            <div class="tool-card-head">
+              <div class="tool-identity">
+                <span class="tool-initial">V</span>
+                <div>
+                  <h3 class="tool-name">GOOGLE VEO 2</h3>
+                  <span class="tool-maker">Google DeepMind</span>
+                </div>
+              </div>
+              <div class="tool-score-badge">
+                <span class="score-num">9.6</span>
+                <span class="score-label">AD UTILITY</span>
+              </div>
+            </div>
+
+            <div class="tool-card-body">
+              <div class="tool-metric-row">
+                <span class="metric-key">WHAT IT DOES:</span>
+                <span class="metric-val">High-definition generative video engine with deep semantic comprehension of cinematic terms.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">ADVERTISING USE CASE:</span>
+                <span class="metric-val">Direct script-to-scene camera blocking (e.g. "anamorphic lens flare, 35mm shallow depth").</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">BRANDIER TEST:</span>
+                <span class="metric-val highlighted-val">Unmatched understanding of architectural spaces and reflective glassware physics.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">BEST USE CASE:</span>
+                <span class="metric-val">Luxury fragrance, automotive exterior tracking, and architecturally driven TV spots.</span>
+              </div>
+            </div>
+
+            <div class="tool-card-footer">
+              <button class="btn-link-underline" onclick="openArticleModal('art-tool-veo')">READ RESEARCH TEST →</button>
+              <button class="btn-liquid-pill" onclick="openVideoModal('vid-tool-veo')">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH BENCHMARK (08:40)
+              </button>
+            </div>
+          </div>
+
+          <!-- Tool 3: Seedance -->
+          <div class="tool-editorial-card">
+            <div class="tool-card-head">
+              <div class="tool-identity">
+                <span class="tool-initial">S</span>
+                <div>
+                  <h3 class="tool-name">SEEDANCE 2.0</h3>
+                  <span class="tool-maker">Seedance AI</span>
+                </div>
+              </div>
+              <div class="tool-score-badge">
+                <span class="score-num">9.1</span>
+                <span class="score-label">AD UTILITY</span>
+              </div>
+            </div>
+
+            <div class="tool-card-body">
+              <div class="tool-metric-row">
+                <span class="metric-key">WHAT IT DOES:</span>
+                <span class="metric-val">Controllable character consistency framework for continuous multi-scene storytelling.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">ADVERTISING USE CASE:</span>
+                <span class="metric-val">Maintaining the same synthetic actor across multiple environments and costume changes.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">BRANDIER TEST:</span>
+                <span class="metric-val highlighted-val">Solved the recurring actor drift problem; enables serialized synthetic commercial narratives.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">BEST USE CASE:</span>
+                <span class="metric-val">Brand spokesperson campaigns, recurring episodic UGC spokespeople, customer stories.</span>
+              </div>
+            </div>
+
+            <div class="tool-card-footer">
+              <button class="btn-link-underline" onclick="openArticleModal('art-tool-seedance')">READ RESEARCH TEST →</button>
+              <button class="btn-liquid-pill" onclick="openVideoModal('vid-tool-seedance')">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH BENCHMARK (05:55)
+              </button>
+            </div>
+          </div>
+
+          <!-- Tool 4: Midjourney v6.1 / Flux Pro -->
+          <div class="tool-editorial-card">
+            <div class="tool-card-head">
+              <div class="tool-identity">
+                <span class="tool-initial">F</span>
+                <div>
+                  <h3 class="tool-name">FLUX 1.1 PRO & MIDJOURNEY</h3>
+                  <span class="tool-maker">Black Forest Labs / Midjourney</span>
+                </div>
+              </div>
+              <div class="tool-score-badge">
+                <span class="score-num">9.8</span>
+                <span class="score-label">AD UTILITY</span>
+              </div>
+            </div>
+
+            <div class="tool-card-body">
+              <div class="tool-metric-row">
+                <span class="metric-key">WHAT IT DOES:</span>
+                <span class="metric-val">Hyper-dense still imagery foundation for keyart, billboard hero graphics, and video source seeds.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">ADVERTISING USE CASE:</span>
+                <span class="metric-val">Zero-defect typography rendering on packaging labels and exact micro-details on skin pores.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">BRANDIER TEST:</span>
+                <span class="metric-val highlighted-val">Replaced 90% of preliminary 3D studio product render passes for print & OOH mockups.</span>
+              </div>
+              <div class="tool-metric-row">
+                <span class="metric-key">BEST USE CASE:</span>
+                <span class="metric-val">Print ads, digital billboards (OOH), e-commerce catalog transformation, video keyframes.</span>
+              </div>
+            </div>
+
+            <div class="tool-card-footer">
+              <button class="btn-link-underline" onclick="openArticleModal('art-tool-flux')">READ RESEARCH TEST →</button>
+              <button class="btn-liquid-pill" onclick="openVideoModal('vid-tool-flux')">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH BENCHMARK (09:15)
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         09 — GUIDES (Learn By Doing)
+    ══════════════════════════════════════════ -->
+    <section class="section guides-section" id="guides">
+      <div class="section-container">
+        
+        <div class="section-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">PRACTICAL MASTERCLASSES &bull; PLAYBOOKS</span>
+        </div>
+
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">LEARN BY DOING</h2>
+            <p class="section-desc">Rigorous step-by-step masterclasses designed to move brand designers, creative directors, and media buyers from theoretical interest to deployed commercial ads.</p>
+          </div>
+          <div class="guide-count-tag">5 COMPLETE PLAYBOOKS</div>
+        </div>
+
+        <!-- Guides List Layout -->
+        <div class="guides-list">
+          
+          <!-- Guide 1 -->
+          <div class="guide-item-card" onclick="openArticleModal('guide-01')">
+            <div class="guide-num">01</div>
+            <div class="guide-main">
+              <div class="guide-meta-pills">
+                <span class="pill-difficulty diff-beginner">BEGINNER &bull; ESSENTIAL</span>
+                <span class="pill-spec">⏱ 8 MIN READ</span>
+                <span class="pill-spec">🎬 12 MIN MASTERCLASS</span>
+              </div>
+              <h3 class="guide-title">How to Create an AI Product Advertisement</h3>
+              <p class="guide-desc">The end-to-end framework for taking a physical bottle or sneaker photograph, building a LoRA or depth mask, generating 4K commercial hero shots, and animating in Kling.</p>
+            </div>
+            <div class="guide-actions">
+              <button class="btn-clipped btn-primary" onclick="event.stopPropagation(); openArticleModal('guide-01')">READ GUIDE →</button>
+              <button class="btn-liquid-glass" onclick="event.stopPropagation(); openVideoModal('vid-guide-01')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH GUIDE
+              </button>
+            </div>
+          </div>
+
+          <!-- Guide 2 -->
+          <div class="guide-item-card" onclick="openArticleModal('guide-02')">
+            <div class="guide-num">02</div>
+            <div class="guide-main">
+              <div class="guide-meta-pills">
+                <span class="pill-difficulty diff-intermediate">INTERMEDIATE</span>
+                <span class="pill-spec">⏱ 11 MIN READ</span>
+                <span class="pill-spec">🎬 18 MIN MASTERCLASS</span>
+              </div>
+              <h3 class="guide-title">How AI UGC Ads Work: Scripting, Voice Cloning & Synthesizing Organic Hook Rates</h3>
+              <p class="guide-desc">Building believable TikTok-native ads using synthetic talking avatars, natural acoustic room reverb, and dynamic pacing that bypasses native ad blindness.</p>
+            </div>
+            <div class="guide-actions">
+              <button class="btn-clipped btn-primary" onclick="event.stopPropagation(); openArticleModal('guide-02')">READ GUIDE →</button>
+              <button class="btn-liquid-glass" onclick="event.stopPropagation(); openVideoModal('vid-guide-02')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH GUIDE
+              </button>
+            </div>
+          </div>
+
+          <!-- Guide 3 -->
+          <div class="guide-item-card" onclick="openArticleModal('guide-03')">
+            <div class="guide-num">03</div>
+            <div class="guide-main">
+              <div class="guide-meta-pills">
+                <span class="pill-difficulty diff-advanced">ADVANCED &bull; CINEMATIC</span>
+                <span class="pill-spec">⏱ 14 MIN READ</span>
+                <span class="pill-spec">🎬 24 MIN MASTERCLASS</span>
+              </div>
+              <h3 class="guide-title">How to Build a Cinematic AI Commercial from Storyboard to Sound Design</h3>
+              <p class="guide-desc">Composing multi-scene luxury narratives: camera lens matching, cinematic color grading in DaVinci Resolve, neural sound FX generation, and broadcast deliverables.</p>
+            </div>
+            <div class="guide-actions">
+              <button class="btn-clipped btn-primary" onclick="event.stopPropagation(); openArticleModal('guide-03')">READ GUIDE →</button>
+              <button class="btn-liquid-glass" onclick="event.stopPropagation(); openVideoModal('vid-guide-03')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH GUIDE
+              </button>
+            </div>
+          </div>
+
+          <!-- Guide 4 -->
+          <div class="guide-item-card" onclick="openArticleModal('guide-04')">
+            <div class="guide-num">04</div>
+            <div class="guide-main">
+              <div class="guide-meta-pills">
+                <span class="pill-difficulty diff-intermediate">INTERMEDIATE</span>
+                <span class="pill-spec">⏱ 7 MIN READ</span>
+                <span class="pill-spec">🎬 10 MIN MASTERCLASS</span>
+              </div>
+              <h3 class="guide-title">How to Create AI Product Photography: Precision Studio Lighting Without Studios</h3>
+              <p class="guide-desc">Eliminating $20k studio shoot expenses. How to prompt softbox diffusers, rim lights, caustics reflections, and hyper-precise material textures in Midjourney and Flux.</p>
+            </div>
+            <div class="guide-actions">
+              <button class="btn-clipped btn-primary" onclick="event.stopPropagation(); openArticleModal('guide-04')">READ GUIDE →</button>
+              <button class="btn-liquid-glass" onclick="event.stopPropagation(); openVideoModal('vid-guide-04')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH GUIDE
+              </button>
+            </div>
+          </div>
+
+          <!-- Guide 5 -->
+          <div class="guide-item-card" onclick="openArticleModal('guide-05')">
+            <div class="guide-num">05</div>
+            <div class="guide-main">
+              <div class="guide-meta-pills">
+                <span class="pill-difficulty diff-beginner">FOUNDATIONAL</span>
+                <span class="pill-spec">⏱ 9 MIN READ</span>
+                <span class="pill-spec">🎬 15 MIN MASTERCLASS</span>
+              </div>
+              <h3 class="guide-title">How to Turn an Idea Into an AI Advertisement: The Creative Synthesis Pipeline</h3>
+              <p class="guide-desc">The strategic translation matrix: taking client briefs and converting them into actionable prompt schemas, visual seeds, voice parameters, and testing matrices.</p>
+            </div>
+            <div class="guide-actions">
+              <button class="btn-clipped btn-primary" onclick="event.stopPropagation(); openArticleModal('guide-05')">READ GUIDE →</button>
+              <button class="btn-liquid-glass" onclick="event.stopPropagation(); openVideoModal('vid-guide-05')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                WATCH GUIDE
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         10 — TRENDS (What's Changing)
+    ══════════════════════════════════════════ -->
+    <section class="section trends-section" id="trends">
+      <div class="section-container">
+        
+        <div class="section-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">RADAR SCAN &bull; FORWARD OUTLOOK</span>
+        </div>
+
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">WHAT'S CHANGING</h2>
+            <p class="section-desc">Emerging commercial paradigms reshaping agency economics, consumer trust, and creative velocity.</p>
+          </div>
+          <div class="trends-scroll-controls">
+            <button class="carousel-nav-btn" id="trends-prev-btn" aria-label="Previous trend">←</button>
+            <button class="carousel-nav-btn" id="trends-next-btn" aria-label="Next trend">→</button>
+          </div>
+        </div>
+
+        <!-- Horizontal Scrollable Cards -->
+        <div class="trends-slider-container" id="trends-slider">
+          
+          <!-- Trend 1 -->
+          <div class="trend-card">
+            <div class="trend-number">TREND 01 / 04</div>
+            <h3 class="trend-name">Realtime Autonomous Creative Optimization</h3>
+            <div class="trend-block">
+              <span class="trend-label">WHY IT MATTERS</span>
+              <p class="trend-text">Ad creatives are no longer static files uploaded to Meta Ads Manager. Next-gen neural pipelines will synthesize ad variants in real time based on user behavioral signals.</p>
+            </div>
+            <div class="trend-block">
+              <span class="trend-label">EXAMPLE</span>
+              <p class="trend-text">An outdoor apparel brand dynamically rendering rain, snow, or sunshine into the video based on the viewer's local weather coordinates.</p>
+            </div>
+            <div class="trend-block trend-brand-app">
+              <span class="trend-label">BRAND APPLICATION</span>
+              <p class="trend-text">Build flexible LoRAs and modular background seeds rather than monolithic finished videos.</p>
+            </div>
+          </div>
+
+          <!-- Trend 2 -->
+          <div class="trend-card">
+            <div class="trend-number">TREND 02 / 04</div>
+            <h3 class="trend-name">The Rise of Micro-Identities: Synthetic Brand Ambassadors</h3>
+            <div class="trend-block">
+              <span class="trend-label">WHY IT MATTERS</span>
+              <p class="trend-text">Instead of paying millions to celebrity influencers with unpredictable PR risks, brands are minting their own proprietary virtual spokespeople who speak 40 languages fluently.</p>
+            </div>
+            <div class="trend-block">
+              <span class="trend-label">EXAMPLE</span>
+              <p class="trend-text">Fintech and beauty brands deploying virtual ambassadors who present localized campaigns across TikTok and Instagram simultaneously.</p>
+            </div>
+            <div class="trend-block trend-brand-app">
+              <span class="trend-label">BRAND APPLICATION</span>
+              <p class="trend-text">Establish proprietary facial embeddings and trademarked voice weights as core intellectual property.</p>
+            </div>
+          </div>
+
+          <!-- Trend 3 -->
+          <div class="trend-card">
+            <div class="trend-number">TREND 03 / 04</div>
+            <h3 class="trend-name">Generative Hyper-VFX at Indie Budgets</h3>
+            <div class="trend-block">
+              <span class="trend-label">WHY IT MATTERS</span>
+              <p class="trend-text">Complex CGI effects—gravity-defying liquid explosions, interstellar starfields, futuristic vehicle transformations—once required $1M+ VFX houses. Now achievable in 48 hours.</p>
+            </div>
+            <div class="trend-block">
+              <span class="trend-label">EXAMPLE</span>
+              <p class="trend-text">DTC beverage startups running commercials that visually outshine established multinational soda brands during major streaming broadcasts.</p>
+            </div>
+            <div class="trend-block trend-brand-app">
+              <span class="trend-label">BRAND APPLICATION</span>
+              <p class="trend-text">Shift agency budgets away from technical rendering towards higher-tier conceptual writing and worldbuilding.</p>
+            </div>
+          </div>
+
+          <!-- Trend 4 -->
+          <div class="trend-card">
+            <div class="trend-number">TREND 04 / 04</div>
+            <h3 class="trend-name">Auditory Authenticity: Neural Room Acoustic Matching</h3>
+            <div class="trend-block">
+              <span class="trend-label">WHY IT MATTERS</span>
+              <p class="trend-text">Synthetic video looks flawless, but synthetic audio often gives the game away. The leading edge is spatial audio models that simulate microphone distance, room flutter, and breath cadence.</p>
+            </div>
+            <div class="trend-block">
+              <span class="trend-label">EXAMPLE</span>
+              <p class="trend-text">A synthetic car testimonial where the AI voice subtly resonates with the acoustic dampening of car leather upholstery.</p>
+            </div>
+            <div class="trend-block trend-brand-app">
+              <span class="trend-label">BRAND APPLICATION</span>
+              <p class="trend-text">Invest heavily in room-impulse response filtering for all synthesized UGC and narrative commercial audio.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         11 — BRANDIER ORIGINALS (Studio Ecosystem)
+    ══════════════════════════════════════════ -->
+    <section class="section originals-section" id="originals">
+      <div class="section-container">
+        
+        <div class="section-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">STUDIO LAB EXPERIMENTS &bull; PROPRIETARY CASE STUDIES</span>
+        </div>
+
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">BRANDIER ORIGINALS</h2>
+            <p class="section-desc">High-concept commercial experiments, synthetic luxury spots, and frontier creative technology engineered inside Brandier Studio.</p>
+          </div>
+          <a href="https://brandierstudio.online/" target="_blank" rel="noopener" class="btn-clipped btn-outline">
+            VISIT BRANDIER STUDIO ↗
+          </a>
+        </div>
+
+        <!-- Originals Portfolio Grid -->
+        <div class="originals-grid">
+          
+          <!-- Original Project 1 -->
+          <div class="original-project-card" onclick="openArticleModal('orig-01')">
+            <div class="original-visual img-orig-chronos">
+              <div class="original-badge">ORIGINAL EXPERIMENT 01</div>
+              <div class="original-tag-bar">100% GENERATIVE &bull; 4K 60FPS</div>
+            </div>
+            <div class="original-body">
+              <div class="original-header">
+                <span class="original-client">CONCEPT / PROPRIETARY</span>
+                <h3 class="original-title">Project Chronos: The Perpetual Mechanism</h3>
+              </div>
+              <p class="original-desc">A full-length luxury horology commercial created without physical cameras. Micro-gears turning under sapphire crystal, dynamic oil droplets, and macro reflections.</p>
+              
+              <div class="original-spec-pills">
+                <span class="spec-mini">Creative Direction: Minimal Brutalism</span>
+                <span class="spec-mini">Workflow: Midjourney v6 + Kling + DaVinci</span>
+                <span class="spec-mini">Time to Deploy: 72 Hours</span>
+              </div>
+
+              <div class="original-footer">
+                <span class="btn-text-link">VIEW PROJECT ARCHIVE →</span>
+                <span class="original-view-icon">↗</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Original Project 2 -->
+          <div class="original-project-card" onclick="openArticleModal('orig-02')">
+            <div class="original-visual img-orig-aura">
+              <div class="original-badge">ORIGINAL EXPERIMENT 02</div>
+              <div class="original-tag-bar">FRAGRANCE IDENTITY &bull; KINETIC SYNTHETICS</div>
+            </div>
+            <div class="original-body">
+              <div class="original-header">
+                <span class="original-client">LUXURY SPEC</span>
+                <h3 class="original-title">Aura: Olfactory Architecture</h3>
+              </div>
+              <p class="original-desc">Visualizing invisible scent notes through undulating iridescent liquid crystal forms colliding with volcanic obsidian stones in zero gravity.</p>
+              
+              <div class="original-spec-pills">
+                <span class="spec-mini">Creative Direction: Organic Liquid Glass</span>
+                <span class="spec-mini">Workflow: Veo 2 + Topaz AI + Unreal Engine 5</span>
+                <span class="spec-mini">Time to Deploy: 48 Hours</span>
+              </div>
+
+              <div class="original-footer">
+                <span class="btn-text-link">VIEW PROJECT ARCHIVE →</span>
+                <span class="original-view-icon">↗</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         NEWSLETTER / DISPATCH SUBSCRIPTION
+    ══════════════════════════════════════════ -->
+    <section class="section dispatch-section">
+      <div class="section-container">
+        <div class="dispatch-glass-box">
+          <div class="dispatch-inner-grid">
+            <div>
+              <span class="dispatch-badge">WEEKLY CREATIVE INTELLIGENCE</span>
+              <h2 class="dispatch-title">Stay Ahead of the Advertising Shift</h2>
+              <p class="dispatch-desc">Receive our private Sunday teardown: 1 breaking AI ad breakdown, 1 foundation model benchmark, and 3 actionable commercial prompts deployed in production.</p>
+            </div>
+            <div class="dispatch-form-col">
+              <form class="dispatch-form" id="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                <div class="input-wrap">
+                  <input type="email" id="newsletter-email" placeholder="Enter your business email" required class="dispatch-input" />
+                  <button type="submit" class="btn-clipped btn-primary btn-dispatch-submit">SUBSCRIBE</button>
+                </div>
+                <div class="dispatch-guarantee">No promotional fluff. Unsubscribe at any time. Sent to 14,000+ creative leaders.</div>
+                <div class="dispatch-success-msg" id="newsletter-success">✓ You are now subscribed to Brandier Intelligence Dispatches.</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       15 — FOOTER (Minimal & Premium)
+  ══════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <div class="footer-top-row">
+        
+        <!-- Brand Column -->
+        <div class="footer-brand-col">
+          <a href="#hero" class="brand-link footer-brand-link">
+            <img src="assets/brandier-logo.png" alt="Brandier Logo" class="brand-logo-img logo-inverted" />
+            <div class="brand-text-block">
+              <span class="brand-name font-light-white">BRANDIER</span>
+              <span class="brand-sub gradient-irid">EDITORIAL &bull; INTELLIGENCE</span>
+            </div>
+          </a>
+          <p class="footer-tagline">
+            The creative intelligence publication deconstructing the future of AI advertising, synthetic commercial film, and performance creativity.
+          </p>
+          <div class="footer-ecosystem-badges">
+            <span class="eco-badge">PART OF THE BRANDIER ECOSYSTEM</span>
+          </div>
+        </div>
+
+        <!-- Navigation Links 1: Editorial -->
+        <div class="footer-nav-col">
+          <span class="footer-col-title">EDITORIAL</span>
+          <ul class="footer-link-list">
+            <li><a href="#insights">Latest Insights</a></li>
+            <li><a href="#featured">Featured Dispatch</a></li>
+            <li><a href="#breakdowns">Ad Breakdowns</a></li>
+            <li><a href="#trends">What's Changing</a></li>
+            <li><a href="#originals">Brandier Originals</a></li>
+          </ul>
+        </div>
+
+        <!-- Navigation Links 2: Learning & Tools -->
+        <div class="footer-nav-col">
+          <span class="footer-col-title">LEARN & TOOLS</span>
+          <ul class="footer-link-list">
+            <li><a href="#watch">Watch The Idea</a></li>
+            <li><a href="#tools">Tools We Test</a></li>
+            <li><a href="#guides">Practical Playbooks</a></li>
+            <li><a href="javascript:void(0)" onclick="openSearchModal()">Search Publication (⌘K)</a></li>
+          </ul>
+        </div>
+
+        <!-- Navigation Links 3: Brandier Network -->
+        <div class="footer-nav-col">
+          <span class="footer-col-title">BRANDIER NETWORK</span>
+          <ul class="footer-link-list">
+            <li><a href="https://brandierstudio.online/" target="_blank" rel="noopener" class="eco-link">Brandier Studio ↗</a></li>
+            <li><a href="https://tv.brandierstudio.online/" target="_blank" rel="noopener" class="eco-link">Brandier TV ↗</a></li>
+            <li><a href="https://brandierstudio.online/#contact" target="_blank" rel="noopener">Commission a Campaign</a></li>
+            <li><a href="mailto:intelligence@brandierstudio.online">Editorial Inquiries</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom-row">
+        <div class="footer-copy">
+          &copy; <span id="current-year">2026</span> BRANDIER STUDIO. ALL RIGHTS RESERVED. FOR COMMERCIAL CREATORS & VISIONARIES.
+        </div>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a>
+          <span class="sep">&bull;</span>
+          <a href="#">Editorial Standards</a>
+          <span class="sep">&bull;</span>
+          <a href="#">AI Ethics Disclosure</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+       12 & 13 — IMMERSIVE ARTICLE READER MODAL
+  ══════════════════════════════════════════ -->
+  <div class="article-reader-modal" id="article-reader-modal" aria-hidden="true">
+    <div class="reader-backdrop" onclick="closeArticleModal()"></div>
+    <div class="reader-container" id="reader-container">
+      
+      <!-- Reader Floating HUD Bar -->
+      <div class="reader-hud">
+        <div class="reader-hud-left">
+          <span class="reader-hud-tag" id="reader-hud-tag">EDITORIAL ESSAY</span>
+          <span class="reader-hud-progress-text" id="reader-hud-title-preview">Why AI Advertising Is Becoming Essential</span>
+        </div>
+        <div class="reader-hud-right">
+          <button class="btn-liquid-pill" id="reader-watch-trigger-btn" onclick="triggerReaderVideo()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            WATCH BREAKDOWN
+          </button>
+          <button class="reader-close-btn" onclick="closeArticleModal()" aria-label="Close reader">✕</button>
+        </div>
+      </div>
+
+      <!-- Reading Content Core -->
+      <div class="reader-article-body" id="reader-article-body">
+        <!-- Dynamically injected article content -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       07 & 13 — CINEMATIC VIDEO OVERLAY MODAL
+  ══════════════════════════════════════════ -->
+  <div class="video-theatre-modal" id="video-theatre-modal" aria-hidden="true">
+    <div class="theatre-backdrop" onclick="closeVideoModal()"></div>
+    <div class="theatre-modal-content">
+      
+      <div class="theatre-modal-header">
+        <div class="vmodal-meta">
+          <span class="vmodal-badge" id="vmodal-cat">AI AD BREAKDOWN</span>
+          <h3 class="vmodal-title" id="vmodal-title">Nike Spec Breakdown: Dissecting 1000fps Fluid Generative Dynamics</h3>
+        </div>
+        <button class="theatre-modal-close" onclick="closeVideoModal()" aria-label="Close video player">✕</button>
+      </div>
+
+      <!-- Video Player Viewport -->
+      <div class="theatre-video-viewport">
+        <div class="simulated-high-fidelity-player" id="modal-video-surface">
+          <div class="active-video-visual-stream">
+            <div class="video-overlay-particles"></div>
+            <div class="video-center-title-hud">
+              <span class="hud-stream-time">NOW PLAYING &bull; 4K 60FPS</span>
+              <h2 class="hud-stream-main-title" id="vmodal-stream-title">Nike Speed Lab Case Study</h2>
+              <div class="hud-stream-tags">
+                <span>KLING 1.5</span>
+                <span>RUNWAY GEN-3</span>
+                <span>DAVINCI RESOLVE</span>
+              </div>
+            </div>
+          </div>
+          <!-- Player Controls Bar -->
+          <div class="theatre-scrubber-bar">
+            <div class="scrubber-line">
+              <div class="scrubber-progress" id="modal-scrubber-prog" style="width: 42%;"></div>
+            </div>
+            <div class="scrubber-controls">
+              <div class="sc-left">
+                <button class="sc-btn-play" onclick="toggleModalVideoPlay()">❚❚</button>
+                <span class="sc-time">03:22 / 08:14</span>
+              </div>
+              <div class="sc-right">
+                <button class="sc-pill" id="vmodal-related-guide-btn" onclick="switchToRelatedGuide()">READ COMPANION GUIDE ↗</button>
+                <button class="sc-pill" id="vmodal-related-tool-btn" onclick="switchToRelatedTool()">VIEW TESTED TOOL ↗</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Description & Connected Ecosystem -->
+      <div class="theatre-modal-footer">
+        <div class="theatre-synopsis">
+          <h4 class="synopsis-title">EDITORIAL CONTEXT</h4>
+          <p id="vmodal-desc">This video deconstructs how neural fluid physics and consistency weighting were configured to prevent temporal disintegration across high-velocity athlete cuts.</p>
+        </div>
+        <div class="theatre-connected-assets">
+          <span class="conn-label">CONNECTED INTELLIGENCE ECOSYSTEM</span>
+          <div class="conn-pills" id="vmodal-connections">
+            <a href="javascript:void(0)" class="conn-chip" onclick="openArticleModal('art-01')">📄 Read Full Article</a>
+            <a href="javascript:void(0)" class="conn-chip" onclick="openArticleModal('guide-01')">🛠 Related Guide: Product Ads</a>
+            <a href="javascript:void(0)" class="conn-chip" onclick="openArticleModal('art-tool-kling')">⚡ Benchmark: Kling 1.5</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       14 — GLOBAL SEARCH SPOTLIGHT MODAL
+  ══════════════════════════════════════════ -->
+  <div class="search-modal" id="search-modal" aria-hidden="true">
+    <div class="search-backdrop" onclick="closeSearchModal()"></div>
+    <div class="search-dialog">
+      
+      <div class="search-input-box">
+        <svg class="search-input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="global-search-input" placeholder="Search articles, videos, breakdowns, tools, guides, trends..." autocomplete="off" />
+        <span class="search-esc-hint" onclick="closeSearchModal()">ESC</span>
+      </div>
+
+      <!-- Quick Category Filter Pills -->
+      <div class="search-type-filters">
+        <button class="search-pill active" data-stype="all">ALL</button>
+        <button class="search-pill" data-stype="articles">ARTICLES</button>
+        <button class="search-pill" data-stype="breakdowns">BREAKDOWNS</button>
+        <button class="search-pill" data-stype="videos">VIDEOS</button>
+        <button class="search-pill" data-stype="tools">TOOLS</button>
+        <button class="search-pill" data-stype="guides">GUIDES</button>
+        <button class="search-pill" data-stype="trends">TRENDS</button>
+      </div>
+
+      <!-- Search Results List -->
+      <div class="search-results-list" id="search-results-container">
+        <!-- Dynamically rendered search results -->
+      </div>
+
+      <div class="search-dialog-footer">
+        <span>Navigation: <kbd>↑</kbd> <kbd>↓</kbd> to select &bull; <kbd>↵</kbd> to open &bull; <kbd>ESC</kbd> to close</span>
+        <span class="search-foot-count" id="search-match-count">18 items indexed</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Main JavaScript Controller -->
+  <script src="app.js"></script>
+</body>
+</html>
