@@ -130,12 +130,34 @@
     <section class="hero-section" id="hero-section">
       <div class="site-container">
         
-        <!-- Sober Status Pill -->
-        <div class="hero-status-pill hero-anim-item" style="--anim-order: 1;">
-          <span class="status-indicator-dot"></span>
-          <span class="status-pill-text">AVAILABLE FOR SELECT COMMISSIONS</span>
-          <span class="status-sep">/</span>
-          <span class="status-pill-sub">2026 ARCHIVE</span>
+        <!-- Mobbin-Style Hero App Icon Squircle & Status Pill -->
+        <div class="hero-app-badge-row hero-anim-item" style="--anim-order: 1;">
+          <div class="mobbin-app-squircle" id="hero-app-squircle" title="Click to cycle AI Video Models" onclick="cycleNextAiModel()">
+            <div class="squircle-glass-shine"></div>
+            <div class="squircle-icon-stage" id="squircle-icon-stage">
+              <!-- Seedance 2.0 SVG Default -->
+              <svg class="squircle-svg-icon" viewBox="0 0 40 40" fill="none">
+                <defs>
+                  <linearGradient id="seedGradH" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#06B6D4"/>
+                    <stop offset="50%" stop-color="#3B82F6"/>
+                    <stop offset="100%" stop-color="#6366F1"/>
+                  </linearGradient>
+                </defs>
+                <rect x="2" y="2" width="36" height="36" rx="9" fill="#0A0F1D" stroke="url(#seedGradH)" stroke-width="1.2"/>
+                <path d="M12 24C14 18 18 14 24 14C28 14 29 17 27 20C25 23 21 24 18 26C15 28 17 30 20 30C25 30 28 26 29 23" stroke="url(#seedGradH)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="23" cy="14" r="2.5" fill="#06B6D4"/>
+              </svg>
+            </div>
+            <div class="squircle-glow-pulse"></div>
+          </div>
+
+          <div class="hero-status-pill">
+            <span class="status-indicator-dot"></span>
+            <span class="status-pill-text" id="hero-model-pill-text">AI VIDEO STACK: SEEDANCE &bull; KLING 1.5 &bull; OMNI FLASH</span>
+            <span class="status-sep">/</span>
+            <span class="status-pill-sub">2026 ARCHIVE</span>
+          </div>
         </div>
 
         <!-- Headline Composition with Hand-Drawn Sketch Annotation (Eleken/Ellipsus Style) -->
@@ -165,8 +187,74 @@
           </div>
         </div>
 
+        <!-- Interactive AI Video Model App Buttons (Mobbin Tactile Liquid Glass Style) -->
+        <div class="hero-ai-tools-bar hero-anim-item" style="--anim-order: 3;">
+          <span class="ai-tools-label">AI VIDEO PRODUCTION APPS:</span>
+          <div class="ai-model-buttons-strip" id="ai-model-buttons">
+            
+            <!-- Seedance 2.0 -->
+            <button type="button" class="ai-app-btn active" data-model="seedance" onclick="selectAiModel('seedance')">
+              <span class="app-btn-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" class="app-svg">
+                  <path d="M6 15C7.5 11 10 9 14.5 9C17 9 18 11 16.5 13C15 15 12.5 15.5 10.5 17C8.5 18.5 10 20 12 20C15.5 20 17.5 17 18 15" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="14.5" cy="9" r="1.5" fill="#06B6D4"/>
+                </svg>
+              </span>
+              <span class="app-btn-title">Seedance 2.0</span>
+              <span class="app-btn-tag tag-cyan">Kinematics</span>
+            </button>
+
+            <!-- Kling 1.5 Pro -->
+            <button type="button" class="ai-app-btn" data-model="kling" onclick="selectAiModel('kling')">
+              <span class="app-btn-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" class="app-svg">
+                  <path d="M6 5V19M6 12L16 5M9.5 10.5L18 19" stroke="#C8FF00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span class="app-btn-title">Kling 1.5</span>
+              <span class="app-btn-tag tag-lime">Photoreal</span>
+            </button>
+
+            <!-- Google Omni Flash -->
+            <button type="button" class="ai-app-btn" data-model="omni" onclick="selectAiModel('omni')">
+              <span class="app-btn-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" class="app-svg">
+                  <path d="M12 2C12 7.5 7.5 12 2 12C7.5 12 12 16.5 12 22C12 16.5 16.5 12 22 12C16.5 12 12 7.5 12 2Z" fill="#A855F7"/>
+                  <circle cx="12" cy="12" r="2" fill="#38BDF8"/>
+                </svg>
+              </span>
+              <span class="app-btn-title">Google Omni Flash</span>
+              <span class="app-btn-tag tag-purple">Multimodal</span>
+            </button>
+
+            <!-- Nano Banana Pro -->
+            <button type="button" class="ai-app-btn" data-model="banana" onclick="selectAiModel('banana')">
+              <span class="app-btn-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" class="app-svg">
+                  <path d="M7 16C9 18 13.5 18 17.5 14.5C19.5 12.8 20 9.8 18.5 6.5C17.5 8 16 9 14.5 9.5C12 10 9 11.5 7 16Z" fill="#F59E0B"/>
+                  <path d="M18.5 6.5L20 4" stroke="#FDE047" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="app-btn-title">Nano Banana</span>
+              <span class="app-btn-tag tag-amber">Latent Engine</span>
+            </button>
+
+            <!-- Runway Gen-3 -->
+            <button type="button" class="ai-app-btn" data-model="runway" onclick="selectAiModel('runway')">
+              <span class="app-btn-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" class="app-svg">
+                  <path d="M7 6H13C15.5 6 17.5 8 17.5 10.5C17.5 13 15.5 15 13 15H10M10 6V18M10 15L17.5 18" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span class="app-btn-title">Runway Gen-3</span>
+              <span class="app-btn-tag tag-graphite">Motion</span>
+            </button>
+
+          </div>
+        </div>
+
         <!-- Interactive Category Filter (Mobbin-Style Minimalist Switcher) -->
-        <div class="hero-controls-bar hero-anim-item" style="--anim-order: 3;">
+        <div class="hero-controls-bar hero-anim-item" style="--anim-order: 4;">
           <div class="category-segment-filter" id="category-filter-bar">
             <!-- Dynamically populated from data.js -->
           </div>
@@ -181,34 +269,148 @@
     </section>
 
     <!-- ══════════════════════════════════════════
-         SOBER MINIMALIST EDITORIAL TICKER
+         STYLIZED KINETIC ANIMATION-STYLE MOTION BAND
+         (Fluid floating liquid glass motion capsules)
     ══════════════════════════════════════════ -->
-    <section class="kinetic-marquee-section" aria-hidden="true">
-      <div class="kinetic-marquee-track">
-        <div class="marquee-content">
-          <span>3D PRODUCT ANIMATION</span><span class="marquee-sep">/</span>
-          <span>AI UGC ADS</span><span class="marquee-sep">/</span>
-          <span>COMMERCIAL DIRECTION</span><span class="marquee-sep">/</span>
-          <span>RUNWAY GEN-3</span><span class="marquee-sep">/</span>
-          <span>CINEMA 4D</span><span class="marquee-sep">/</span>
-          <span>HIGH-CONVERTING HOOKS</span><span class="marquee-sep">/</span>
-          <span>KLING 1.5 PRO</span><span class="marquee-sep">/</span>
-          <span>AFTER EFFECTS</span><span class="marquee-sep">/</span>
-          <span>OCTANE RENDER</span><span class="marquee-sep">/</span>
-          <span>PRORES 4K</span><span class="marquee-sep">/</span>
+    <section class="kinetic-motion-section" aria-label="Studio Capabilities and AI Pipeline">
+      <div class="kinetic-motion-track" id="kinetic-motion-track">
+        
+        <!-- Track 1: Original Floating Capsules -->
+        <div class="motion-capsules-group">
+          
+          <div class="motion-glass-capsule float-1">
+            <span class="capsule-beacon beacon-cyan"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            </span>
+            <span class="capsule-name">3D PRODUCT ANIMATION</span>
+            <span class="capsule-sub-pill">CINEMA 4D &bull; OCTANE</span>
+          </div>
+
+          <div class="motion-glass-capsule float-2">
+            <span class="capsule-beacon beacon-lime"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8FF00" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </span>
+            <span class="capsule-name">KLING 1.5 PRO</span>
+            <span class="capsule-sub-pill">PHYSICS PHOTOREAL</span>
+          </div>
+
+          <div class="motion-glass-capsule float-3">
+            <span class="capsule-beacon beacon-rose"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            </span>
+            <span class="capsule-name">AI UGC AD HOOKS</span>
+            <span class="capsule-sub-pill">+340% ROAS</span>
+          </div>
+
+          <div class="motion-glass-capsule float-4">
+            <span class="capsule-beacon beacon-purple"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8M12 8v8"/></svg>
+            </span>
+            <span class="capsule-name">GOOGLE OMNI FLASH</span>
+            <span class="capsule-sub-pill">MULTIMODAL AI</span>
+          </div>
+
+          <div class="motion-glass-capsule float-5">
+            <span class="capsule-beacon beacon-blue"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </span>
+            <span class="capsule-name">SEEDANCE 2.0</span>
+            <span class="capsule-sub-pill">FLUID KINEMATICS</span>
+          </div>
+
+          <div class="motion-glass-capsule float-6">
+            <span class="capsule-beacon beacon-amber"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </span>
+            <span class="capsule-name">NANO BANANA PRO</span>
+            <span class="capsule-sub-pill">LATENT SPEED</span>
+          </div>
+
+          <div class="motion-glass-capsule float-1">
+            <span class="capsule-beacon beacon-emerald"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </span>
+            <span class="capsule-name">4K PRORES DELIVERY</span>
+            <span class="capsule-sub-pill">BROADCAST SPEC</span>
+          </div>
+
         </div>
-        <div class="marquee-content">
-          <span>3D PRODUCT ANIMATION</span><span class="marquee-sep">/</span>
-          <span>AI UGC ADS</span><span class="marquee-sep">/</span>
-          <span>COMMERCIAL DIRECTION</span><span class="marquee-sep">/</span>
-          <span>RUNWAY GEN-3</span><span class="marquee-sep">/</span>
-          <span>CINEMA 4D</span><span class="marquee-sep">/</span>
-          <span>HIGH-CONVERTING HOOKS</span><span class="marquee-sep">/</span>
-          <span>KLING 1.5 PRO</span><span class="marquee-sep">/</span>
-          <span>AFTER EFFECTS</span><span class="marquee-sep">/</span>
-          <span>OCTANE RENDER</span><span class="marquee-sep">/</span>
-          <span>PRORES 4K</span><span class="marquee-sep">/</span>
+
+        <!-- Track 2: Duplicate for Seamless Infinite Gliding Loop -->
+        <div class="motion-capsules-group" aria-hidden="true">
+          
+          <div class="motion-glass-capsule float-1">
+            <span class="capsule-beacon beacon-cyan"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            </span>
+            <span class="capsule-name">3D PRODUCT ANIMATION</span>
+            <span class="capsule-sub-pill">CINEMA 4D &bull; OCTANE</span>
+          </div>
+
+          <div class="motion-glass-capsule float-2">
+            <span class="capsule-beacon beacon-lime"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8FF00" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </span>
+            <span class="capsule-name">KLING 1.5 PRO</span>
+            <span class="capsule-sub-pill">PHYSICS PHOTOREAL</span>
+          </div>
+
+          <div class="motion-glass-capsule float-3">
+            <span class="capsule-beacon beacon-rose"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            </span>
+            <span class="capsule-name">AI UGC AD HOOKS</span>
+            <span class="capsule-sub-pill">+340% ROAS</span>
+          </div>
+
+          <div class="motion-glass-capsule float-4">
+            <span class="capsule-beacon beacon-purple"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8M12 8v8"/></svg>
+            </span>
+            <span class="capsule-name">GOOGLE OMNI FLASH</span>
+            <span class="capsule-sub-pill">MULTIMODAL AI</span>
+          </div>
+
+          <div class="motion-glass-capsule float-5">
+            <span class="capsule-beacon beacon-blue"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </span>
+            <span class="capsule-name">SEEDANCE 2.0</span>
+            <span class="capsule-sub-pill">FLUID KINEMATICS</span>
+          </div>
+
+          <div class="motion-glass-capsule float-6">
+            <span class="capsule-beacon beacon-amber"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </span>
+            <span class="capsule-name">NANO BANANA PRO</span>
+            <span class="capsule-sub-pill">LATENT SPEED</span>
+          </div>
+
+          <div class="motion-glass-capsule float-1">
+            <span class="capsule-beacon beacon-emerald"></span>
+            <span class="capsule-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </span>
+            <span class="capsule-name">4K PRORES DELIVERY</span>
+            <span class="capsule-sub-pill">BROADCAST SPEC</span>
+          </div>
+
         </div>
+
       </div>
     </section>
 
@@ -283,15 +485,37 @@
         <div class="about-card-box reveal-item">
           <div class="about-grid">
             
-            <!-- Left Monogram & Profile Details -->
+            <!-- Left Portrait & Profile Details (Sized Elegantly with Liquid Glass) -->
             <div class="about-visual-col">
-              <div class="about-monogram-frame">
-                <img src="assets/anas-logo.png" alt="Anas Bin Mehboob" class="about-logo-img">
+              <div class="about-portrait-card" id="about-portrait-card">
+                <div class="portrait-glass-viewport">
+                  <img src="assets/anas-portrait.png" alt="Anas Bin Mehboob — Creative Director" class="about-portrait-img" loading="lazy">
+                  <div class="portrait-glass-shine"></div>
+                  
+                  <!-- Verified Creative Director Floating Glass Pill -->
+                  <div class="portrait-floating-badge">
+                    <span class="verified-dot"></span>
+                    <div class="portrait-badge-text">
+                      <span class="portrait-name">ANAS BIN MEHBOOB</span>
+                      <span class="portrait-role">CREATIVE DIRECTOR</span>
+                    </div>
+                  </div>
+
+                  <!-- Subtle Watermark Monogram -->
+                  <div class="portrait-corner-mark" aria-hidden="true">
+                    <img src="assets/anas-mark-white.png" alt="" class="corner-monogram-img">
+                  </div>
+                </div>
               </div>
+
               <div class="about-spec-list">
                 <div class="spec-row">
                   <span class="spec-k">DISCIPLINE:</span>
-                  <span class="spec-v">3D Motion &bull; AI Video &bull; UGC</span>
+                  <span class="spec-v">3D Motion &bull; AI Video &bull; UGC Ads</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-k">AI ENGINES:</span>
+                  <span class="spec-v">Seedance, Kling 1.5, Omni Flash, Banana</span>
                 </div>
                 <div class="spec-row">
                   <span class="spec-k">FOUNDATION:</span>
