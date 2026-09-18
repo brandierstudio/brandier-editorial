@@ -25,11 +25,11 @@ const PORTFOLIO_DATA = {
 
   // Category filter list
   categories: [
-    { id: "all", label: "All Work" },
-    { id: "ai-ugc", label: "AI UGC Ads" },
-    { id: "3d-motion", label: "3D Product Animation" },
-    { id: "ai-motion", label: "AI Motion Graphics" },
-    { id: "commercials", label: "Commercials" }
+    { id: "all", label: "All Work", dotColor: "#141414" },
+    { id: "3d-motion", label: "3D Product Animation", dotColor: "#06B6D4" },
+    { id: "ai-motion", label: "AI Motion Graphics", dotColor: "#8B5CF6" },
+    { id: "ai-ugc", label: "AI UGC Ads", dotColor: "#F43F5E" },
+    { id: "commercials", label: "Commercials", dotColor: "#F59E0B" }
   ],
 
   // Projects & YouTube Video Library
