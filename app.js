@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroAiSquircle();
   initPortraitTilt();
   initContactBgVideo();
+  initClaudeMotionTilt();
 });
 
 // ══════════════════════════════════════════
@@ -1044,4 +1045,32 @@ function initContactBgVideo() {
     video.addEventListener('loadeddata', tryPlay, { once: true });
     video.addEventListener('canplay', tryPlay, { once: true });
   }
+}
+
+// ══════════════════════════════════════════
+// 14. CLAUDE MOTION CANVAS INTERACTIVE 3D TILT
+// ══════════════════════════════════════════
+function initClaudeMotionTilt() {
+  const card = document.getElementById('claude-motion-card');
+  if (!card) return;
+
+  // Skip tilt on touch devices
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.015)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
 }
