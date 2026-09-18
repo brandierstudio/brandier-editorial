@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSocials();
   initDockScrollSpy();
   initKeyboardListeners();
+  initCursorSpotlight();
+  initScrollReveals();
+  initCardTiltAndSheen();
+  initStatCounters();
 });
 
 // ══════════════════════════════════════════
@@ -84,7 +88,7 @@ function renderProjects() {
     const tagsHtml = (proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
 
     return `
-      <article class="project-card ${isFeaturedWide ? 'featured-wide' : ''}" data-project-id="${proj.id}">
+      <article class="project-card reveal-item ${isFeaturedWide ? 'featured-wide' : ''}" data-project-id="${proj.id}">
         
         <!-- Media Visual Viewport with Tactile Play Trigger -->
         <div class="project-media-wrap" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
@@ -99,7 +103,7 @@ function renderProjects() {
           <!-- Top Telemetry Badges -->
           <div class="media-top-badges">
             <span class="badge-pill-light">${proj.category}</span>
-            <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}</span>
+            <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
           </div>
 
           <!-- Center Play Button Trigger -->
@@ -135,6 +139,9 @@ function renderProjects() {
       </article>
     `;
   }).join('');
+
+  initCardTiltAndSheen();
+  initScrollReveals();
 }
 
 // ══════════════════════════════════════════
@@ -349,4 +356,133 @@ function closeMobileMenu() {
     menu.classList.remove('open');
     menu.setAttribute('aria-hidden', 'true');
   }
+}
+
+// ══════════════════════════════════════════
+// 10. DYNAMIC CURSOR SPOTLIGHT
+// ══════════════════════════════════════════
+function initCursorSpotlight() {
+  const spotlight = document.getElementById('cursor-spotlight');
+  if (!spotlight || window.matchMedia('(pointer: coarse)').matches) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let curX = mouseX;
+  let curY = mouseY;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function updateCursor() {
+    curX += (mouseX - curX) * 0.12;
+    curY += (mouseY - curY) * 0.12;
+    spotlight.style.left = `${curX}px`;
+    spotlight.style.top = `${curY}px`;
+    requestAnimationFrame(updateCursor);
+  }
+  requestAnimationFrame(updateCursor);
+}
+
+// ══════════════════════════════════════════
+// 11. SCROLL-DRIVEN REVEALS
+// ══════════════════════════════════════════
+function initScrollReveals() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal-item').forEach(el => el.classList.add('is-revealed'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal-item').forEach(el => {
+    if (!el.classList.contains('is-revealed')) {
+      observer.observe(el);
+    }
+  });
+}
+
+// ══════════════════════════════════════════
+// 12. 3D CARD TILT & CURSOR SHEEN
+// ══════════════════════════════════════════
+function initCardTiltAndSheen() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const cards = document.querySelectorAll('.project-card, .process-step-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -4;
+      const rotateY = ((x - centerX) / centerX) * 4;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-5px)`;
+      card.style.setProperty('--card-mouse-x', `${x}px`);
+      card.style.setProperty('--card-mouse-y', `${y}px`);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.removeProperty('--card-mouse-x');
+      card.style.removeProperty('--card-mouse-y');
+    });
+  });
+}
+
+// ══════════════════════════════════════════
+// 13. ANIMATED TELEMETRY COUNTERS
+// ══════════════════════════════════════════
+function initStatCounters() {
+  const statElements = document.querySelectorAll('.stat-counter-val');
+  if (!statElements.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        animateCounter(el);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  statElements.forEach(el => observer.observe(el));
+}
+
+function animateCounter(el) {
+  const target = parseFloat(el.getAttribute('data-target') || '0');
+  const prefix = el.getAttribute('data-prefix') || '';
+  const suffix = el.getAttribute('data-suffix') || '';
+  const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+  const duration = 1400;
+  const startTime = performance.now();
+
+  function update(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+    const current = (target * easeProgress).toFixed(decimals);
+
+    el.textContent = `${prefix}${current}${suffix}`;
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    }
+  }
+
+  requestAnimationFrame(update);
 }
