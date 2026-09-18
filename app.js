@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTopSearch();
   initHeroAiSquircle();
   initPortraitTilt();
+  initContactBgVideo();
 });
 
 // ══════════════════════════════════════════
@@ -899,4 +900,148 @@ function initPortraitTilt() {
   card.addEventListener('mouseleave', () => {
     viewport.style.transform = '';
   });
+}
+
+// ══════════════════════════════════════════
+// 12. FLUID INTERACTIVE CURSOR & SPOTLIGHT
+// ══════════════════════════════════════════
+function initCursorSpotlight() {
+  const spotlight = document.getElementById('cursor-spotlight');
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+
+  // Skip on touch / coarse pointer devices
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+  let spotX = mouseX;
+  let spotY = mouseY;
+  let isVisible = false;
+
+  function onMouseMove(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!isVisible) {
+      isVisible = true;
+      if (spotlight) spotlight.style.opacity = '1';
+      if (dot) dot.style.opacity = '1';
+      if (ring) ring.style.opacity = '1';
+    }
+
+    if (dot) {
+      dot.style.left = `${mouseX}px`;
+      dot.style.top = `${mouseY}px`;
+    }
+  }
+
+  window.addEventListener('mousemove', onMouseMove, { passive: true });
+
+  // Smooth lerp loop for trailer ring and radiant spotlight
+  function animateCursor() {
+    ringX += (mouseX - ringX) * 0.22;
+    ringY += (mouseY - ringY) * 0.22;
+
+    spotX += (mouseX - spotX) * 0.12;
+    spotY += (mouseY - spotY) * 0.12;
+
+    if (ring) {
+      ring.style.left = `${ringX}px`;
+      ring.style.top = `${ringY}px`;
+    }
+
+    if (spotlight) {
+      spotlight.style.left = `${spotX}px`;
+      spotlight.style.top = `${spotY}px`;
+    }
+
+    requestAnimationFrame(animateCursor);
+  }
+
+  requestAnimationFrame(animateCursor);
+
+  document.addEventListener('mouseleave', () => {
+    isVisible = false;
+    if (spotlight) spotlight.style.opacity = '0';
+    if (dot) dot.style.opacity = '0';
+    if (ring) ring.style.opacity = '0';
+  });
+
+  document.addEventListener('mouseenter', () => {
+    isVisible = true;
+    if (spotlight) spotlight.style.opacity = '1';
+    if (dot) dot.style.opacity = '1';
+    if (ring) ring.style.opacity = '1';
+  });
+
+  window.addEventListener('mousedown', () => {
+    if (ring) ring.classList.add('cursor-down');
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (ring) ring.classList.remove('cursor-down');
+  });
+
+  // Dynamic hover reaction on interactive elements
+  const interactiveSelector = 'a, button, input, textarea, select, .project-card, .ai-app-btn, .mobbin-app-squircle, .motion-glass-capsule, .service-card-item, .search-chip, .tool-logo-box, .dock-link, .segment-btn, .btn-tactile, [data-interactive]';
+
+  document.addEventListener('mouseover', (e) => {
+    const target = e.target.closest(interactiveSelector);
+    if (target) {
+      if (ring) ring.classList.add('cursor-hover');
+      if (dot) dot.classList.add('cursor-hover');
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    const target = e.target.closest(interactiveSelector);
+    if (target) {
+      if (ring) ring.classList.remove('cursor-hover');
+      if (dot) dot.classList.remove('cursor-hover');
+    }
+  });
+}
+
+// ══════════════════════════════════════════
+// 13. CONTACT BACKGROUND VIDEO AUTOPLAY
+// ══════════════════════════════════════════
+function initContactBgVideo() {
+  const video = document.getElementById('contact-bg-video');
+  if (!video) return;
+
+  video.muted = true;
+  video.defaultMuted = true;
+  video.volume = 0;
+  video.playsInline = true;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('muted', '');
+  video.setAttribute('autoplay', '');
+  video.setAttribute('loop', '');
+
+  const tryPlay = () => {
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const resumePlay = () => {
+          video.play();
+          window.removeEventListener('click', resumePlay);
+          window.removeEventListener('scroll', resumePlay);
+          window.removeEventListener('touchstart', resumePlay);
+        };
+        window.addEventListener('click', resumePlay, { once: true });
+        window.addEventListener('scroll', resumePlay, { once: true });
+        window.addEventListener('touchstart', resumePlay, { once: true });
+      });
+    }
+  };
+
+  if (video.readyState >= 2) {
+    tryPlay();
+  } else {
+    video.addEventListener('loadeddata', tryPlay, { once: true });
+    video.addEventListener('canplay', tryPlay, { once: true });
+  }
 }
