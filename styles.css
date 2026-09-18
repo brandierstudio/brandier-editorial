@@ -98,18 +98,82 @@ body.portfolio-body::before {
   display: none;
 }
 
-/* Minimalist Quiet Cursor Light */
+/* ══════════════════════════════════════════
+   00.1 — INTERACTIVE DYNAMIC CURSOR & SPOTLIGHT
+══════════════════════════════════════════ */
 .cursor-spotlight {
   position: fixed;
-  width: 360px;
-  height: 360px;
+  width: 520px;
+  height: 520px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.025) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(59, 130, 246, 0.05) 35%, transparent 70%);
   pointer-events: none;
   transform: translate(-50%, -50%);
-  z-index: 999;
-  transition: opacity 0.3s ease;
+  z-index: 998;
+  opacity: 0;
+  transition: opacity 0.4s ease;
   will-change: left, top;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0F0F12;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.12s ease, background-color 0.2s ease;
+  will-change: transform, left, top;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(15, 15, 18, 0.35);
+  background: rgba(99, 102, 241, 0.04);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background-color 0.25s ease;
+  will-change: transform, left, top, width, height;
+}
+
+/* Cursor Interactive Hover States */
+.cursor-ring.cursor-hover {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(99, 102, 241, 0.85);
+  background: rgba(99, 102, 241, 0.12);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.cursor-dot.cursor-hover {
+  transform: translate(-50%, -50%) scale(0.5);
+  background: #4F46E5;
+}
+
+.cursor-ring.cursor-down {
+  transform: translate(-50%, -50%) scale(0.85);
+}
+
+/* Hide custom cursor on mobile / touch displays */
+@media (pointer: coarse), (hover: none) {
+  .cursor-spotlight,
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
 }
 
 ::selection {
@@ -2132,14 +2196,14 @@ button {
 ══════════════════════════════════════════ */
 .contact-cta-card {
   position: relative;
-  background: var(--surface-dark);
+  background: #08080B;
   color: var(--text-inverse);
   border-radius: var(--radius-card);
-  padding: 84px 48px;
+  padding: 64px 32px;
   text-align: center;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* Ambient Background Video Container */
@@ -2156,26 +2220,34 @@ button {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0.50;
-  filter: contrast(115%) brightness(95%);
+  opacity: 0.95;
+  filter: contrast(108%) brightness(102%);
   transition: opacity 0.5s ease;
 }
 
+/* Ultra-light translucent vignette so the video is vividly visible */
 .contact-video-overlay {
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(ellipse at center, rgba(12, 12, 16, 0.72) 0%, rgba(8, 8, 10, 0.90) 70%, rgba(5, 5, 8, 0.96) 100%),
-    linear-gradient(to bottom, rgba(10, 10, 14, 0.4) 0%, rgba(5, 5, 8, 0.75) 100%);
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
+    radial-gradient(ellipse at center, rgba(10, 10, 14, 0.08) 0%, rgba(8, 8, 12, 0.28) 60%, rgba(5, 5, 8, 0.48) 100%),
+    linear-gradient(to bottom, rgba(10, 10, 14, 0.05) 0%, rgba(5, 5, 8, 0.30) 100%);
+  pointer-events: none;
 }
 
+/* Sleek Liquid Glass Panel for Crystal-Clear Text Legibility */
 .cta-inner {
   position: relative;
   z-index: 2;
-  max-width: 680px;
+  max-width: 720px;
   margin: 0 auto;
+  padding: 44px 36px;
+  background: rgba(10, 10, 14, 0.40);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
 }
 
 .contact-cta-card .section-label {
