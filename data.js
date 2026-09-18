@@ -255,15 +255,15 @@ const PORTFOLIO_DATA = {
 
   // Tools & Tech Stack
   tools: [
-    { name: "Blender", category: "3D & Physics" },
-    { name: "Unreal Engine 5", category: "Real-Time 3D" },
-    { name: "ComfyUI", category: "AI Workflows" },
-    { name: "Kling 1.5", category: "AI Video" },
-    { name: "Google Veo 2", category: "Cinematics" },
-    { name: "Flux 1.1 Pro", category: "Diffusion" },
-    { name: "DaVinci Resolve", category: "Color & Post" },
-    { name: "After Effects", category: "Motion Graphics" },
-    { name: "Topaz AI", category: "4K Upscaling" },
-    { name: "ElevenLabs", category: "Voice Synthesis" }
+    { name: "Seedance 2.0", category: "Physics Kinematics" },
+    { name: "Kling 1.5 Pro", category: "Photoreal Video" },
+    { name: "Google Omni Flash", category: "Multimodal AI" },
+    { name: "Nano Banana Pro", category: "Latent Motion" },
+    { name: "Runway Gen-3 Alpha", category: "Commercial Motion" },
+    { name: "Cinema 4D & Octane", category: "3D Product Stills" },
+    { name: "Blender 4.2", category: "Fluid Dynamics" },
+    { name: "ComfyUI & LoRAs", category: "Custom Pipelines" },
+    { name: "DaVinci Resolve Studio", category: "Color & HDR" },
+    { name: "Topaz Video AI", category: "4K Neural Upscale" }
   ]
 };
