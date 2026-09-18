@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveals();
   initCardTiltAndSheen();
   initStatCounters();
+  initTopSearch();
 });
 
 // ══════════════════════════════════════════
@@ -28,18 +29,32 @@ function renderCategoryFilters() {
   const container = document.getElementById('category-filter-bar');
   if (!container || !PORTFOLIO_DATA.categories) return;
 
-  container.innerHTML = PORTFOLIO_DATA.categories.map(cat => `
-    <button 
-      class="segment-btn ${cat.id === activeCategory ? 'active' : ''}" 
-      data-cat-id="${cat.id}"
-      onclick="setFilterCategory('${cat.id}')">
-      ${cat.label}
-    </button>
-  `).join('');
+  container.innerHTML = PORTFOLIO_DATA.categories.map(cat => {
+    const count = cat.id === 'all' 
+      ? PORTFOLIO_DATA.projects.length 
+      : PORTFOLIO_DATA.projects.filter(p => p.categorySlug === cat.id).length;
+
+    return `
+      <button 
+        class="segment-btn ${cat.id === activeCategory ? 'active' : ''}" 
+        data-cat-id="${cat.id}"
+        onclick="setFilterCategory('${cat.id}')">
+        <span class="cat-dot" style="background: ${cat.dotColor || '#141414'}"></span>
+        <span>${cat.label}</span>
+        <span class="cat-count">${count}</span>
+      </button>
+    `;
+  }).join('');
 }
 
 function setFilterCategory(categoryId) {
   activeCategory = categoryId;
+  
+  // Clear any active search query when explicitly picking category
+  const searchInput = document.getElementById('top-search-input');
+  if (searchInput) {
+    searchInput.value = '';
+  }
   
   // Update button active states
   const buttons = document.querySelectorAll('.segment-btn');
@@ -87,6 +102,13 @@ function renderProjects() {
     // Build tags
     const tagsHtml = (proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
 
+    // Category-specific badge class
+    let badgeCatClass = '';
+    if (proj.categorySlug === '3d-motion') badgeCatClass = 'badge-cat-3d';
+    else if (proj.categorySlug === 'ai-ugc') badgeCatClass = 'badge-cat-ai-ugc';
+    else if (proj.categorySlug === 'ai-motion') badgeCatClass = 'badge-cat-ai-motion';
+    else if (proj.categorySlug === 'commercials') badgeCatClass = 'badge-cat-commercials';
+
     return `
       <article class="project-card reveal-item ${isFeaturedWide ? 'featured-wide' : ''}" data-project-id="${proj.id}">
         
@@ -102,7 +124,7 @@ function renderProjects() {
 
           <!-- Top Telemetry Badges -->
           <div class="media-top-badges">
-            <span class="badge-pill-light">${proj.category}</span>
+            <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
             <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
           </div>
 
@@ -485,4 +507,220 @@ function animateCounter(el) {
   }
 
   requestAnimationFrame(update);
+}
+
+// ══════════════════════════════════════════
+// 14. MOBBIN-STYLE TOP SEARCH BAR
+// ══════════════════════════════════════════
+let searchSearchQuery = '';
+
+function initTopSearch() {
+  const searchInput = document.getElementById('top-search-input');
+  const dropdown = document.getElementById('search-dropdown-menu');
+  const kbdHint = document.getElementById('search-kbd-hint');
+
+  if (!searchInput) return;
+
+  // Detect Mac vs Windows for ⌘K vs Ctrl+K
+  const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+  if (kbdHint) {
+    kbdHint.textContent = isMac ? '⌘K' : 'Ctrl+K';
+  }
+
+  // Global keyboard shortcut
+  window.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+      openSearchDropdown();
+    }
+    if (e.key === 'Escape') {
+      closeSearchDropdown();
+      searchInput.blur();
+    }
+  });
+
+  searchInput.addEventListener('focus', () => {
+    openSearchDropdown();
+    updateSearchResults(searchInput.value.trim());
+  });
+
+  searchInput.addEventListener('input', (e) => {
+    const q = e.target.value.trim();
+    searchSearchQuery = q;
+    updateSearchResults(q);
+    filterProjectGridBySearch(q);
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    const box = document.getElementById('dock-search-box');
+    if (box && !box.contains(e.target)) {
+      closeSearchDropdown();
+    }
+  });
+}
+
+function openSearchDropdown() {
+  const dropdown = document.getElementById('search-dropdown-menu');
+  if (dropdown) {
+    dropdown.classList.add('open');
+    dropdown.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function closeSearchDropdown() {
+  const dropdown = document.getElementById('search-dropdown-menu');
+  if (dropdown) {
+    dropdown.classList.remove('open');
+    dropdown.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function applySearchTag(tag) {
+  const searchInput = document.getElementById('top-search-input');
+  if (searchInput) {
+    searchInput.value = tag;
+    searchSearchQuery = tag;
+    updateSearchResults(tag);
+    filterProjectGridBySearch(tag);
+    searchInput.focus();
+  }
+}
+
+function updateSearchResults(query) {
+  const resultsList = document.getElementById('search-results-list');
+  if (!resultsList || !PORTFOLIO_DATA.projects) return;
+
+  if (!query) {
+    // Show top 3 recent projects
+    const topPicks = PORTFOLIO_DATA.projects.slice(0, 3);
+    resultsList.innerHTML = topPicks.map(p => `
+      <div class="search-result-item" onclick="openVideoModal('${p.id}'); closeSearchDropdown();">
+        <div class="search-result-left">
+          <span class="search-res-title">${p.title}</span>
+          <span class="search-res-cat">${p.category} &bull; ${p.year}</span>
+        </div>
+        <span class="search-res-badge" style="background: rgba(99, 102, 241, 0.15); color: #6366F1;">Watch ↗</span>
+      </div>
+    `).join('');
+    return;
+  }
+
+  const q = query.toLowerCase();
+  const matches = PORTFOLIO_DATA.projects.filter(p => {
+    const inTitle = p.title.toLowerCase().includes(q);
+    const inCat = p.category.toLowerCase().includes(q);
+    const inDesc = p.description.toLowerCase().includes(q);
+    const inTags = (p.tags || []).some(t => t.toLowerCase().includes(q));
+    const inClient = (p.client || '').toLowerCase().includes(q);
+    return inTitle || inCat || inDesc || inTags || inClient;
+  });
+
+  if (matches.length === 0) {
+    resultsList.innerHTML = `<div class="search-no-results">No projects matching "${query}"</div>`;
+    return;
+  }
+
+  resultsList.innerHTML = matches.map(p => `
+    <div class="search-result-item" onclick="openVideoModal('${p.id}'); closeSearchDropdown();">
+      <div class="search-result-left">
+        <span class="search-res-title">${p.title}</span>
+        <span class="search-res-cat">${p.category} &bull; ${p.client || ''}</span>
+      </div>
+      <span class="search-res-badge" style="background: rgba(99, 102, 241, 0.15); color: #6366F1;">Watch ↗</span>
+    </div>
+  `).join('');
+}
+
+function filterProjectGridBySearch(query) {
+  if (!query) {
+    renderProjects();
+    return;
+  }
+
+  const grid = document.getElementById('projects-grid');
+  const countEl = document.getElementById('active-project-count');
+  if (!grid || !PORTFOLIO_DATA.projects) return;
+
+  const q = query.toLowerCase();
+  const filtered = PORTFOLIO_DATA.projects.filter(p => {
+    const inTitle = p.title.toLowerCase().includes(q);
+    const inCat = p.category.toLowerCase().includes(q);
+    const inDesc = p.description.toLowerCase().includes(q);
+    const inTags = (p.tags || []).some(t => t.toLowerCase().includes(q));
+    const inClient = (p.client || '').toLowerCase().includes(q);
+    return inTitle || inCat || inDesc || inTags || inClient;
+  });
+
+  if (countEl) {
+    countEl.textContent = filtered.length;
+  }
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: span 2; text-align: center; padding: 60px 20px;">
+        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">No projects found for "${query}"</h3>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">Try searching for "3D", "AI UGC", "Commercials", or "Runway"</p>
+        <button class="btn-tactile btn-secondary" onclick="applySearchTag('')">Clear Search</button>
+      </div>
+    `;
+    return;
+  }
+
+  const bgClasses = ['bg-gradient-01', 'bg-gradient-02', 'bg-gradient-03', 'bg-gradient-04', 'bg-gradient-05', 'bg-gradient-06'];
+
+  grid.innerHTML = filtered.map((proj, idx) => {
+    const bgClass = bgClasses[idx % bgClasses.length];
+    const isFeaturedWide = filtered.length === 1;
+    const tagsHtml = (proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
+
+    let badgeCatClass = '';
+    if (proj.categorySlug === '3d-motion') badgeCatClass = 'badge-cat-3d';
+    else if (proj.categorySlug === 'ai-ugc') badgeCatClass = 'badge-cat-ai-ugc';
+    else if (proj.categorySlug === 'ai-motion') badgeCatClass = 'badge-cat-ai-motion';
+    else if (proj.categorySlug === 'commercials') badgeCatClass = 'badge-cat-commercials';
+
+    return `
+      <article class="project-card reveal-item is-revealed ${isFeaturedWide ? 'featured-wide' : ''}" data-project-id="${proj.id}">
+        <div class="project-media-wrap" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
+          <div class="project-poster-canvas ${bgClass}">
+            <div class="poster-inner-art">
+              <div class="art-badge-code">SPEC REEL &bull; ${proj.year}</div>
+              <h4 class="art-spec-title">${proj.title}</h4>
+            </div>
+          </div>
+          <div class="media-top-badges">
+            <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
+            <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
+          </div>
+          <button class="card-play-trigger" aria-label="Play ${proj.title} video">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+          </button>
+        </div>
+        <div class="project-info-block">
+          <div>
+            <div class="project-header-row">
+              <div>
+                <span class="project-client-name">${proj.client || 'Commercial Project'}</span>
+                <h3 class="project-title">${proj.title}</h3>
+              </div>
+              <span class="project-year">${proj.year}</span>
+            </div>
+            <p class="project-summary">${proj.description}</p>
+          </div>
+          <div class="project-footer-row">
+            <div class="project-tags-wrap">${tagsHtml}</div>
+            <button class="btn-open-study" onclick="openVideoModal('${proj.id}')">
+              <span>Watch Case Reel</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  initCardTiltAndSheen();
 }
