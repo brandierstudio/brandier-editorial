@@ -17,14 +17,26 @@
 
   <!-- ══════════════════════════════════════════
        01 — FLOATING PILL DOCK NAVIGATION (Mobbin-Style)
+  <!-- ══════════════════════════════════════════
+       00 — AMBIENT KINETIC BACKGROUND & CURSOR LIGHT
+  ══════════════════════════════════════════ -->
+  <div class="ambient-mesh-canvas" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+  </div>
+  <div class="cursor-spotlight" id="cursor-spotlight" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════════════
+       01 — FLOATING PILL DOCK (Mobbin-Style)
   ══════════════════════════════════════════ -->
   <div class="dock-wrapper" id="dock-wrapper">
     <header class="floating-dock" id="floating-dock">
       
-      <!-- Brand Logo / Monogram -->
+      <!-- Brand Logo / Authentic Monogram Lockup -->
       <a href="#top" class="dock-brand" aria-label="Anas Bin Mehboob Home">
         <div class="brand-monogram">
-          <span class="mono-am">am</span>
+          <img src="assets/anas-mark.png" alt="Anas Bin Mehboob Monogram" class="brand-monogram-img">
         </div>
         <div class="brand-text-col">
           <span class="brand-full-name">ANAS BIN MEHBOOB</span>
@@ -66,6 +78,7 @@
   <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true">
     <div class="mobile-menu-card">
       <div class="mobile-menu-head">
+        <img src="assets/anas-mark.png" alt="Anas Bin Mehboob Logo" style="height: 22px; width: auto;">
         <span class="brand-full-name">ANAS BIN MEHBOOB</span>
         <button class="mobile-menu-close" id="mobile-menu-close">✕</button>
       </div>
@@ -90,11 +103,11 @@
     <!-- ══════════════════════════════════════════
          02 — HERO (Clean, Typographic, Confident)
     ══════════════════════════════════════════ -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero-section">
       <div class="site-container">
         
         <!-- Status Pill -->
-        <div class="hero-status-pill">
+        <div class="hero-status-pill hero-anim-item" style="--anim-order: 1;">
           <span class="status-indicator-dot"></span>
           <span class="status-pill-text">AVAILABLE FOR SELECT COMMISSIONS</span>
           <span class="status-sep">&bull;</span>
@@ -102,7 +115,7 @@
         </div>
 
         <!-- Headline Composition -->
-        <div class="hero-title-block">
+        <div class="hero-title-block hero-anim-item" style="--anim-order: 2;">
           <h1 class="hero-main-title">
             Creative Direction &amp; 3D Motion for Frontier Brands.
           </h1>
@@ -112,7 +125,7 @@
         </div>
 
         <!-- Interactive Category Filter (Mobbin-Style Segmented Switcher) -->
-        <div class="hero-controls-bar">
+        <div class="hero-controls-bar hero-anim-item" style="--anim-order: 3;">
           <div class="category-segment-filter" id="category-filter-bar">
             <!-- Dynamically populated from data.js -->
           </div>
@@ -123,6 +136,40 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         KINETIC MARQUEE RIBBON (Continuous 60FPS Movement)
+    ══════════════════════════════════════════ -->
+    <section class="kinetic-marquee-section" aria-hidden="true">
+      <div class="kinetic-marquee-track">
+        <div class="marquee-content">
+          <span>AI UGC ADS</span><span class="marquee-star">✦</span>
+          <span>3D PRODUCT ANIMATION</span><span class="marquee-star">✦</span>
+          <span>RUNWAY GEN-3</span><span class="marquee-star">✦</span>
+          <span>COMMERCIAL DIRECTION</span><span class="marquee-star">✦</span>
+          <span>CINEMA 4D &amp; REDSHIFT</span><span class="marquee-star">✦</span>
+          <span>HIGH-CONVERTING HOOKS</span><span class="marquee-star">✦</span>
+          <span>KLING 1.5 PRO</span><span class="marquee-star">✦</span>
+          <span>AFTER EFFECTS</span><span class="marquee-star">✦</span>
+          <span>OCTANE RENDER</span><span class="marquee-star">✦</span>
+          <span>TOPAZ VIDEO AI</span><span class="marquee-star">✦</span>
+          <span>METRICS-DRIVEN CREATIVE</span><span class="marquee-star">✦</span>
+        </div>
+        <div class="marquee-content">
+          <span>AI UGC ADS</span><span class="marquee-star">✦</span>
+          <span>3D PRODUCT ANIMATION</span><span class="marquee-star">✦</span>
+          <span>RUNWAY GEN-3</span><span class="marquee-star">✦</span>
+          <span>COMMERCIAL DIRECTION</span><span class="marquee-star">✦</span>
+          <span>CINEMA 4D &amp; REDSHIFT</span><span class="marquee-star">✦</span>
+          <span>HIGH-CONVERTING HOOKS</span><span class="marquee-star">✦</span>
+          <span>KLING 1.5 PRO</span><span class="marquee-star">✦</span>
+          <span>AFTER EFFECTS</span><span class="marquee-star">✦</span>
+          <span>OCTANE RENDER</span><span class="marquee-star">✦</span>
+          <span>TOPAZ VIDEO AI</span><span class="marquee-star">✦</span>
+          <span>METRICS-DRIVEN CREATIVE</span><span class="marquee-star">✦</span>
+        </div>
       </div>
     </section>
 
@@ -146,7 +193,7 @@
     <section class="section services-section" id="services">
       <div class="site-container">
         
-        <div class="section-heading-row">
+        <div class="section-heading-row reveal-item">
           <div>
             <span class="section-label">CAPABILITIES &amp; EXPERTISE</span>
             <h2 class="section-title">Commercial Services</h2>
@@ -157,7 +204,7 @@
         </div>
 
         <!-- Services Interactive List -->
-        <div class="services-accordion" id="services-container">
+        <div class="services-accordion reveal-item" id="services-container">
           <!-- Rendered dynamically from data.js -->
         </div>
 
@@ -170,7 +217,7 @@
     <section class="section process-section" id="process">
       <div class="site-container">
         
-        <div class="section-heading-row">
+        <div class="section-heading-row reveal-item">
           <div>
             <span class="section-label">HOW WE WORK</span>
             <h2 class="section-title">The Creative Pipeline</h2>
@@ -181,7 +228,7 @@
         </div>
 
         <!-- Step-by-Step Track -->
-        <div class="process-track" id="process-container">
+        <div class="process-track reveal-item" id="process-container">
           <!-- Rendered dynamically from data.js -->
         </div>
 
@@ -194,14 +241,13 @@
     <section class="section about-section" id="about">
       <div class="site-container">
         
-        <div class="about-card-box">
+        <div class="about-card-box reveal-item">
           <div class="about-grid">
             
             <!-- Left Monogram & Profile Details -->
             <div class="about-visual-col">
               <div class="about-monogram-frame">
-                <div class="large-monogram">am</div>
-                <div class="monogram-subline">ANAS BIN MEHBOOB</div>
+                <img src="assets/anas-logo.png" alt="Anas Bin Mehboob" class="about-logo-img">
               </div>
               <div class="about-spec-list">
                 <div class="spec-row">
@@ -235,6 +281,26 @@
                 </p>
               </div>
 
+              <!-- Animated Telemetry Stats Grid -->
+              <div class="stats-counter-grid reveal-item">
+                <div class="stat-counter-item">
+                  <div class="stat-counter-val" data-target="340" data-prefix="+" data-suffix="%">+0%</div>
+                  <div class="stat-counter-lbl">Avg. ROAS Increase</div>
+                </div>
+                <div class="stat-counter-item">
+                  <div class="stat-counter-val" data-target="12.4" data-suffix="M" data-decimals="1">0M</div>
+                  <div class="stat-counter-lbl">Organic Video Impressions</div>
+                </div>
+                <div class="stat-counter-item">
+                  <div class="stat-counter-val" data-target="48" data-prefix="< " data-suffix="h">< 0h</div>
+                  <div class="stat-counter-lbl">First Cut Turnaround</div>
+                </div>
+                <div class="stat-counter-item">
+                  <div class="stat-counter-val" data-target="99.4" data-suffix="%" data-decimals="1">0%</div>
+                  <div class="stat-counter-lbl">Client Retention Rate</div>
+                </div>
+              </div>
+
               <!-- Tools Matrix -->
               <div class="tools-matrix-block">
                 <span class="tools-heading">TESTED TOOLING &amp; PRODUCTION ENGINES:</span>
@@ -256,7 +322,7 @@
     <section class="section contact-section" id="contact">
       <div class="site-container">
         
-        <div class="contact-cta-card">
+        <div class="contact-cta-card reveal-item">
           <div class="cta-inner">
             <span class="section-label">COMMISSION A PROJECT</span>
             <h2 class="contact-title">
@@ -296,6 +362,9 @@
   <footer class="site-footer">
     <div class="site-container footer-content">
       <div class="footer-left">
+        <div class="footer-brand-wrap">
+          <img src="assets/anas-logo.png" alt="Anas Bin Mehboob" class="footer-brand-logo">
+        </div>
         <span class="footer-copy">&copy; <span id="footer-year">2026</span> Anas Bin Mehboob. All rights reserved.</span>
         <span class="footer-tagline">3D Product Animation &bull; AI UGC Ads &bull; Motion Graphics</span>
       </div>
