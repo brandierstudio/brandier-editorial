@@ -1048,29 +1048,21 @@ function initContactBgVideo() {
 }
 
 // ══════════════════════════════════════════
-// 14. CLAUDE MOTION CANVAS INTERACTIVE 3D TILT
+// 14. HERO STORY SKETCH AMBIENT INTERACTION
 // ══════════════════════════════════════════
 function initClaudeMotionTilt() {
-  const card = document.getElementById('claude-motion-card');
-  if (!card) return;
+  const sketch = document.getElementById('hero-story-sketch');
+  if (!sketch) return;
 
-  // Skip tilt on touch devices
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+  window.addEventListener('mousemove', (e) => {
+    const rect = sketch.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const deltaX = (e.clientX - centerX) / window.innerWidth;
+    const deltaY = (e.clientY - centerY) / window.innerHeight;
 
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.015)`;
-  });
-
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
+    sketch.style.transform = `translate(${deltaX * 12}px, ${deltaY * 12}px)`;
+  }, { passive: true });
 }
