@@ -313,7 +313,7 @@ function renderSocials() {
 // 8. COPY EMAIL CLIPBOARD FEEDBACK
 // ══════════════════════════════════════════
 function copyEmailToClipboard() {
-  const email = PORTFOLIO_DATA.profile.email || 'contact@anasbinmehboob.com';
+  const email = PORTFOLIO_DATA.profile.email || 'brandierstudio@gmail.com';
   const textEl = document.getElementById('copy-btn-text');
 
   navigator.clipboard.writeText(email).then(() => {
