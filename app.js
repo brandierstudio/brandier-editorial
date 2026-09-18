@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initCardTiltAndSheen();
   initStatCounters();
   initTopSearch();
+  initHeroAiSquircle();
+  initPortraitTilt();
 });
 
 // ══════════════════════════════════════════
@@ -723,4 +725,178 @@ function filterProjectGridBySearch(query) {
   }).join('');
 
   initCardTiltAndSheen();
+}
+
+// ══════════════════════════════════════════
+// 10. MOBBIN-STYLE HERO AI SQUIRCLE CONTROLLER
+// ══════════════════════════════════════════
+const AI_MODELS_DATA = {
+  seedance: {
+    name: 'Seedance 2.0',
+    tag: 'Kinematics',
+    pillText: 'AI VIDEO STACK: SEEDANCE 2.0 • FLUID KINEMATICS',
+    svg: `
+      <svg class="squircle-svg-icon" viewBox="0 0 40 40" fill="none">
+        <defs>
+          <linearGradient id="seedGradH" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#06B6D4"/>
+            <stop offset="50%" stop-color="#3B82F6"/>
+            <stop offset="100%" stop-color="#6366F1"/>
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="36" height="36" rx="9" fill="#0A0F1D" stroke="url(#seedGradH)" stroke-width="1.2"/>
+        <path d="M12 24C14 18 18 14 24 14C28 14 29 17 27 20C25 23 21 24 18 26C15 28 17 30 20 30C25 30 28 26 29 23" stroke="url(#seedGradH)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="23" cy="14" r="2.5" fill="#06B6D4"/>
+      </svg>
+    `
+  },
+  kling: {
+    name: 'Kling 1.5 Pro',
+    tag: 'Photoreal',
+    pillText: 'AI VIDEO STACK: KLING 1.5 PRO • PHOTOREAL PHYSICS',
+    svg: `
+      <svg class="squircle-svg-icon" viewBox="0 0 40 40" fill="none">
+        <rect x="2" y="2" width="36" height="36" rx="9" fill="#0D0E12" stroke="#C8FF00" stroke-width="1.2"/>
+        <path d="M13 10V30M13 20L25 10M17 17L27 30" stroke="#C8FF00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="27" cy="12" r="2" fill="#10B981"/>
+      </svg>
+    `
+  },
+  omni: {
+    name: 'Google Omni Flash',
+    tag: 'Multimodal',
+    pillText: 'AI VIDEO STACK: GOOGLE OMNI FLASH • MULTIMODAL AI',
+    svg: `
+      <svg class="squircle-svg-icon" viewBox="0 0 40 40" fill="none">
+        <defs>
+          <linearGradient id="omniGradH" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4285F4"/>
+            <stop offset="35%" stop-color="#9B72CF"/>
+            <stop offset="70%" stop-color="#D96570"/>
+            <stop offset="100%" stop-color="#F4B400"/>
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="36" height="36" rx="9" fill="#0A0B10" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+        <path d="M20 6C20 13.732 13.732 20 6 20C13.732 20 20 26.268 20 34C20 26.268 26.268 20 34 20C26.268 20 20 13.732 20 6Z" fill="url(#omniGradH)"/>
+        <circle cx="20" cy="20" r="3" fill="#FFFFFF"/>
+      </svg>
+    `
+  },
+  banana: {
+    name: 'Nano Banana Pro',
+    tag: 'Latent Engine',
+    pillText: 'AI VIDEO STACK: NANO BANANA PRO • LATENT SPEED',
+    svg: `
+      <svg class="squircle-svg-icon" viewBox="0 0 40 40" fill="none">
+        <defs>
+          <linearGradient id="bananaGradH" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FDE047"/>
+            <stop offset="50%" stop-color="#F59E0B"/>
+            <stop offset="100%" stop-color="#D97706"/>
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="36" height="36" rx="9" fill="#141108" stroke="#F59E0B" stroke-width="1.2"/>
+        <path d="M12 26C15 28.5 21 29 27 24C30 21.5 31 17 29 12C27.5 14 25.5 15.5 23 16C19 16.8 15 19 12 26Z" fill="url(#bananaGradH)"/>
+        <path d="M29 12L31 9" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    `
+  },
+  runway: {
+    name: 'Runway Gen-3',
+    tag: 'Motion',
+    pillText: 'AI VIDEO STACK: RUNWAY GEN-3 ALPHA • COMMERCIAL MOTION',
+    svg: `
+      <svg class="squircle-svg-icon" viewBox="0 0 40 40" fill="none">
+        <rect x="2" y="2" width="36" height="36" rx="9" fill="#111114" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+        <path d="M13 11H21C24.3137 11 27 13.6863 27 17C27 20.3137 24.3137 23 21 23H17M17 11V29M17 23L27 29" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `
+  }
+};
+
+const AI_MODEL_KEYS = ['seedance', 'kling', 'omni', 'banana', 'runway'];
+let currentModelIdx = 0;
+let squircleTimer = null;
+
+function initHeroAiSquircle() {
+  selectAiModel('seedance', false);
+  startSquircleAutoCycle();
+}
+
+function startSquircleAutoCycle() {
+  if (squircleTimer) clearInterval(squircleTimer);
+  squircleTimer = setInterval(() => {
+    cycleNextAiModel(true);
+  }, 2800);
+}
+
+function cycleNextAiModel(fromAuto = false) {
+  currentModelIdx = (currentModelIdx + 1) % AI_MODEL_KEYS.length;
+  const nextKey = AI_MODEL_KEYS[currentModelIdx];
+  selectAiModel(nextKey, !fromAuto);
+}
+
+function selectAiModel(modelKey, resetAutoTimer = true) {
+  const model = AI_MODELS_DATA[modelKey];
+  if (!model) return;
+
+  currentModelIdx = AI_MODEL_KEYS.indexOf(modelKey);
+
+  // Update Squircle Stage with 3D Flip
+  const stage = document.getElementById('squircle-icon-stage');
+  if (stage) {
+    stage.classList.add('flip');
+    setTimeout(() => {
+      stage.innerHTML = model.svg;
+      stage.classList.remove('flip');
+    }, 200);
+  }
+
+  // Update Pill Text
+  const pillText = document.getElementById('hero-model-pill-text');
+  if (pillText) {
+    pillText.textContent = model.pillText;
+  }
+
+  // Update Button Active States
+  const buttons = document.querySelectorAll('.ai-app-btn');
+  buttons.forEach(btn => {
+    if (btn.getAttribute('data-model') === modelKey) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  if (resetAutoTimer) {
+    startSquircleAutoCycle();
+  }
+}
+
+// ══════════════════════════════════════════
+// 11. ABOUT PORTRAIT 3D TILT & SHEEN
+// ══════════════════════════════════════════
+function initPortraitTilt() {
+  const card = document.getElementById('about-portrait-card');
+  if (!card) return;
+
+  const viewport = card.querySelector('.portrait-glass-viewport');
+  if (!viewport) return;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -5;
+    const rotateY = ((x - centerX) / centerX) * 5;
+
+    viewport.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.01)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    viewport.style.transform = '';
+  });
 }
