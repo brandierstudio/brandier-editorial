@@ -525,6 +525,15 @@ function initTopSearch() {
 
   if (!searchInput) return;
 
+  const mobileInput = document.getElementById('mobile-search-input');
+  if (mobileInput) {
+    mobileInput.addEventListener('input', (e) => {
+      const q = e.target.value.trim();
+      searchSearchQuery = q;
+      filterProjectGridBySearch(q);
+    });
+  }
+
   // Detect Mac vs Windows for ⌘K vs Ctrl+K
   const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
   if (kbdHint) {
@@ -564,6 +573,34 @@ function initTopSearch() {
       closeSearchDropdown();
     }
   });
+}
+
+function openMobileSearch() {
+  const menu = document.getElementById('mobile-menu-overlay');
+  const mobileInput = document.getElementById('mobile-search-input');
+  if (menu) {
+    menu.classList.add('open');
+    menu.setAttribute('aria-hidden', 'false');
+  }
+  if (mobileInput) {
+    setTimeout(() => {
+      mobileInput.focus();
+    }, 150);
+  }
+}
+
+function applyMobileSearchTag(tag) {
+  const mobileInput = document.getElementById('mobile-search-input');
+  if (mobileInput) {
+    mobileInput.value = tag;
+  }
+  searchSearchQuery = tag;
+  filterProjectGridBySearch(tag);
+  closeMobileMenu();
+  const workSec = document.getElementById('work');
+  if (workSec) {
+    workSec.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 function openSearchDropdown() {
