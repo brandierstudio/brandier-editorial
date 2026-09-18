@@ -1067,179 +1067,210 @@ button {
 /* ══════════════════════════════════════════
    CLAUDE AI-STYLE KINETIC SKETCH MOTION STAGE
 ══════════════════════════════════════════ */
-.claude-motion-canvas-card {
+/* ══════════════════════════════════════════
+   PURE MINIMALIST STORYTELLING BLACK LINE ANIMATION
+   (Cardless, Textless, Seamless Screen Background Narrative)
+══════════════════════════════════════════ */
+.hero-story-sketch-container {
   position: relative;
   width: 100%;
-  max-width: 480px;
-  background: rgba(255, 255, 255, 0.68);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  border-radius: 28px;
-  padding: 22px 24px 18px;
-  box-shadow: 
-    0 24px 60px -12px rgba(0, 0, 0, 0.08),
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 1),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.03);
-  overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-  will-change: transform;
-}
-
-.claude-motion-canvas-card:hover {
-  transform: translateY(-4px) scale(1.015);
-  box-shadow: 
-    0 32px 70px -12px rgba(0, 0, 0, 0.12),
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 1);
-}
-
-.claude-card-glass-glow {
-  position: absolute;
-  top: -40%;
-  right: -20%;
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(224, 90, 54, 0.14) 0%, rgba(99, 102, 241, 0.09) 50%, transparent 70%);
-  pointer-events: none;
-  filter: blur(30px);
-}
-
-.claude-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.claude-tech-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 4px 11px;
-  background: rgba(0, 0, 0, 0.035);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: var(--radius-pill);
-}
-
-.claude-tech-pill .tech-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #E05A36;
-  box-shadow: 0 0 6px rgba(224, 90, 54, 0.8);
-  animation: pulseBeacon 2s infinite;
-}
-
-.claude-tech-pill .tech-label {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--text-primary);
-}
-
-.claude-curv-tag {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 500;
-  color: #8E8E93;
-}
-
-.claude-svg-stage {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 460 / 330;
+  max-width: 440px;
+  height: 340px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  pointer-events: none;
+  user-select: none;
 }
 
-.claude-kinetic-svg {
+.story-sketch-svg {
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 
-/* Self-Drawing Kinetic Flowing Splines */
-.claude-path-flow {
-  stroke-dasharray: 800;
-  animation: flowSpline 7s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+/* Black Sketch Line Fundamentals */
+.sketch-line {
+  stroke: #16161A;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
 }
 
-.path-primary {
-  animation-duration: 6s;
+.line-main {
+  stroke-width: 2.2px;
 }
 
-.path-secondary {
-  animation-duration: 8.5s;
-  animation-direction: alternate-reverse;
+.line-thin {
+  stroke-width: 1.4px;
+  stroke: rgba(22, 22, 26, 0.42);
 }
 
-@keyframes flowSpline {
+.line-dashed {
+  stroke-width: 1.5px;
+  stroke: rgba(22, 22, 26, 0.42);
+}
+
+.line-ribbon {
+  stroke-width: 2.4px;
+  stroke: #16161A;
+  stroke-dasharray: 600;
+  animation: loopRibbon 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.sketch-node {
+  fill: #16161A;
+  stroke: #FAFAFB;
+  stroke-width: 2px;
+}
+
+/* Continuous Master Story Thread (Undulating ink ribbon underneath) */
+.line-master-thread {
+  stroke: rgba(22, 22, 26, 0.18);
+  stroke-width: 1.8px;
+  stroke-dasharray: 600;
+  animation: flowMasterThread 10s linear infinite;
+}
+
+@keyframes flowMasterThread {
+  0% { stroke-dashoffset: 1200; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* ══════════════════════════════════════════
+   FOUR-ACT CONTINUOUS STORYLINE TIMELINE (16s Loop)
+   Act 1: 3D Cube (0s - 4.5s)
+   Act 2: Camera & Aperture (4s - 8.5s)
+   Act 3: 3D Product & Fluid Ribbon (8s - 12.5s)
+   Act 4: AI Generative Spark & Orbitals (12s - 16s)
+══════════════════════════════════════════ */
+.story-phase {
+  transform-origin: 230px 175px;
+  will-change: opacity, transform;
+}
+
+/* Act 1: 3D Isometric Cube */
+.phase-cube {
+  animation: playPhaseCube 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes playPhaseCube {
   0% {
-    stroke-dashoffset: 0;
-    transform: translateY(0) scaleY(1);
+    opacity: 0;
+    transform: scale(0.85) rotate(-8deg);
   }
-  50% {
-    stroke-dashoffset: 120;
-    transform: translateY(-5px) scaleY(1.04);
+  4%, 22% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  27%, 96% {
+    opacity: 0;
+    transform: scale(1.08) rotate(10deg);
   }
   100% {
-    stroke-dashoffset: 240;
-    transform: translateY(4px) scaleY(0.97);
+    opacity: 0;
+    transform: scale(0.85) rotate(-8deg);
   }
 }
 
-/* Orbiting Wireframe Gyroscope */
-.claude-orbiting-ring {
-  animation: rotateGyroscope 22s linear infinite;
-  transform-origin: 230px 180px;
+/* Act 2: Cinematic Camera & Aperture */
+.phase-camera {
+  animation: playPhaseCamera 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-@keyframes rotateGyroscope {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes playPhaseCamera {
+  0%, 23% {
+    opacity: 0;
+    transform: scale(0.88) rotate(-6deg);
+  }
+  27%, 46% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  51%, 100% {
+    opacity: 0;
+    transform: scale(1.06) rotate(6deg);
+  }
 }
 
-/* Floating Kinetic Vector Nodes */
-.kinetic-node {
-  animation: floatNode 3.5s ease-in-out infinite alternate;
+/* Aperture iris opening & closing */
+.iris-blades-group {
+  transform-origin: 230px 178px;
+  animation: irisAction 4s ease-in-out infinite;
 }
 
-.node-1 { animation-delay: 0.2s; }
-.node-2 { animation-delay: 0.7s; }
-.node-3 { animation-delay: 1.2s; }
-
-@keyframes floatNode {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(4px, -6px) scale(1.15); }
+@keyframes irisAction {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(0.7) rotate(45deg); }
 }
 
-.claude-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+/* Act 3: 3D Luxury Product Bottle & Fluid Ribbon */
+.phase-product {
+  animation: playPhaseProduct 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-.card-footer-badge {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: var(--text-secondary);
+@keyframes playPhaseProduct {
+  0%, 48% {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  52%, 71% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  76%, 100% {
+    opacity: 0;
+    transform: scale(1.05) translateY(-10px);
+  }
 }
 
-.card-footer-status {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 600;
-  color: #10B981;
-  letter-spacing: 0.1em;
+@keyframes loopRibbon {
+  0% { stroke-dashoffset: 600; }
+  50% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -600; }
+}
+
+/* Act 4: AI Generative Spark & Orbitals */
+.phase-spark {
+  animation: playPhaseSpark 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes playPhaseSpark {
+  0%, 73% {
+    opacity: 0;
+    transform: scale(0.85) rotate(-15deg);
+  }
+  77%, 95% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  99%, 100% {
+    opacity: 0;
+    transform: scale(1.1) rotate(15deg);
+  }
+}
+
+.orbit-ellipse-1 {
+  animation: spinOrbit 18s linear infinite;
+  transform-origin: 230px 175px;
+}
+
+.orbit-ellipse-2 {
+  animation: spinOrbitRev 14s linear infinite;
+  transform-origin: 230px 175px;
+}
+
+@keyframes spinOrbit {
+  0% { transform: rotate(-25deg); }
+  100% { transform: rotate(335deg); }
+}
+
+@keyframes spinOrbitRev {
+  0% { transform: rotate(35deg); }
+  100% { transform: rotate(-325deg); }
 }
 
 .hero-title-block {
@@ -2831,8 +2862,10 @@ button {
   .hero-right-col {
     width: 100%;
   }
-  .claude-motion-canvas-card {
-    max-width: 100%;
+  .hero-story-sketch-container {
+    max-width: 360px;
+    height: 280px;
+    margin: 0 auto;
   }
   .hero-subline-row {
     flex-direction: column;
@@ -2876,12 +2909,10 @@ button {
     gap: 24px;
     margin-bottom: 20px;
   }
-  .claude-motion-canvas-card {
-    padding: 16px 14px 14px;
-    border-radius: 20px;
-  }
-  .claude-svg-stage {
-    aspect-ratio: 460 / 300;
+  .hero-story-sketch-container {
+    max-width: 300px;
+    height: 230px;
+    margin: 0 auto;
   }
   .floating-dock {
     height: 52px;
