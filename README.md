@@ -1,57 +1,52 @@
-# Brandier Studio — AI Advertising & Creative Intelligence Publication
+# Anas Bin Mehboob — Creative Portfolio Prototype
 
-> **"Where AI, creativity, and advertising collide."**  
-> An editorial and visual learning platform covering AI advertising, AI video, UGC, creative strategy, tools, campaign breakdowns, and the future of advertising.
+> **Creative Direction & 3D Motion for Frontier Brands**  
+> AI UGC Ads • AI Motion Graphics • 3D Product Animation • Creative Visuals
 
-Part of the **Brandier Ecosystem**:
-- **Brandier Studio**: [brandierstudio.online](https://brandierstudio.online/)
-- **Brandier TV**: [tv.brandierstudio.online](https://tv.brandierstudio.online/)
-- **Brandier Editorial**: [brandier-editorial](https://github.com/brandierstudio/brandier-editorial)
+A modern, high-polish creative portfolio website prototype inspired by the structure, information architecture, spacing rhythm, and tactile micro-interactions of **[Mobbin](https://mobbin.com/)**.
 
 ---
 
-## ✦ Visual DNA & Design Philosophy
+## ✦ Architecture & File Structure
 
-- **Typography**: 
-  - `Cormorant Garamond` (Monumental serif headlines, pull quotes, stats)
-  - `Syne` (Editorial sans, button labels, category badges)
-  - `Inter` (Longform article reader body)
-  - `JetBrains Mono` (Technical specs, benchmarks, timecodes)
-- **Palette**: Deep Black (`#080808`), Warm Ivory (`#F8F7F4`), Crisp White (`#FFFFFF`), with subtle iridescent / silver highlights.
-- **Materiality**: Subtle **Liquid Glass** physics (translucent floating navigation, frosted article cards, glass video player HUD).
-- **Buttons**: Signature angular clipped corners (`clip-path: polygon(8px 0%, 100% 0%, ...)`) and liquid glass pill buttons with sheen animation.
-
----
-
-## ✦ Features & Sections
-
-1. **Top Navigation**: Minimal floating liquid-glass bar with official Brandier logo, section anchors, global search trigger (`⌘K` / `Ctrl+K`), and live watch button.
-2. **Editorial Hero**: Magazine opening with cinematic video viewport and real-time commercial telemetry tags.
-3. **Live Signal Ticker**: Moving editorial intelligence radar.
-4. **Featured Story**: Monumental cover story with dual `READ STORY` and `WATCH BREAKDOWN` triggers and executive takeaway box.
-5. **Latest Insights**: Asymmetric magazine grid with interactive category filters (`ALL`, `AI VIDEO`, `STRATEGY`, `AI UGC`, `MODELS`).
-6. **AI Ad Breakdowns**: Visually dark studio section deconstructing campaigns into Brand, Campaign, Hook, Creative Idea, and Why It Works.
-7. **Watch The Idea**: Dedicated broadcast video theatre with interactive playback HUD and category playlists.
-8. **Tools We're Testing**: Editorial research benchmark library covering Kling 1.5, Google Veo 2, Seedance 2.0, and Flux/Midjourney.
-9. **Guides (Learn by Doing)**: Practical step-by-step masterclasses with difficulty badges and video durations.
-10. **Trends (What's Changing)**: Forward-looking horizontal slider analyzing emerging shifts in advertising.
-11. **Brandier Originals**: Studio experiments and proprietary campaigns connecting back to Brandier Studio.
-12. **Immersive Article Reader**: Drawer reading mode with key takeaways, pull quotes, stats counters, inline video triggers, and related articles.
-13. **Connected Content Ecosystem**: Seamless bidirectional linking between written articles, video breakdowns, tested tools, and playbooks.
-14. **Global Search Modal**: Instant search across all content types with keyboard shortcut support (`⌘K` / `Ctrl+K`).
-15. **Premium Footer**: Minimal footer with ecosystem links to Brandier Studio and Brandier TV.
-
----
-
-## ✦ Local Development & Viewing
-
-Double click `index.html` or run with any local static server:
-```bash
-npx serve .
-# or
-python -m http.server 8080
+```
+├── index.html            # Mobbin-inspired semantic HTML structure
+├── styles.css            # Restrained monochrome palette, typography scale, tactile buttons
+├── data.js               # Centralized data store (Projects, YouTube IDs, Services, Process, Socials)
+├── app.js                # Interaction controller, category filter switcher, YouTube modal player
+└── assets/
+    └── anas-logo.png     # Official "am" monogram & Anas Bin Mehboob brand asset
 ```
 
 ---
 
-© 2026 Brandier Studio. All rights reserved.
+## ✦ Key Features
+
+1. **Floating Pill Dock Navigation**:
+   - Compact centered pill dock with the `am` monogram, section anchors, and tactile `Let's Talk →` CTA with directional arrow motion.
+2. **Hero Composition**:
+   - Status beacon (`● AVAILABLE FOR SELECT COMMISSIONS`), bold display typography, and an interactive category segment filter (`All Work`, `AI UGC Ads`, `3D Product Animation`, `AI Motion Graphics`, `Commercials`).
+3. **High-Performance YouTube Video System**:
+   - All videos and projects are configured in **`data.js`**.
+   - Zero initial iframe loading for instant page loads.
+   - Click to play immediately opens the custom cinema modal and injects the YouTube player on-demand.
+4. **Interactive Services**:
+   - Expandable disclosure cards for `01 AI UGC Ads`, `02 AI Motion Graphics`, `03 3D Product Animation`, `04 AI Product Visuals` with deliverables and use-case details.
+5. **Linear Process Pipeline**:
+   - Six connected stages: `Research → Concept → Visual Development → Animation → Editing → Delivery`.
+6. **Tactile Micro-Interactions**:
+   - Button lifts, arrow shifts (`translateX(4px)`), press feedback (`scale(0.97)`), and smooth card hover zooms.
+   - Built with strict respect for `prefers-reduced-motion`.
+
+---
+
+## ✦ How to Update Content (Phase 2 & Beyond)
+
+All content is centralized in **`data.js`**:
+- **Adding / Updating YouTube Videos**: Add or edit the `youtubeId` field in `data.js`.
+- **Changing Services or Deliverables**: Edit the `services` array in `data.js`.
+- **Updating Social Links & Email**: Edit `PORTFOLIO_DATA.profile` in `data.js`.
+
+---
+
+© 2026 Anas Bin Mehboob. All rights reserved.
