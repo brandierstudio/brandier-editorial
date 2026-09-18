@@ -132,61 +132,157 @@
     <section class="hero-section" id="hero-section">
       <div class="site-container">
         
-        <!-- Mobbin-Style Hero App Icon Squircle & Status Pill -->
-        <div class="hero-app-badge-row hero-anim-item" style="--anim-order: 1;">
-          <div class="mobbin-app-squircle" id="hero-app-squircle" title="Click to cycle AI Video Models" onclick="cycleNextAiModel()">
-            <div class="squircle-glass-shine"></div>
-            <div class="squircle-icon-stage" id="squircle-icon-stage">
-              <!-- Seedance 2.0 SVG Default -->
-              <svg class="squircle-svg-icon" viewBox="0 0 40 40" fill="none">
-                <defs>
-                  <linearGradient id="seedGradH" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#06B6D4"/>
-                    <stop offset="50%" stop-color="#3B82F6"/>
-                    <stop offset="100%" stop-color="#6366F1"/>
-                  </linearGradient>
-                </defs>
-                <rect x="2" y="2" width="36" height="36" rx="9" fill="#0A0F1D" stroke="url(#seedGradH)" stroke-width="1.2"/>
-                <path d="M12 24C14 18 18 14 24 14C28 14 29 17 27 20C25 23 21 24 18 26C15 28 17 30 20 30C25 30 28 26 29 23" stroke="url(#seedGradH)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="23" cy="14" r="2.5" fill="#06B6D4"/>
-              </svg>
-            </div>
-            <div class="squircle-glow-pulse"></div>
-          </div>
-
-          <div class="hero-status-pill">
-            <span class="status-indicator-dot"></span>
-            <span class="status-pill-text" id="hero-model-pill-text">AI VIDEO STACK: SEEDANCE &bull; KLING 1.5 &bull; OMNI FLASH</span>
-            <span class="status-sep">/</span>
-            <span class="status-pill-sub">2026 ARCHIVE</span>
-          </div>
-        </div>
-
-        <!-- Headline Composition with Hand-Drawn Sketch Annotation (Eleken/Ellipsus Style) -->
-        <div class="hero-title-block hero-anim-item" style="--anim-order: 2;">
-          <h1 class="hero-main-title">
-            Creative direction &amp; 
-            <span class="sketch-highlight">
-              <span class="sketch-text">3D motion</span>
-              <svg class="sketch-loop-svg" viewBox="0 0 240 70" fill="none" aria-hidden="true">
-                <path d="M14,38 C28,14 185,8 215,26 C238,42 195,62 120,62 C45,62 8,50 16,28 C22,12 110,6 220,18" 
-                      stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            for frontier brands.
-          </h1>
+        <!-- Split Hero Grid (Left: Narrative & Headlines, Right: Claude AI-Style Kinetic Sketch Motion) -->
+        <div class="hero-split-grid">
           
-          <div class="hero-subline-row">
-            <p class="hero-lead-text">
-              Specializing in high-impact <strong>AI UGC Ads</strong>, cinematic <strong>commercial visuals</strong>, and photoreal <strong>3D product animation</strong>. Merging studio craftsmanship with next-generation generative pipelines.
-            </p>
-            <div class="hero-sketch-annotation" aria-hidden="true">
-              <svg class="sketch-arrow-svg" width="38" height="26" viewBox="0 0 38 26" fill="none">
-                <path d="M4,4 C14,14 24,18 32,16 M32,16 L26,10 M32,16 L29,22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span class="sketch-annotation-label">curated studio work</span>
+          <div class="hero-left-col">
+            <!-- Mobbin-Style Hero App Icon Squircle & Status Pill -->
+            <div class="hero-app-badge-row hero-anim-item" style="--anim-order: 1;">
+              <div class="mobbin-app-squircle" id="hero-app-squircle" title="Click to cycle AI Video Models" onclick="cycleNextAiModel()">
+                <div class="squircle-glass-shine"></div>
+                <div class="squircle-icon-stage" id="squircle-icon-stage">
+                  <!-- Seedance 2.0 SVG Default -->
+                  <svg class="squircle-svg-icon" viewBox="0 0 40 40" fill="none">
+                    <defs>
+                      <linearGradient id="seedGradH" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#06B6D4"/>
+                        <stop offset="50%" stop-color="#3B82F6"/>
+                        <stop offset="100%" stop-color="#6366F1"/>
+                      </linearGradient>
+                    </defs>
+                    <rect x="2" y="2" width="36" height="36" rx="9" fill="#0A0F1D" stroke="url(#seedGradH)" stroke-width="1.2"/>
+                    <path d="M12 24C14 18 18 14 24 14C28 14 29 17 27 20C25 23 21 24 18 26C15 28 17 30 20 30C25 30 28 26 29 23" stroke="url(#seedGradH)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="23" cy="14" r="2.5" fill="#06B6D4"/>
+                  </svg>
+                </div>
+                <div class="squircle-glow-pulse"></div>
+              </div>
+
+              <div class="hero-status-pill">
+                <span class="status-indicator-dot"></span>
+                <span class="status-pill-text" id="hero-model-pill-text">AI VIDEO STACK: SEEDANCE &bull; KLING 1.5 &bull; OMNI FLASH</span>
+                <span class="status-sep">/</span>
+                <span class="status-pill-sub">2026 ARCHIVE</span>
+              </div>
+            </div>
+
+            <!-- Headline Composition with Hand-Drawn Sketch Annotation (Eleken/Ellipsus Style) -->
+            <div class="hero-title-block hero-anim-item" style="--anim-order: 2;">
+              <h1 class="hero-main-title">
+                Creative direction &amp; 
+                <span class="sketch-highlight">
+                  <span class="sketch-text">3D motion</span>
+                  <svg class="sketch-loop-svg" viewBox="0 0 240 70" fill="none" aria-hidden="true">
+                    <path d="M14,38 C28,14 185,8 215,26 C238,42 195,62 120,62 C45,62 8,50 16,28 C22,12 110,6 220,18" 
+                          stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                for frontier brands.
+              </h1>
+              
+              <div class="hero-subline-row">
+                <p class="hero-lead-text">
+                  Specializing in high-impact <strong>AI UGC Ads</strong>, cinematic <strong>commercial visuals</strong>, and photoreal <strong>3D product animation</strong>. Merging studio craftsmanship with next-generation generative pipelines.
+                </p>
+                <div class="hero-sketch-annotation" aria-hidden="true">
+                  <svg class="sketch-arrow-svg" width="38" height="26" viewBox="0 0 38 26" fill="none">
+                    <path d="M4,4 C14,14 24,18 32,16 M32,16 L26,10 M32,16 L29,22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="sketch-annotation-label">curated studio work</span>
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- Right Column: Claude AI-Style Generative Kinetic Motion Sketch Stage -->
+          <div class="hero-right-col hero-anim-item" style="--anim-order: 2;">
+            <div class="claude-motion-canvas-card" id="claude-motion-card">
+              
+              <!-- Subtle Liquid Glass Specular Shimmer -->
+              <div class="claude-card-glass-glow"></div>
+              
+              <!-- Top Telemetry Header -->
+              <div class="claude-card-header">
+                <div class="claude-tech-pill">
+                  <span class="tech-dot"></span>
+                  <span class="tech-label">KINETIC VECTOR FIELD &bull; 60 FPS</span>
+                </div>
+                <span class="claude-curv-tag">// TENSION 0.852</span>
+              </div>
+
+              <!-- Generative Animated Kinetic SVG Stage -->
+              <div class="claude-svg-stage">
+                <svg class="claude-kinetic-svg" viewBox="0 0 460 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="claudeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#E05A36" stop-opacity="0.95"/>
+                      <stop offset="50%" stop-color="#F59E0B" stop-opacity="0.85"/>
+                      <stop offset="100%" stop-color="#6366F1" stop-opacity="0.9"/>
+                    </linearGradient>
+                    <linearGradient id="claudeGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.8"/>
+                      <stop offset="100%" stop-color="#E05A36" stop-opacity="0.7"/>
+                    </linearGradient>
+                    <filter id="claudeGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="6" result="blur"/>
+                      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                  </defs>
+
+                  <!-- Architectural Technical Crosshairs & Coordinate Grids -->
+                  <g class="claude-tech-grid" stroke="rgba(17, 17, 20, 0.08)" stroke-width="1">
+                    <line x1="20" y1="180" x2="440" y2="180" stroke-dasharray="3 4"/>
+                    <line x1="230" y1="20" x2="230" y2="340" stroke-dasharray="3 4"/>
+                    <circle cx="230" cy="180" r="130" stroke-dasharray="4 6" stroke="rgba(17,17,20,0.06)"/>
+                    <circle cx="230" cy="180" r="70" stroke-dasharray="2 4" stroke="rgba(17,17,20,0.08)"/>
+                  </g>
+
+                  <!-- Secondary Flowing Ribbon (Cyan/Terracotta) -->
+                  <path class="claude-path-flow path-secondary" 
+                        d="M 40,240 C 90,320 160,80 230,170 C 300,260 370,90 420,150" 
+                        stroke="url(#claudeGrad2)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+                  <!-- Primary Kinetic Self-Drawing Spline Wave (Anthropic/Claude Motion Style) -->
+                  <path class="claude-path-flow path-primary" 
+                        d="M 40,160 C 110,60 170,300 240,190 C 310,80 370,250 420,170" 
+                        stroke="url(#claudeGrad1)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+
+                  <!-- Geometric Kinematics: Orbiting 3D Isometric Wireframe Gyroscope -->
+                  <g class="claude-orbiting-ring" transform-origin="230 180">
+                    <ellipse cx="230" cy="180" rx="110" ry="46" stroke="rgba(17, 17, 20, 0.22)" stroke-width="1.2" stroke-dasharray="6 4" fill="none" transform="rotate(-28 230 180)"/>
+                    <ellipse cx="230" cy="180" rx="90" ry="38" stroke="rgba(224, 90, 54, 0.45)" stroke-width="1.4" fill="none" transform="rotate(38 230 180)"/>
+                    
+                    <!-- Kinetic Floating Nodes & Vector Anchors -->
+                    <circle class="kinetic-node node-1" cx="140" cy="145" r="5" fill="#E05A36" filter="url(#claudeGlow)"/>
+                    <circle class="kinetic-node node-2" cx="320" cy="215" r="4.5" fill="#6366F1"/>
+                    <circle class="kinetic-node node-3" cx="240" cy="95" r="4" fill="#06B6D4"/>
+                    <circle class="kinetic-node node-center" cx="230" cy="180" r="6" fill="#111114"/>
+                    <circle cx="230" cy="180" r="2.5" fill="#FFFFFF"/>
+                  </g>
+
+                  <!-- Floating Vector Handles & Tension Tangents -->
+                  <g class="claude-tangents" stroke="rgba(17, 17, 20, 0.2)" stroke-width="1.2">
+                    <line x1="140" y1="145" x2="160" y2="100"/>
+                    <circle cx="160" cy="100" r="2.5" fill="none" stroke="#E05A36" stroke-width="1.5"/>
+                    <line x1="320" y1="215" x2="300" y2="260"/>
+                    <circle cx="300" cy="260" r="2.5" fill="none" stroke="#6366F1" stroke-width="1.5"/>
+                  </g>
+
+                  <!-- Technical Inscriptions & Coordinate Marks -->
+                  <text x="35" y="45" font-family="JetBrains Mono, monospace" font-size="9" fill="#71717A" font-weight="600" letter-spacing="0.1em">+ [LOC: 3D.SPLINE]</text>
+                  <text x="330" y="325" font-family="JetBrains Mono, monospace" font-size="9" fill="#71717A" font-weight="600" letter-spacing="0.1em">LATENT.01 //</text>
+                </svg>
+              </div>
+
+              <!-- Bottom Glass Bar Info -->
+              <div class="claude-card-footer">
+                <span class="card-footer-badge">CINEMA 4D &bull; BLENDER &bull; NEURAL MOTION</span>
+                <span class="card-footer-status">ACTIVE RENDER</span>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
         <!-- Interactive AI Video Model App Buttons (Mobbin Tactile Liquid Glass Style) -->
