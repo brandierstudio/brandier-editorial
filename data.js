@@ -12,7 +12,7 @@ const PORTFOLIO_DATA = {
     bio: "Pioneering the intersection of frontier generative AI pipelines and high-end 3D product animation. Crafting high-converting, scroll-stopping commercials and visual worlds for ambitious brands worldwide.",
     availability: "Available for select commissions & commercial direction",
     location: "Global / Remote",
-    email: "contact@anasbinmehboob.com", // Temporary placeholder
+    email: "brandierstudio@gmail.com",
     whatsapp: "+1234567890", // Configurable
     socials: {
       instagram: "https://instagram.com",
