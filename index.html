@@ -28,7 +28,7 @@
   <div class="cursor-spotlight" id="cursor-spotlight" aria-hidden="true"></div>
 
   <!-- ══════════════════════════════════════════
-       01 — FLOATING PILL DOCK (Mobbin-Style)
+       01 — FLOATING PILL DOCK (Mobbin-Style with Top Search)
   ══════════════════════════════════════════ -->
   <div class="dock-wrapper" id="dock-wrapper">
     <header class="floating-dock" id="floating-dock">
@@ -44,6 +44,38 @@
         </div>
       </a>
 
+      <!-- Mobbin-Style Top Search Bar with Live Filter Dropdown -->
+      <div class="dock-search-box" id="dock-search-box">
+        <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          id="top-search-input" 
+          class="top-search-input" 
+          placeholder="Search 3D, AI UGC, tools..." 
+          autocomplete="off" 
+          spellcheck="false"
+          aria-label="Search portfolio projects and tools"
+        >
+        <kbd class="search-kbd" id="search-kbd-hint">⌘K</kbd>
+
+        <!-- Live Search Dropdown Popup -->
+        <div class="search-dropdown-menu" id="search-dropdown-menu" aria-hidden="true">
+          <div class="search-quick-chips">
+            <span class="chip-label">Quick Filters:</span>
+            <button type="button" class="search-chip" onclick="applySearchTag('3D Product')">3D Product</button>
+            <button type="button" class="search-chip" onclick="applySearchTag('AI UGC')">AI UGC</button>
+            <button type="button" class="search-chip" onclick="applySearchTag('AI Motion')">AI Motion</button>
+            <button type="button" class="search-chip" onclick="applySearchTag('Runway')">Runway</button>
+          </div>
+          <div class="search-results-list" id="search-results-list">
+            <!-- Dynamically populated matches -->
+          </div>
+        </div>
+      </div>
+
       <!-- Center Navigation Links -->
       <nav class="dock-nav" aria-label="Main Navigation">
         <ul class="dock-nav-list">
@@ -51,13 +83,12 @@
           <li><a href="#services" class="dock-link" data-section="services">Services</a></li>
           <li><a href="#process" class="dock-link" data-section="process">Process</a></li>
           <li><a href="#about" class="dock-link" data-section="about">About</a></li>
-          <li><a href="#contact" class="dock-link" data-section="contact">Contact</a></li>
         </ul>
       </nav>
 
-      <!-- Right Action CTA -->
+      <!-- Right Action CTA with Vibrant Gradient Glow -->
       <div class="dock-actions">
-        <a href="#contact" class="btn-tactile btn-dock-cta">
+        <a href="#contact" class="btn-tactile btn-dock-cta btn-glow-gradient">
           <span>Let's Talk</span>
           <svg class="btn-arrow-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -90,7 +121,7 @@
         <a href="#contact" class="mobile-menu-link" onclick="closeMobileMenu()">Contact</a>
       </nav>
       <div class="mobile-menu-foot">
-        <a href="#contact" class="btn-tactile btn-primary w-full" onclick="closeMobileMenu()">
+        <a href="#contact" class="btn-tactile btn-primary btn-glow-gradient w-full" onclick="closeMobileMenu()">
           <span>Start a Project</span>
           <svg class="btn-arrow-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -106,18 +137,19 @@
     <section class="hero-section" id="hero-section">
       <div class="site-container">
         
-        <!-- Status Pill -->
+        <!-- Status Pill with Vibrant Badge -->
         <div class="hero-status-pill hero-anim-item" style="--anim-order: 1;">
           <span class="status-indicator-dot"></span>
           <span class="status-pill-text">AVAILABLE FOR SELECT COMMISSIONS</span>
           <span class="status-sep">&bull;</span>
           <span class="status-pill-sub">Q3 / Q4 2026</span>
+          <span class="pill-badge-glow">COMMERCIALS</span>
         </div>
 
-        <!-- Headline Composition -->
+        <!-- Headline Composition with Vibrant Gradient Shimmer -->
         <div class="hero-title-block hero-anim-item" style="--anim-order: 2;">
           <h1 class="hero-main-title">
-            Creative Direction &amp; 3D Motion for Frontier Brands.
+            Creative Direction &amp; <span class="gradient-text-vibrant">3D Motion</span> for Frontier Brands.
           </h1>
           <p class="hero-lead-text">
             Specializing in high-impact <strong>AI UGC Ads</strong>, cinematic <strong>AI Motion Graphics</strong>, and photoreal <strong>3D Product Animation</strong>. Combining design-studio rigor with next-generation generative pipelines.
