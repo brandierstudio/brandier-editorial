@@ -165,7 +165,17 @@
          02 — HERO (Sober, Minimalist, Hand-Drawn Sketch Accent)
     ══════════════════════════════════════════ -->
     <section class="hero-section" id="hero-section">
-      <div class="site-container">
+      <!-- Homepage Ambient Background Video -->
+      <div class="hero-bg-video-wrap" id="hero-bg-video-wrap" aria-hidden="true">
+        <video class="hero-bg-video" id="hero-bg-video" autoplay loop muted playsinline preload="auto">
+          <source src="lv__20260920121239.mp4" type="video/mp4">
+        </video>
+        <!-- Atmospheric protective scrim: keeps video vibrant while making foreground text 100% crisp & readable -->
+        <div class="hero-video-scrim"></div>
+        <div class="hero-video-bottom-fade"></div>
+      </div>
+
+      <div class="site-container hero-container-content">
         
         <!-- Split Hero Grid (Left: Narrative & Headlines, Right: Claude AI-Style Kinetic Sketch Motion) -->
         <div class="hero-split-grid">
