@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroAiSquircle();
   initPortraitTilt();
   initContactBgVideo();
+  initHeroBgVideo();
   initClaudeMotionTilt();
 });
 
@@ -1041,6 +1042,47 @@ function initCursorSpotlight() {
       if (dot) dot.classList.remove('cursor-hover');
     }
   });
+}
+
+// ══════════════════════════════════════════
+// 12.5. HERO BACKGROUND VIDEO AUTOPLAY
+// ══════════════════════════════════════════
+function initHeroBgVideo() {
+  const video = document.getElementById('hero-bg-video');
+  if (!video) return;
+
+  video.muted = true;
+  video.defaultMuted = true;
+  video.volume = 0;
+  video.playsInline = true;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('muted', '');
+  video.setAttribute('autoplay', '');
+  video.setAttribute('loop', '');
+
+  const tryPlay = () => {
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const resumePlay = () => {
+          video.play();
+          window.removeEventListener('click', resumePlay);
+          window.removeEventListener('scroll', resumePlay);
+          window.removeEventListener('touchstart', resumePlay);
+        };
+        window.addEventListener('click', resumePlay, { once: true });
+        window.addEventListener('scroll', resumePlay, { once: true });
+        window.addEventListener('touchstart', resumePlay, { once: true });
+      });
+    }
+  };
+
+  if (video.readyState >= 2) {
+    tryPlay();
+  } else {
+    video.addEventListener('loadeddata', tryPlay, { once: true });
+    video.addEventListener('canplay', tryPlay, { once: true });
+  }
 }
 
 // ══════════════════════════════════════════
