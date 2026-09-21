@@ -1048,9 +1048,8 @@ function initCursorSpotlight() {
 // 12.5. HERO BACKGROUND VIDEO AUTOPLAY
 // ══════════════════════════════════════════
 function initHeroBgVideo() {
-  const mainVideo = document.getElementById('hero-bg-video');
-  const ambientVideo = document.getElementById('hero-bg-video-ambient');
-  if (!mainVideo) return;
+  const videos = document.querySelectorAll('.hero-bg-video, #hero-bg-video-desktop, #hero-bg-video-mobile');
+  if (!videos.length) return;
 
   const configureVideo = (vid) => {
     if (!vid) return;
@@ -1089,25 +1088,7 @@ function initHeroBgVideo() {
     }
   };
 
-  configureVideo(mainVideo);
-  configureVideo(ambientVideo);
-
-  // Aspect ratio detection: checks if video is vertical 9:16 or widescreen
-  const checkRatio = () => {
-    if (mainVideo.videoHeight > mainVideo.videoWidth) {
-      mainVideo.classList.add('is-portrait-video');
-      if (ambientVideo) ambientVideo.classList.add('is-portrait-video');
-    } else {
-      mainVideo.classList.remove('is-portrait-video');
-      if (ambientVideo) ambientVideo.classList.remove('is-portrait-video');
-    }
-  };
-
-  if (mainVideo.videoWidth) {
-    checkRatio();
-  } else {
-    mainVideo.addEventListener('loadedmetadata', checkRatio, { once: true });
-  }
+  videos.forEach(v => configureVideo(v));
 }
 
 // ══════════════════════════════════════════
