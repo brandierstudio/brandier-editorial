@@ -37,23 +37,24 @@ const PORTFOLIO_DATA = {
   projects: [
     {
       id: "proj-01",
-      title: "Zero Gravity Velocity",
-      category: "3D Product Animation",
-      categorySlug: "3d-motion",
-      client: "Athletic Footwear Spec",
+      title: "AI ADS: Real People / Real Feelings / Real Results",
+      category: "AI Motion Graphics",
+      categorySlug: "ai-motion",
+      client: "Brandier Studio Commercial",
       year: "2026",
       featured: true,
-      description: "A 1000fps simulation of dynamic fluid mercury morphing into an aerodynamic sneaker sole mid-stride.",
-      youtubeId: "dQw4w9WgXcQ", // Temporary placeholder YouTube ID
-      duration: "00:45",
-      tags: ["Blender", "Unreal Engine 5", "Fluid Dynamics", "ProRes 4K"],
+      description: "Official brand intro commercial directed by Anas Bin Mehboob. Pioneering real people, real feelings, and real results through the fusion of AI UGC Ads, cinematic AI Motion Graphics, and photoreal 3D Animation.",
+      youtubeId: "DVjIMppmh2A",
+      thumbnailImage: "assets/brand-intro-thumbnail.jpg",
+      duration: "01:00",
+      tags: ["AI UGC Ads", "AI Motion Graphics", "3D Animation", "Brand Intro", "Commercials"],
       aspectRatio: "16/10",
       accentColor: "#1A233A",
       caseStudy: {
-        role: "3D Direction, Physics Simulation, Lighting & Color Grade",
-        timeline: "2 Weeks",
-        overview: "Exploration of high-speed athletic commercial aesthetics where impossible fluid kinematics blend seamlessly with precision footwear engineering.",
-        deliverables: ["1x 30s Master Commercial", "3x 15s Vertical Cutdowns", "5x High-Resolution Key Visuals"]
+        role: "Creative Direction, Generative AI Pipelines, 3D Motion, Sound Design",
+        timeline: "Brand Showcase 2026",
+        overview: "Official Brandier Studio commercial showreel spotlighting next-generation advertising: AI UGC video ads featuring genuine human emotion, high-end 3D product rendering, and scroll-stopping motion graphics engineered for maximum performance and conversion.",
+        deliverables: ["Official Brand Commercial Film (DVjIMppmh2A)", "AI UGC Ad Creatives (Perfume, Apparel, Lifestyle)", "High-Converting 9:16 Social Cutdowns", "4K Key Commercial Visuals"]
       }
     },
     {
