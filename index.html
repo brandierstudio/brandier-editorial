@@ -6,10 +6,10 @@
   <title>Anas Bin Mehboob — Creative Direction & 3D Motion</title>
   <meta name="description" content="Personal creative portfolio of Anas Bin Mehboob. Specialized in AI UGC Ads, AI Motion Graphics, 3D Product Animation, and Commercial Visuals." />
 
-  <!-- Premium Typography: Plus Jakarta Sans (Mobbin-style modern geometric sans) & JetBrains Mono -->
+  <!-- Premium Typography: Syne (Luxury Editorial Display), Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -167,6 +167,11 @@
     <section class="hero-section" id="hero-section">
       <!-- Homepage Ambient Background Video -->
       <div class="hero-bg-video-wrap" id="hero-bg-video-wrap" aria-hidden="true">
+        <!-- Ambient blurred backdrop: fills mobile screen so zero harsh black bars appear -->
+        <video class="hero-bg-video-ambient" id="hero-bg-video-ambient" autoplay loop muted playsinline preload="auto">
+          <source src="lv__20260920121239.mp4" type="video/mp4">
+        </video>
+        <!-- Sharp main video: displays full video scene without cropping -->
         <video class="hero-bg-video" id="hero-bg-video" autoplay loop muted playsinline preload="auto">
           <source src="lv__20260920121239.mp4" type="video/mp4">
         </video>
@@ -211,18 +216,14 @@
               </div>
             </div>
 
-            <!-- Headline Composition with Hand-Drawn Sketch Annotation (Eleken/Ellipsus Style) -->
+            <!-- Headline Composition (3 High-Impact Balanced Lines in Syne Display Font) -->
             <div class="hero-title-block hero-anim-item" style="--anim-order: 2;">
               <h1 class="hero-main-title">
-                Creative direction &amp; 
-                <span class="sketch-highlight">
-                  <span class="sketch-text">3D motion</span>
-                  <svg class="sketch-loop-svg" viewBox="0 0 240 70" fill="none" aria-hidden="true">
-                    <path d="M14,38 C28,14 185,8 215,26 C238,42 195,62 120,62 C45,62 8,50 16,28 C22,12 110,6 220,18" 
-                          stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                <span class="hero-title-line line-1">Creative direction &amp;</span>
+                <span class="hero-title-line line-2">
+                  <span class="hero-title-accent">3D motion</span>
                 </span>
-                for frontier brands.
+                <span class="hero-title-line line-3">for frontier brands.</span>
               </h1>
               
               <div class="hero-subline-row">
