@@ -120,12 +120,16 @@ function renderProjects() {
         <!-- Media Visual Viewport with Tactile Play Trigger -->
         <div class="project-media-wrap" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
           
-          <div class="project-poster-canvas ${bgClass}">
-            <div class="poster-inner-art">
-              <div class="art-badge-code">SPEC REEL &bull; ${proj.year}</div>
-              <h4 class="art-spec-title">${proj.title}</h4>
+          ${proj.thumbnailImage ? `
+            <img src="${proj.thumbnailImage}" alt="${proj.title}" class="project-poster-img" loading="lazy">
+          ` : `
+            <div class="project-poster-canvas ${bgClass}">
+              <div class="poster-inner-art">
+                <div class="art-badge-code">SPEC REEL &bull; ${proj.year}</div>
+                <h4 class="art-spec-title">${proj.title}</h4>
+              </div>
             </div>
-          </div>
+          `}
 
           <!-- Top Telemetry Badges -->
           <div class="media-top-badges">
@@ -727,12 +731,16 @@ function filterProjectGridBySearch(query) {
     return `
       <article class="project-card reveal-item is-revealed ${isFeaturedWide ? 'featured-wide' : ''}" data-project-id="${proj.id}">
         <div class="project-media-wrap" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
-          <div class="project-poster-canvas ${bgClass}">
-            <div class="poster-inner-art">
-              <div class="art-badge-code">SPEC REEL &bull; ${proj.year}</div>
-              <h4 class="art-spec-title">${proj.title}</h4>
+          ${proj.thumbnailImage ? `
+            <img src="${proj.thumbnailImage}" alt="${proj.title}" class="project-poster-img" loading="lazy">
+          ` : `
+            <div class="project-poster-canvas ${bgClass}">
+              <div class="poster-inner-art">
+                <div class="art-badge-code">SPEC REEL &bull; ${proj.year}</div>
+                <h4 class="art-spec-title">${proj.title}</h4>
+              </div>
             </div>
-          </div>
+          `}
           <div class="media-top-badges">
             <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
             <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
