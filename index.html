@@ -167,13 +167,13 @@
     <section class="hero-section" id="hero-section">
       <!-- Homepage Ambient Background Video -->
       <div class="hero-bg-video-wrap" id="hero-bg-video-wrap" aria-hidden="true">
-        <!-- Ambient blurred backdrop: fills mobile screen so zero harsh black bars appear -->
-        <video class="hero-bg-video-ambient" id="hero-bg-video-ambient" autoplay loop muted playsinline preload="auto">
+        <!-- Desktop Video (Horizontal 16:9) -->
+        <video class="hero-bg-video hero-video-desktop" id="hero-bg-video-desktop" autoplay loop muted playsinline preload="auto">
           <source src="lv__20260920121239.mp4" type="video/mp4">
         </video>
-        <!-- Sharp main video: displays full video scene without cropping -->
-        <video class="hero-bg-video" id="hero-bg-video" autoplay loop muted playsinline preload="auto">
-          <source src="lv__20260920121239.mp4" type="video/mp4">
+        <!-- Mobile Dedicated Video (Native 9:16 Vertical) -->
+        <video class="hero-bg-video hero-video-mobile" id="hero-bg-video-mobile" autoplay loop muted playsinline preload="auto">
+          <source src="lv__20260921081204.mp4" type="video/mp4">
         </video>
         <!-- Atmospheric protective scrim: keeps video vibrant while making foreground text 100% crisp & readable -->
         <div class="hero-video-scrim"></div>
@@ -221,7 +221,13 @@
               <h1 class="hero-main-title">
                 <span class="hero-title-line line-1">Creative direction &amp;</span>
                 <span class="hero-title-line line-2">
-                  <span class="hero-title-accent">3D motion</span>
+                  <span class="sketch-highlight">
+                    <span class="sketch-text hero-title-accent">3D motion</span>
+                    <svg class="sketch-loop-svg" viewBox="0 0 240 70" fill="none" aria-hidden="true">
+                      <path class="sketch-loop-path" d="M14,38 C28,14 185,8 215,26 C238,42 195,62 120,62 C45,62 8,50 16,28 C22,12 110,6 220,18" 
+                            stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
                 </span>
                 <span class="hero-title-line line-3">for frontier brands.</span>
               </h1>
