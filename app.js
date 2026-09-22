@@ -5,10 +5,21 @@
  */
 
 let activeCategory = 'all';
+let isArchiveOpen = false;
+let archiveCategory = 'all-sequenced';
+
+const PINNED_PROJECT_ID = 'proj-01'; // Brandier Anthem commercial (DVjIMppmh2A)
+const CORE_SHOWCASE_IDS = [
+  'proj-dior-spec',     // 3D Product Perfume (FNH-5yhkLZs)
+  'proj-ai-ugc-hook',    // AI UGC Creator Ads (xsiHXV3vzV0)
+  'proj-booknation'     // Motion Graphics SaaS Platform (k7RPSs6QWTQ)
+];
 
 document.addEventListener('DOMContentLoaded', () => {
   renderCategoryFilters();
-  renderProjects();
+  renderPinnedMainVideo();
+  renderCoreShowcase();
+  renderArchiveLibrary();
   renderServices();
   renderProcess();
   renderTools();
@@ -27,13 +38,107 @@ document.addEventListener('DOMContentLoaded', () => {
   initClaudeMotionTilt();
 });
 
-/// State variables for Archive Expansion and Category View
-let isArchiveExpanded = false;
-const FEATURED_PROJECT_IDS = ['proj-01', 'proj-02', 'proj-03', 'proj-09', 'proj-11', 'proj-10', 'proj-07', 'proj-04'];
+// ══════════════════════════════════════════
+// 1. PINNED MAIN ANTHEM SPOTLIGHT (Outside & Above Dropdown)
+// ══════════════════════════════════════════
+function renderPinnedMainVideo() {
+  const container = document.getElementById('pinned-spotlight-box');
+  if (!container || !PORTFOLIO_DATA.projects) return;
+
+  const proj = PORTFOLIO_DATA.projects.find(p => p.id === PINNED_PROJECT_ID);
+  if (!proj) return;
+
+  const thumbUrl = proj.thumbnailImage || 'assets/brand-intro-thumbnail.jpg';
+  const ytFallback = `https://img.youtube.com/vi/${proj.youtubeId}/maxresdefault.jpg`;
+
+  container.innerHTML = `
+    <article class="pinned-spotlight-card">
+      <div class="spotlight-media-wrap" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial Anthem (4K)">
+        <img 
+          src="${thumbUrl}" 
+          alt="${proj.title}" 
+          class="spotlight-poster-img"
+          loading="eager"
+          onerror="if(this.src!=='${ytFallback}'){this.src='${ytFallback}';}"
+        >
+        <div class="spotlight-media-overlay"></div>
+
+        <!-- Top Telemetry Badges -->
+        <div class="spotlight-top-badge">
+          <span class="badge-pill-pinned">★ PINNED SPOTLIGHT ANTHEM</span>
+          <span class="badge-pill-duration">⏱ ${proj.duration || '01:00'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
+        </div>
+
+        <!-- Center Tactile Play Button -->
+        <button class="spotlight-play-btn" aria-label="Play ${proj.title}">
+          <svg class="play-svg-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="6 4 20 12 6 20 6 4"></polygon>
+          </svg>
+        </button>
+
+        <!-- Bottom Telemetry Watermark -->
+        <div class="spotlight-bottom-info">
+          <div class="spotlight-client-tag">
+            <span class="spotlight-beacon-dot"></span>
+            <span>${proj.client || 'Brandier Studio Commercial'}</span>
+          </div>
+          <span class="spotlight-res-tag">4K PRORES • 16:9 MASTER</span>
+        </div>
+      </div>
+
+      <!-- Spotlight Meta Content Body -->
+      <div class="spotlight-info-body">
+        <div class="spotlight-meta-top">
+          <span class="spotlight-eyebrow">OFFICIAL BRAND SHOWCASE • DIRECTED BY ANAS BIN MEHBOOB</span>
+          <span class="spotlight-year-badge">${proj.year || '2026'}</span>
+        </div>
+
+        <h3 class="spotlight-title" onclick="openVideoModal('${proj.id}')">
+          ${proj.title}
+        </h3>
+
+        <p class="spotlight-desc">
+          ${proj.description}
+        </p>
+
+        <!-- Tags Strip -->
+        <div class="spotlight-tags-strip">
+          ${(proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('')}
+        </div>
+
+        <!-- Actions -->
+        <div class="spotlight-actions-row">
+          <button class="btn-spotlight-watch btn-primary" onclick="openVideoModal('${proj.id}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+            <span>Watch Commercial Film (4K)</span>
+          </button>
+          
+          <a href="https://youtu.be/${proj.youtubeId}" target="_blank" rel="noopener noreferrer" class="btn-spotlight-yt btn-liquid-glass">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span>Watch on YouTube ↗</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  `;
+}
 
 // ══════════════════════════════════════════
-// 1. CATEGORY FILTER SEGMENT SWITCHER
+// 2. CORE SHOWCASE (3 Signature Disciplines in Front)
 // ══════════════════════════════════════════
+function renderCoreShowcase() {
+  const container = document.getElementById('core-showcase-grid');
+  if (!container || !PORTFOLIO_DATA.projects) return;
+
+  const coreProjects = CORE_SHOWCASE_IDS
+    .map(id => PORTFOLIO_DATA.projects.find(p => p.id === id))
+    .filter(Boolean);
+
+  container.innerHTML = coreProjects.map((p, idx) => renderProjectCardHtml(p, idx)).join('');
+  initCardTiltAndSheen();
+  initScrollReveals();
+}
+
 function renderCategoryFilters() {
   const container = document.getElementById('category-filter-bar');
   if (!container || !PORTFOLIO_DATA.categories) return;
@@ -58,72 +163,10 @@ function renderCategoryFilters() {
 
 function setFilterCategory(categoryId) {
   activeCategory = categoryId;
-  if (categoryId !== 'all') {
-    isArchiveExpanded = false;
-  }
-  
-  // Clear any active search query when explicitly picking category
-  const searchInput = document.getElementById('top-search-input');
-  if (searchInput) {
-    searchInput.value = '';
-  }
-  
-  // Update button active states
-  const buttons = document.querySelectorAll('.segment-btn');
-  buttons.forEach(btn => {
-    if (btn.getAttribute('data-cat-id') === categoryId) {
-      btn.classList.add('active');
-    } else {
-      btn.classList.remove('active');
-    }
-  });
-
-  // Synchronize dropdown
-  const selectEl = document.getElementById('catalog-category-select');
-  if (selectEl) {
-    if (categoryId === 'all') {
-      selectEl.value = isArchiveExpanded ? 'all-sequenced' : 'featured';
-    } else {
-      selectEl.value = categoryId;
-    }
-  }
-
-  renderProjects();
-}
-
-function onCategoryDropdownChange(val) {
-  if (val === 'featured') {
-    isArchiveExpanded = false;
-    setFilterCategory('all');
-  } else if (val === 'all-sequenced') {
-    isArchiveExpanded = true;
-    setFilterCategory('all');
+  if (categoryId === 'all') {
+    openFullArchiveView('all-sequenced');
   } else {
-    setFilterCategory(val);
-  }
-}
-
-function toggleFullArchiveView() {
-  isArchiveExpanded = !isArchiveExpanded;
-  if (isArchiveExpanded) {
-    activeCategory = 'all';
-    const selectEl = document.getElementById('catalog-category-select');
-    if (selectEl) selectEl.value = 'all-sequenced';
-    const buttons = document.querySelectorAll('.segment-btn');
-    buttons.forEach(btn => {
-      if (btn.getAttribute('data-cat-id') === 'all') btn.classList.add('active');
-      else btn.classList.remove('active');
-    });
-  } else {
-    const selectEl = document.getElementById('catalog-category-select');
-    if (selectEl) selectEl.value = 'featured';
-  }
-  renderProjects();
-
-  // Smooth scroll to work section if collapsing
-  if (!isArchiveExpanded) {
-    const workEl = document.getElementById('work');
-    if (workEl) workEl.scrollIntoView({ behavior: 'smooth' });
+    openFullArchiveView(categoryId);
   }
 }
 
@@ -223,54 +266,57 @@ function renderProjectCardHtml(proj, idx, isWideDefault = false) {
   `;
 }
 
-function renderProjects() {
+function renderArchiveLibrary() {
   const grid = document.getElementById('projects-grid');
-  const countEl = document.getElementById('active-project-count');
-  const countLbl = document.getElementById('active-project-label');
+  const selectEl = document.getElementById('catalog-category-select');
   const toggleBtn = document.getElementById('btn-archive-toggle');
   const toggleText = document.getElementById('archive-toggle-text');
-  const toggleBar = document.getElementById('archive-toggle-bar');
+  const topCloseBar = document.getElementById('archive-close-top-bar');
+  const bottomCloseBar = document.getElementById('archive-close-bottom-bar');
+  const bannerTitle = document.getElementById('archive-banner-title');
+
   if (!grid || !PORTFOLIO_DATA.projects) return;
 
-  // Case 1: Active category is a specific filtered category
-  if (activeCategory !== 'all') {
-    const filtered = PORTFOLIO_DATA.projects.filter(p => p.categorySlug === activeCategory);
-    if (countEl) countEl.textContent = filtered.length;
-    if (countLbl) countLbl.textContent = 'Category Works';
-    if (toggleBar) toggleBar.style.display = 'none';
+  // Filter out the 1 pinned project and the 3 core showcase projects (leaving 28 projects)
+  const excludedIds = [PINNED_PROJECT_ID, ...CORE_SHOWCASE_IDS];
+  const archiveProjects = PORTFOLIO_DATA.projects.filter(p => !excludedIds.includes(p.id));
 
+  if (!isArchiveOpen) {
+    grid.style.display = 'none';
+    if (topCloseBar) topCloseBar.style.display = 'none';
+    if (bottomCloseBar) bottomCloseBar.style.display = 'none';
+    if (selectEl) selectEl.value = 'closed';
+    if (toggleBtn) toggleBtn.classList.remove('is-expanded');
+    if (toggleText) toggleText.textContent = `Explore Full Library (${archiveProjects.length}+ Videos)`;
+    return;
+  }
+
+  // When Archive IS OPEN:
+  grid.style.display = 'grid';
+  if (topCloseBar) topCloseBar.style.display = 'flex';
+  if (bottomCloseBar) bottomCloseBar.style.display = 'flex';
+  if (toggleBtn) toggleBtn.classList.add('is-expanded');
+  if (toggleText) toggleText.textContent = '✕ Close Video Library ▴';
+
+  // Synchronize category select value
+  if (selectEl) {
+    selectEl.value = archiveCategory;
+  }
+
+  // Case A: Specific filtered category selected
+  if (archiveCategory !== 'all-sequenced' && archiveCategory !== 'all') {
+    const filtered = archiveProjects.filter(p => p.categorySlug === archiveCategory);
+    if (bannerTitle) bannerTitle.textContent = `Category Archive: ${filtered.length} Projects`;
+    
     grid.innerHTML = filtered.map((p, idx) => renderProjectCardHtml(p, idx)).join('');
     initCardTiltAndSheen();
     initScrollReveals();
     return;
   }
 
-  // Case 2: Category is 'all' and user has NOT expanded full archive (Curated 8 Flagship Works)
-  if (!isArchiveExpanded) {
-    const featuredProjects = FEATURED_PROJECT_IDS
-      .map(id => PORTFOLIO_DATA.projects.find(p => p.id === id))
-      .filter(Boolean);
+  // Case B: All Sequenced by Category
+  if (bannerTitle) bannerTitle.textContent = `Complete Archive Library (${archiveProjects.length} Projects Sequenced)`;
 
-    if (countEl) countEl.textContent = featuredProjects.length;
-    if (countLbl) countLbl.textContent = 'Featured Works';
-    if (toggleBar) toggleBar.style.display = 'flex';
-    if (toggleText) toggleText.textContent = 'Explore Complete Catalog (32 Projects Sequenced by Category)';
-    if (toggleBtn) toggleBtn.classList.remove('is-expanded');
-
-    grid.innerHTML = featuredProjects.map((p, idx) => renderProjectCardHtml(p, idx)).join('');
-    initCardTiltAndSheen();
-    initScrollReveals();
-    return;
-  }
-
-  // Case 3: Category is 'all' and user HAS expanded full archive (Sequenced Category Breakdown)
-  if (countEl) countEl.textContent = PORTFOLIO_DATA.projects.length;
-  if (countLbl) countLbl.textContent = 'All Works (Sequenced)';
-  if (toggleBar) toggleBar.style.display = 'flex';
-  if (toggleText) toggleText.textContent = 'Collapse to Curated Highlights';
-  if (toggleBtn) toggleBtn.classList.add('is-expanded');
-
-  // Group projects by clean editorial sequence
   const categoryGroups = [
     { title: '🎬 16:9 Commercial Master Films', slug: 'commercials', desc: 'High-production widescreen brand films and cinematic broadcast spec ads.' },
     { title: '📱 9:16 AI UGC Ads & Scaling Hooks', slug: 'ai-ugc', desc: 'High-converting vertical creator ads optimized for TikTok, Instagram Reels, and YouTube Shorts.' },
@@ -280,7 +326,7 @@ function renderProjects() {
 
   let fullHtml = '';
   categoryGroups.forEach(group => {
-    const groupProjects = PORTFOLIO_DATA.projects.filter(p => p.categorySlug === group.slug);
+    const groupProjects = archiveProjects.filter(p => p.categorySlug === group.slug);
     if (groupProjects.length > 0) {
       fullHtml += `
         <div class="category-sequenced-divider">
@@ -298,6 +344,53 @@ function renderProjects() {
   grid.innerHTML = fullHtml;
   initCardTiltAndSheen();
   initScrollReveals();
+}
+
+function toggleFullArchiveView() {
+  if (isArchiveOpen) {
+    closeFullArchiveView();
+  } else {
+    openFullArchiveView('all-sequenced');
+  }
+}
+
+function openFullArchiveView(catSlug = 'all-sequenced') {
+  isArchiveOpen = true;
+  archiveCategory = catSlug;
+  renderArchiveLibrary();
+
+  // Smooth scroll down to catalog control bar
+  const catalogEl = document.getElementById('archive-catalog-block');
+  if (catalogEl) {
+    catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function closeFullArchiveView() {
+  isArchiveOpen = false;
+  archiveCategory = 'all-sequenced';
+  renderArchiveLibrary();
+
+  // Smooth scroll back to catalog block so user isn't lost
+  const catalogEl = document.getElementById('archive-catalog-block');
+  if (catalogEl) {
+    catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function onCategoryDropdownChange(val) {
+  if (val === 'close' || val === 'closed') {
+    closeFullArchiveView();
+  } else {
+    openFullArchiveView(val);
+  }
+}
+
+// Backward-compatible alias for any callers
+function renderProjects() {
+  renderPinnedMainVideo();
+  renderCoreShowcase();
+  renderArchiveLibrary();
 }
 
 // ══════════════════════════════════════════
@@ -874,12 +967,15 @@ function updateSearchResults(query) {
 
 function filterProjectGridBySearch(query) {
   if (!query) {
-    renderProjects();
+    renderArchiveLibrary();
     return;
   }
 
   const grid = document.getElementById('projects-grid');
   const countEl = document.getElementById('active-project-count');
+  const topCloseBar = document.getElementById('archive-close-top-bar');
+  const bottomCloseBar = document.getElementById('archive-close-bottom-bar');
+  const bannerTitle = document.getElementById('archive-banner-title');
   if (!grid || !PORTFOLIO_DATA.projects) return;
 
   const q = query.toLowerCase();
@@ -896,77 +992,27 @@ function filterProjectGridBySearch(query) {
     countEl.textContent = filtered.length;
   }
 
+  // Open archive grid to display search results
+  isArchiveOpen = true;
+  grid.style.display = 'grid';
+  if (topCloseBar) topCloseBar.style.display = 'flex';
+  if (bottomCloseBar) bottomCloseBar.style.display = 'flex';
+  if (bannerTitle) bannerTitle.textContent = `Search Results: ${filtered.length} Projects found for "${query}"`;
+
   if (filtered.length === 0) {
     grid.innerHTML = `
-      <div style="grid-column: span 2; text-align: center; padding: 60px 20px;">
-        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">No projects found for "${query}"</h3>
-        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">Try searching for "3D", "AI UGC", "Commercials", or "Runway"</p>
-        <button class="btn-tactile btn-secondary" onclick="applySearchTag('')">Clear Search</button>
+      <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px;">
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">No projects found for "${query}"</h3>
+        <p style="color: var(--text-secondary); font-size: 13.5px; margin-bottom: 20px;">Try searching for "3D", "AI UGC", "Perfume", "Commercials", or "Motion"</p>
+        <button class="btn-tactile btn-secondary btn-liquid-glass" onclick="applySearchTag('')">Clear Search &amp; Close</button>
       </div>
     `;
     return;
   }
 
-  const bgClasses = ['bg-gradient-01', 'bg-gradient-02', 'bg-gradient-03', 'bg-gradient-04', 'bg-gradient-05', 'bg-gradient-06'];
-
-  grid.innerHTML = filtered.map((proj, idx) => {
-    const isFeaturedWide = filtered.length === 1;
-    const isVertical = proj.aspectRatio === '9/16';
-    const mediaAspectClass = isVertical ? 'aspect-9-16' : '';
-    const tagsHtml = (proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
-
-    let badgeCatClass = '';
-    if (proj.categorySlug === '3d-motion') badgeCatClass = 'badge-cat-3d';
-    else if (proj.categorySlug === 'ai-ugc') badgeCatClass = 'badge-cat-ai-ugc';
-    else if (proj.categorySlug === 'ai-motion') badgeCatClass = 'badge-cat-ai-motion';
-    else if (proj.categorySlug === 'commercials') badgeCatClass = 'badge-cat-commercials';
-
-    const aspectBadgeHtml = isVertical 
-      ? `<span class="badge-aspect-pill is-shorts">9:16 SHORTS</span>`
-      : `<span class="badge-aspect-pill is-commercial">16:9 REEL</span>`;
-
-    const thumbUrl = proj.thumbnailImage || `https://img.youtube.com/vi/${proj.youtubeId}/maxresdefault.jpg`;
-    const fallbackThumb = `https://img.youtube.com/vi/${proj.youtubeId}/hqdefault.jpg`;
-
-    return `
-      <article class="project-card reveal-item is-revealed ${isFeaturedWide ? 'featured-wide' : ''} ${isVertical ? 'card-vertical' : ''}" data-project-id="${proj.id}">
-        <div class="project-media-wrap ${mediaAspectClass}" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
-          <img src="${thumbUrl}" alt="${proj.title}" class="project-poster-img" loading="lazy" onerror="if(this.src!=='${fallbackThumb}'){this.src='${fallbackThumb}';}">
-          <div class="media-top-badges">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
-              ${aspectBadgeHtml}
-            </div>
-            <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
-          </div>
-          <button class="card-play-trigger" aria-label="Play ${proj.title} video">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
-          </button>
-        </div>
-        <div class="project-info-block">
-          <div>
-            <div class="project-header-row">
-              <div>
-                <span class="project-client-name">${proj.client || 'Commercial Project'}</span>
-                <h3 class="project-title">${proj.title}</h3>
-              </div>
-              <span class="project-year">${proj.year}</span>
-            </div>
-            <p class="project-summary">${proj.description}</p>
-          </div>
-          <div class="project-footer-row">
-            <div class="project-tags-wrap">${tagsHtml}</div>
-            <button class="btn-open-study" onclick="openVideoModal('${proj.id}')">
-              <span>Watch Case Reel</span>
-              <span>→</span>
-            </button>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join('');
-
+  grid.innerHTML = filtered.map((proj, idx) => renderProjectCardHtml(proj, idx)).join('');
   initCardTiltAndSheen();
+  initScrollReveals();
 }
 
 // ══════════════════════════════════════════

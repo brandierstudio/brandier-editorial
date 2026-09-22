@@ -486,33 +486,19 @@
           </div>
         </div>
 
-        <!-- Interactive Category Filter & Dropdown Selector -->
+        <!-- Hero Quick Navigation Bar to Pinned Anthem & Showcases -->
         <div class="hero-controls-bar hero-anim-item" style="--anim-order: 4;">
-          <div class="category-segment-filter" id="category-filter-bar">
-            <!-- Dynamically populated from data.js -->
+          <div class="hero-work-nav-strip">
+            <a href="#work" class="hero-jump-pill btn-liquid-glass">
+              <span class="jump-dot-beacon"></span>
+              <span class="jump-pill-text">🎬 Pinned Main Anthem &amp; 3 Core Showcases</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            </a>
           </div>
 
-          <div class="controls-right-cluster">
-            <!-- Liquid Glass Category Dropdown Selector -->
-            <div class="category-dropdown-wrap" id="category-dropdown-wrap">
-              <span class="dropdown-icon-glyph">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M7 12h10M10 18h4"/></svg>
-              </span>
-              <select id="catalog-category-select" class="catalog-category-select" onchange="onCategoryDropdownChange(this.value)" aria-label="Browse by Category Dropdown">
-                <option value="featured">⭐ Featured Highlights (8 Works)</option>
-                <option value="commercials">🎬 16:9 Commercial Films (8 Works)</option>
-                <option value="ai-ugc">📱 9:16 AI UGC Ads & Hooks (8 Works)</option>
-                <option value="3d-motion">✨ 3D Product Animation (8 Works)</option>
-                <option value="ai-motion">⚡ AI Motion Graphics (8 Works)</option>
-                <option value="all-sequenced">📚 Complete Library (All 32 Sequenced)</option>
-              </select>
-              <svg class="dropdown-arrow-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </div>
-
-            <div class="filter-count-indicator">
-              <span class="count-number" id="active-project-count">8</span>
-              <span class="count-label" id="active-project-label">Featured Works</span>
-            </div>
+          <div class="filter-count-indicator">
+            <span class="count-number">32</span>
+            <span class="count-label">Commercial Catalog Works</span>
           </div>
         </div>
 
@@ -668,23 +654,115 @@
     <!-- ══════════════════════════════════════════
          03 — PORTFOLIO / WORK GRID (Core Experience)
     ══════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════════
+         03 — PORTFOLIO / WORK GRID (Core Experience)
+    ══════════════════════════════════════════ -->
     <section class="work-section" id="work">
       <div class="site-container">
         
-        <!-- Dynamic Projects Grid -->
-        <div class="projects-masonry-grid" id="projects-grid">
-          <!-- Populated dynamically from data.js -->
+        <!-- Section Header -->
+        <div class="section-heading-row reveal-item">
+          <div>
+            <span class="section-label">PINNED &amp; CORE SHOWCASE</span>
+            <h2 class="section-title">Commercial Direction &amp; Motion</h2>
+          </div>
+          <p class="section-subtext">
+            Commercial-grade AI pipelines, cinematic 3D product animation, and high-converting performance creator ads.
+          </p>
         </div>
 
-        <!-- Curated vs Complete Sequenced Archive Toggle -->
-        <div class="archive-toggle-bar" id="archive-toggle-bar">
-          <button type="button" class="btn-archive-toggle btn-liquid-glass" id="btn-archive-toggle" onclick="toggleFullArchiveView()">
-            <span class="archive-toggle-icon">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-            </span>
-            <span class="archive-toggle-text" id="archive-toggle-text">Explore Complete Catalog (32 Projects Sequenced by Category)</span>
-            <svg class="archive-toggle-chevron" id="archive-toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+        <!-- ══════════════════════════════════════════
+             PART 1: PINNED MAIN SPOTLIGHT ANTHEM (Outside & Above Dropdown)
+        ══════════════════════════════════════════ -->
+        <div class="pinned-spotlight-wrapper reveal-item" id="pinned-spotlight-box">
+          <!-- Rendered dynamically from data.js (DVjIMppmh2A) -->
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 2: CORE SHOWCASE TRIO (Always Visible in Front)
+             • 1x 3D Product Animation (Perfume)
+             • 1x AI UGC Creator Ads
+             • 1x AI Motion Graphics (SaaS Kinetic)
+        ══════════════════════════════════════════ -->
+        <div class="core-showcase-block reveal-item" id="core-showcase-block">
+          <div class="core-showcase-head">
+            <div>
+              <span class="core-eyebrow">CORE DISCIPLINE SHOWCASE</span>
+              <h3 class="core-title">3 Signature Pillars (Always Front &amp; Center)</h3>
+            </div>
+            <span class="core-badge-trio">3 Selected Formats</span>
+          </div>
+
+          <div class="core-showcase-grid" id="core-showcase-grid">
+            <!-- 3 Core Cards: 3D Perfume, AI UGC, Motion Graphics -->
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 3: CATEGORY DROPDOWN & EXPANDABLE ARCHIVE (28+ Remaining Videos)
+        ══════════════════════════════════════════ -->
+        <div class="archive-catalog-block reveal-item" id="archive-catalog-block">
+          
+          <div class="catalog-control-bar">
+            <div class="catalog-info-col">
+              <span class="catalog-badge-pill">ARCHIVE CATALOG</span>
+              <h4 class="catalog-title">Explore Remaining Projects</h4>
+              <p class="catalog-desc">Access the full sequenced library of 28 commercial films, 3D bottles, and viral social ads.</p>
+            </div>
+
+            <div class="catalog-actions-col">
+              <!-- Category Dropdown -->
+              <div class="category-dropdown-wrap" id="category-dropdown-wrap">
+                <span class="dropdown-icon-glyph">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M7 12h10M10 18h4"/></svg>
+                </span>
+                <select id="catalog-category-select" class="catalog-category-select" onchange="onCategoryDropdownChange(this.value)" aria-label="Browse by Category Dropdown">
+                  <option value="closed">📂 Browse Complete Library (28+ Videos) ▾</option>
+                  <option value="commercials">🎬 16:9 Commercial Films</option>
+                  <option value="ai-ugc">📱 9:16 AI UGC Ads & Hooks</option>
+                  <option value="3d-motion">✨ 3D Product & Luxury Motion</option>
+                  <option value="ai-motion">⚡ AI Motion Graphics & Directing Reels</option>
+                  <option value="all-sequenced">📚 All Categories (Full Sequence)</option>
+                  <option value="close">✕ Close / Collapse Video Library ▴</option>
+                </select>
+                <svg class="dropdown-arrow-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+
+              <!-- Main Toggle Button -->
+              <button type="button" class="btn-archive-toggle btn-liquid-glass" id="btn-archive-toggle" onclick="toggleFullArchiveView()">
+                <span class="archive-toggle-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                </span>
+                <span class="archive-toggle-text" id="archive-toggle-text">Explore Full Library (28+ Videos)</span>
+                <svg class="archive-toggle-chevron" id="archive-toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Top Close Bar (Visible when archive is open) -->
+          <div class="archive-close-banner" id="archive-close-top-bar" style="display: none;">
+            <div class="close-banner-left">
+              <span class="close-banner-dot"></span>
+              <span class="close-banner-title" id="archive-banner-title">Archive Library Open (28 Projects)</span>
+            </div>
+            <button type="button" class="btn-close-archive-action btn-liquid-glass" onclick="closeFullArchiveView()">
+              <span>✕ Close Video Library</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            </button>
+          </div>
+
+          <!-- Collapsible Grid (Hidden by default, opened when clicked) -->
+          <div class="projects-masonry-grid archive-collapsible-grid" id="projects-grid" style="display: none;">
+            <!-- Populated dynamically from data.js -->
+          </div>
+
+          <!-- Bottom Close Bar (Visible when archive is open) -->
+          <div class="archive-close-banner-bottom" id="archive-close-bottom-bar" style="display: none;">
+            <button type="button" class="btn-close-archive-action btn-liquid-glass" onclick="closeFullArchiveView()">
+              <span>▴ Close Video Library / Back to Top</span>
+            </button>
+          </div>
+
         </div>
 
       </div>
