@@ -2092,34 +2092,53 @@ button {
 /* ══════════════════════════════════════════
    PART 1: PINNED SPOTLIGHT ANTHEM CARD
 ══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   PART 1: PINNED SPOTLIGHT ANTHEM CARD (Big Screen Cinema with 3D Tilt)
+══════════════════════════════════════════ */
 .pinned-spotlight-wrapper {
-  margin-bottom: 50px;
+  margin-bottom: 54px;
 }
 
 .pinned-spotlight-card {
   background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.25);
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 0;
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
   position: relative;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+/* Dynamic Interactive Sheen Follower inside card */
+.pinned-spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 420px at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%), rgba(255, 255, 255, 0.22), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 7;
+}
+
+.pinned-spotlight-card:hover::before {
+  opacity: 1;
 }
 
 .pinned-spotlight-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 32px 70px -18px rgba(0, 0, 0, 0.18), 0 6px 24px rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.18);
 }
 
 .spotlight-media-wrap {
   position: relative;
   aspect-ratio: 16/9;
   width: 100%;
-  height: 100%;
-  min-height: 280px;
+  min-height: 440px;
   background: #0B0E14;
   overflow: hidden;
   cursor: pointer;
@@ -2134,21 +2153,21 @@ button {
 }
 
 .spotlight-media-wrap:hover .spotlight-poster-img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 .spotlight-media-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.65) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 40%, rgba(0,0,0,0.65) 100%);
   pointer-events: none;
 }
 
 .spotlight-top-badge {
   position: absolute;
-  top: 18px;
-  left: 18px;
-  right: 18px;
+  top: 22px;
+  left: 22px;
+  right: 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2158,10 +2177,10 @@ button {
 
 .badge-pill-pinned {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: var(--radius-pill);
   background: rgba(225, 29, 72, 0.9);
   color: #FFFFFF;
@@ -2172,9 +2191,9 @@ button {
 
 .badge-pill-duration {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 600;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: var(--radius-pill);
   background: rgba(0, 0, 0, 0.75);
   color: #FFFFFF;
@@ -2190,8 +2209,8 @@ button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 68px;
-  height: 68px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
   color: #0E1015;
@@ -2199,28 +2218,43 @@ button {
   align-items: center;
   justify-content: center;
   z-index: 6;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
   border: none;
   cursor: pointer;
 }
 
-.spotlight-play-btn svg {
-  margin-left: 3px;
-  width: 24px;
-  height: 24px;
+.spotlight-play-btn::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
 }
 
-.spotlight-media-wrap:hover .spotlight-play-btn {
+.pinned-spotlight-card:hover .spotlight-play-btn::after {
+  animation: playRipple 1.6s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.spotlight-play-btn svg {
+  margin-left: 4px;
+  width: 28px;
+  height: 28px;
+}
+
+.pinned-spotlight-card:hover .spotlight-play-btn {
   transform: translate(-50%, -50%) scale(1.12);
   background: #FFFFFF;
 }
 
 .spotlight-bottom-info {
   position: absolute;
-  bottom: 16px;
-  left: 18px;
-  right: 18px;
+  bottom: 20px;
+  left: 22px;
+  right: 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2230,41 +2264,40 @@ button {
 
 .spotlight-client-tag {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: #FFFFFF;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 4px 10px;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 5px 12px;
   border-radius: var(--radius-pill);
   backdrop-filter: blur(8px);
 }
 
 .spotlight-beacon-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #10B981;
-  box-shadow: 0 0 8px #10B981;
+  box-shadow: 0 0 10px #10B981;
 }
 
 .spotlight-res-tag {
   font-family: var(--font-mono);
-  font-size: 9.5px;
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(0, 0, 0, 0.6);
-  padding: 4px 10px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.65);
+  padding: 5px 12px;
   border-radius: var(--radius-pill);
   backdrop-filter: blur(8px);
 }
 
 .spotlight-info-body {
-  padding: 36px 40px;
+  padding: 32px 36px 36px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .spotlight-meta-top {
@@ -2272,7 +2305,7 @@ button {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .spotlight-eyebrow {
@@ -4427,6 +4460,7 @@ button {
     grid-template-columns: 1fr;
     border-radius: 20px;
     box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+    transform: none !important;
   }
   .spotlight-media-wrap {
     aspect-ratio: 16/9;

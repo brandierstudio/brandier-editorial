@@ -735,7 +735,7 @@ function initScrollReveals() {
 function initCardTiltAndSheen() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
-  const cards = document.querySelectorAll('.project-card, .process-step-card');
+  const cards = document.querySelectorAll('.project-card, .process-step-card, .pinned-spotlight-card');
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -743,10 +743,12 @@ function initCardTiltAndSheen() {
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -4;
-      const rotateY = ((x - centerX) / centerX) * 4;
+      const isPinned = card.classList.contains('pinned-spotlight-card');
+      const maxTilt = isPinned ? 3.5 : 4.0;
+      const rotateX = ((y - centerY) / centerY) * -maxTilt;
+      const rotateY = ((x - centerX) / centerX) * maxTilt;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-5px)`;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px)`;
       card.style.setProperty('--card-mouse-x', `${x}px`);
       card.style.setProperty('--card-mouse-y', `${y}px`);
     });
