@@ -101,8 +101,9 @@ function renderProjects() {
   ];
 
   grid.innerHTML = filtered.map((proj, idx) => {
-    const bgClass = bgClasses[idx % bgClasses.length];
     const isFeaturedWide = proj.featured && idx === 0;
+    const isVertical = proj.aspectRatio === '9/16';
+    const mediaAspectClass = isVertical ? 'aspect-9-16' : '';
 
     // Build tags
     const tagsHtml = (proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
@@ -114,26 +115,29 @@ function renderProjects() {
     else if (proj.categorySlug === 'ai-motion') badgeCatClass = 'badge-cat-ai-motion';
     else if (proj.categorySlug === 'commercials') badgeCatClass = 'badge-cat-commercials';
 
+    // Aspect ratio badge
+    const aspectBadgeHtml = isVertical 
+      ? `<span class="badge-aspect-pill is-shorts">9:16 SHORTS</span>`
+      : `<span class="badge-aspect-pill is-commercial">16:9 REEL</span>`;
+
+    // Dynamic thumbnail with fallback
+    const thumbUrl = proj.thumbnailImage || `https://img.youtube.com/vi/${proj.youtubeId}/maxresdefault.jpg`;
+    const fallbackThumb = `https://img.youtube.com/vi/${proj.youtubeId}/hqdefault.jpg`;
+
     return `
-      <article class="project-card reveal-item ${isFeaturedWide ? 'featured-wide' : ''}" data-project-id="${proj.id}">
+      <article class="project-card reveal-item ${isFeaturedWide ? 'featured-wide' : ''} ${isVertical ? 'card-vertical' : ''}" data-project-id="${proj.id}">
         
         <!-- Media Visual Viewport with Tactile Play Trigger -->
-        <div class="project-media-wrap" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
+        <div class="project-media-wrap ${mediaAspectClass}" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
           
-          ${proj.thumbnailImage ? `
-            <img src="${proj.thumbnailImage}" alt="${proj.title}" class="project-poster-img" loading="lazy">
-          ` : `
-            <div class="project-poster-canvas ${bgClass}">
-              <div class="poster-inner-art">
-                <div class="art-badge-code">SPEC REEL &bull; ${proj.year}</div>
-                <h4 class="art-spec-title">${proj.title}</h4>
-              </div>
-            </div>
-          `}
+          <img src="${thumbUrl}" alt="${proj.title}" class="project-poster-img" loading="lazy" onerror="if(this.src!=='${fallbackThumb}'){this.src='${fallbackThumb}';}">
 
           <!-- Top Telemetry Badges -->
           <div class="media-top-badges">
-            <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
+              ${aspectBadgeHtml}
+            </div>
             <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
           </div>
 
@@ -176,18 +180,51 @@ function renderProjects() {
 }
 
 // ══════════════════════════════════════════
-// 3. HIGH-PERFORMANCE YOUTUBE VIDEO MODAL
+// 3. HIGH-PERFORMANCE YOUTUBE VIDEO MODAL (Adaptive 16:9 & 9:16)
 // ══════════════════════════════════════════
+function openAboutVideoModal() {
+  openVideoModal('about-founder');
+}
+
 function openVideoModal(projectId) {
-  const project = PORTFOLIO_DATA.projects.find(p => p.id === projectId);
+  let project;
+  if (projectId === 'about-founder') {
+    project = {
+      id: 'about-founder',
+      title: 'Anas Bin Mehboob — Creative Director Reel',
+      category: 'Commercial Direction',
+      client: 'Brandier Studio Founder',
+      youtubeId: (PORTFOLIO_DATA.profile && PORTFOLIO_DATA.profile.aboutVideoId) || 'f0Asztss5_o',
+      duration: '00:30',
+      aspectRatio: '9/16',
+      tags: ['Creative Director', 'Founder Reel', 'Brandier Studio', 'Commercial Direction', 'Vertical 9:16'],
+      description: 'Official founder and creative direction short reel by Anas Bin Mehboob, spotlighting high-impact commercial campaigns, 3D product motion, and frontier generative video pipelines.',
+      caseStudy: {
+        overview: 'Personal commercial directing showcase of Anas Bin Mehboob, founder of Brandier Studio.',
+        deliverables: ['Founder Director Short Reel (9:16)', 'Studio Vision & Capabilities']
+      }
+    };
+  } else {
+    project = PORTFOLIO_DATA.projects.find(p => p.id === projectId);
+  }
   if (!project) return;
 
   const modal = document.getElementById('video-modal');
+  const dialog = modal ? modal.querySelector('.video-modal-dialog') : null;
   const viewport = document.getElementById('vmodal-viewport');
   const catEl = document.getElementById('vmodal-category');
   const titleEl = document.getElementById('vmodal-title');
   const descEl = document.getElementById('vmodal-description');
   const tagsEl = document.getElementById('vmodal-tags');
+
+  // Handle adaptive vertical 9:16 shorts vs 16:9 widescreen
+  if (dialog) {
+    if (project.aspectRatio === '9/16') {
+      dialog.classList.add('is-vertical-video');
+    } else {
+      dialog.classList.remove('is-vertical-video');
+    }
+  }
 
   catEl.textContent = `${project.category.toUpperCase()} • ${project.client.toUpperCase()}`;
   titleEl.textContent = project.title;
@@ -213,12 +250,16 @@ function openVideoModal(projectId) {
 
 function closeVideoModal() {
   const modal = document.getElementById('video-modal');
+  const dialog = modal ? modal.querySelector('.video-modal-dialog') : null;
   const viewport = document.getElementById('vmodal-viewport');
   
   // Clean up iframe to immediately kill playback audio
-  viewport.innerHTML = '';
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden', 'true');
+  if (viewport) viewport.innerHTML = '';
+  if (dialog) dialog.classList.remove('is-vertical-video');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
   document.body.style.overflow = '';
 }
 
@@ -718,8 +759,9 @@ function filterProjectGridBySearch(query) {
   const bgClasses = ['bg-gradient-01', 'bg-gradient-02', 'bg-gradient-03', 'bg-gradient-04', 'bg-gradient-05', 'bg-gradient-06'];
 
   grid.innerHTML = filtered.map((proj, idx) => {
-    const bgClass = bgClasses[idx % bgClasses.length];
     const isFeaturedWide = filtered.length === 1;
+    const isVertical = proj.aspectRatio === '9/16';
+    const mediaAspectClass = isVertical ? 'aspect-9-16' : '';
     const tagsHtml = (proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
 
     let badgeCatClass = '';
@@ -728,21 +770,22 @@ function filterProjectGridBySearch(query) {
     else if (proj.categorySlug === 'ai-motion') badgeCatClass = 'badge-cat-ai-motion';
     else if (proj.categorySlug === 'commercials') badgeCatClass = 'badge-cat-commercials';
 
+    const aspectBadgeHtml = isVertical 
+      ? `<span class="badge-aspect-pill is-shorts">9:16 SHORTS</span>`
+      : `<span class="badge-aspect-pill is-commercial">16:9 REEL</span>`;
+
+    const thumbUrl = proj.thumbnailImage || `https://img.youtube.com/vi/${proj.youtubeId}/maxresdefault.jpg`;
+    const fallbackThumb = `https://img.youtube.com/vi/${proj.youtubeId}/hqdefault.jpg`;
+
     return `
-      <article class="project-card reveal-item is-revealed ${isFeaturedWide ? 'featured-wide' : ''}" data-project-id="${proj.id}">
-        <div class="project-media-wrap" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
-          ${proj.thumbnailImage ? `
-            <img src="${proj.thumbnailImage}" alt="${proj.title}" class="project-poster-img" loading="lazy">
-          ` : `
-            <div class="project-poster-canvas ${bgClass}">
-              <div class="poster-inner-art">
-                <div class="art-badge-code">SPEC REEL &bull; ${proj.year}</div>
-                <h4 class="art-spec-title">${proj.title}</h4>
-              </div>
-            </div>
-          `}
+      <article class="project-card reveal-item is-revealed ${isFeaturedWide ? 'featured-wide' : ''} ${isVertical ? 'card-vertical' : ''}" data-project-id="${proj.id}">
+        <div class="project-media-wrap ${mediaAspectClass}" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
+          <img src="${thumbUrl}" alt="${proj.title}" class="project-poster-img" loading="lazy" onerror="if(this.src!=='${fallbackThumb}'){this.src='${fallbackThumb}';}">
           <div class="media-top-badges">
-            <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
+              ${aspectBadgeHtml}
+            </div>
             <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
           </div>
           <button class="card-play-trigger" aria-label="Play ${proj.title} video">
