@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anas Bin Mehboob — Creative Direction & 3D Motion</title>
-  <meta name="description" content="Personal creative portfolio of Anas Bin Mehboob. Specialized in AI UGC Ads, AI Motion Graphics, 3D Product Animation, and Commercial Visuals." />
+  <title>Anas Bin Mehboob — Creative Direction & 3D Motion | anas.brandierstudio.online</title>
+  <meta name="description" content="Official portfolio of Anas Bin Mehboob (anas.brandierstudio.online). Specialized in AI UGC Ads, AI Motion Graphics, 3D Product Animation, and Commercial Visuals." />
+  <link rel="canonical" href="https://anas.brandierstudio.online/" />
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://anas.brandierstudio.online/" />
+  <meta property="og:title" content="Anas Bin Mehboob — Creative Direction & 3D Motion" />
+  <meta property="og:description" content="AI UGC Ads • AI Motion Graphics • 3D Product Animation • Commercial Visuals" />
 
   <!-- Premium Typography: Syne (Luxury Editorial Display), Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -81,7 +88,7 @@
         </ul>
       </nav>
 
-      <!-- Right Action CTA (Sober, Tactile Matte) -->
+      <!-- Right Action CTA (Sober, Tactile Matte & Liquid Glass Ecosystem) -->
       <div class="dock-actions">
         <!-- Compact Search Icon for Mobile -->
         <button type="button" class="mobile-search-btn" id="mobile-search-btn" aria-label="Search portfolio" onclick="openMobileSearch()">
@@ -90,6 +97,23 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </button>
+
+        <!-- Brandier TV Liquid Glass Action -->
+        <a href="https://tv.brandierstudio.online" target="_blank" rel="noopener noreferrer" class="btn-liquid-glass btn-brandier-tv" title="Watch Complete Showcase on Brandier TV">
+          <span class="tv-live-beacon"></span>
+          <svg class="tv-icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="15" rx="3"></rect>
+            <polyline points="17 2 12 7 7 2"></polyline>
+          </svg>
+          <span class="btn-tv-label">Brandier TV</span>
+          <span class="btn-ext-icon">↗</span>
+        </a>
+
+        <!-- Main Studio Agency Link -->
+        <a href="https://brandierstudio.online" target="_blank" rel="noopener noreferrer" class="btn-liquid-glass btn-main-studio" title="Visit Main Studio Agency">
+          <span class="btn-studio-label">Main Studio</span>
+          <span class="btn-ext-icon">↗</span>
+        </a>
 
         <a href="#contact" class="btn-tactile btn-dock-cta btn-sleek">
           <span>Let's Talk</span>
@@ -141,6 +165,24 @@
           <button type="button" class="search-chip" onclick="applyMobileSearchTag('AI Motion')">AI Motion</button>
           <button type="button" class="search-chip" onclick="applyMobileSearchTag('Runway')">Runway</button>
         </div>
+      </div>
+
+      <!-- Mobile Ecosystem Quick Buttons -->
+      <div class="mobile-ecosystem-bar">
+        <a href="https://tv.brandierstudio.online" target="_blank" rel="noopener noreferrer" class="mobile-eco-card btn-liquid-glass">
+          <div class="eco-card-left">
+            <span class="tv-live-beacon"></span>
+            <span class="eco-title">Brandier TV</span>
+          </div>
+          <span class="eco-sub">Watch All Work ↗</span>
+        </a>
+        <a href="https://brandierstudio.online" target="_blank" rel="noopener noreferrer" class="mobile-eco-card btn-liquid-glass">
+          <div class="eco-card-left">
+            <span class="eco-dot-blue"></span>
+            <span class="eco-title">Main Studio</span>
+          </div>
+          <span class="eco-sub">brandierstudio.online ↗</span>
+        </a>
       </div>
 
       <nav class="mobile-menu-nav">
@@ -633,10 +675,18 @@
             <!-- Left Portrait & Profile Details (Sized Elegantly with Liquid Glass) -->
             <div class="about-visual-col">
               <div class="about-portrait-card" id="about-portrait-card">
-                <div class="portrait-glass-viewport">
+                <div class="portrait-glass-viewport" onclick="openAboutVideoModal()" style="cursor: pointer;" title="Click to Watch Founder Reel (9:16)">
                   <img src="assets/anas-portrait.png" alt="Anas Bin Mehboob — Creative Director" class="about-portrait-img" loading="lazy">
                   <div class="portrait-glass-shine"></div>
                   
+                  <!-- Interactive Liquid Glass Play Button for Founder Video -->
+                  <div class="portrait-play-overlay">
+                    <button class="portrait-play-trigger" aria-label="Play Founder Video">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+                    </button>
+                    <span class="portrait-play-label">WATCH REEL &bull; 9:16</span>
+                  </div>
+
                   <!-- Verified Creative Director Floating Glass Pill -->
                   <div class="portrait-floating-badge">
                     <span class="verified-dot"></span>
@@ -786,6 +836,19 @@
         </div>
         <span class="footer-copy">&copy; <span id="footer-year">2026</span> Anas Bin Mehboob. All rights reserved.</span>
         <span class="footer-tagline">3D Product Animation &bull; AI UGC Ads &bull; Motion Graphics</span>
+      </div>
+
+      <div class="footer-center">
+        <a href="https://tv.brandierstudio.online" target="_blank" rel="noopener noreferrer" class="footer-eco-link">
+          <span class="tv-live-beacon"></span>
+          <span>Brandier TV</span>
+          <span class="footer-arrow">↗</span>
+        </a>
+        <span class="footer-sep">&bull;</span>
+        <a href="https://brandierstudio.online" target="_blank" rel="noopener noreferrer" class="footer-eco-link">
+          <span>brandierstudio.online</span>
+          <span class="footer-arrow">↗</span>
+        </a>
       </div>
 
       <div class="footer-right">
