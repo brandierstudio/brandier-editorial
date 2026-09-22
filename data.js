@@ -7,9 +7,9 @@
 const PORTFOLIO_DATA = {
   profile: {
     name: "Anas Bin Mehboob",
-    title: "Creative Director & 3D Visual Artist",
-    tagline: "AI UGC Ads • AI Motion Graphics • 3D Product Animation • Commercial Visuals",
-    bio: "Pioneering the intersection of frontier generative AI pipelines and high-end 3D product animation. Crafting high-converting, scroll-stopping commercials and visual worlds for ambitious brands worldwide.",
+    title: "AI Advertising Pioneer & Creative Director",
+    tagline: "AI UGC Ads • AI Commercials • 3D Product Motion • Creative Direction",
+    bio: "Co-founder & Chief Growth Officer at Brandier Studio. Pioneering the convergence of Generative AI commercial pipelines, high-converting AI UGC ads, and 3D product motion to scale ambitious E-commerce & SaaS brands globally.",
     availability: "Available for select commissions & commercial direction",
     location: "Global / Remote",
     email: "brandierstudio@gmail.com",
@@ -19,11 +19,11 @@ const PORTFOLIO_DATA = {
     aboutVideoId: "f0Asztss5_o",
     whatsapp: "+1234567890",
     socials: {
-      instagram: "https://instagram.com",
-      linkedin: "https://linkedin.com",
-      youtube: "https://youtube.com/@AnasBinMehboob",
-      github: "https://github.com/brandierstudio",
-      x: "https://x.com"
+      instagram: "https://www.instagram.com/anas.mehboob.ai/",
+      linkedin: "https://www.linkedin.com/in/anasmehboob/",
+      facebook: "https://www.facebook.com/anas.bin.mehboob",
+      x: "https://x.com/AnasbinMehboob",
+      youtube: "https://www.youtube.com/@AnasBinMehboob"
     }
   },
 

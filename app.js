@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initClaudeMotionTilt();
 });
 
+/// State variables for Archive Expansion and Category View
+let isArchiveExpanded = false;
+const FEATURED_PROJECT_IDS = ['proj-01', 'proj-02', 'proj-03', 'proj-09', 'proj-11', 'proj-10', 'proj-07', 'proj-04'];
+
 // ══════════════════════════════════════════
 // 1. CATEGORY FILTER SEGMENT SWITCHER
 // ══════════════════════════════════════════
@@ -54,6 +58,9 @@ function renderCategoryFilters() {
 
 function setFilterCategory(categoryId) {
   activeCategory = categoryId;
+  if (categoryId !== 'all') {
+    isArchiveExpanded = false;
+  }
   
   // Clear any active search query when explicitly picking category
   const searchInput = document.getElementById('top-search-input');
@@ -71,110 +78,224 @@ function setFilterCategory(categoryId) {
     }
   });
 
+  // Synchronize dropdown
+  const selectEl = document.getElementById('catalog-category-select');
+  if (selectEl) {
+    if (categoryId === 'all') {
+      selectEl.value = isArchiveExpanded ? 'all-sequenced' : 'featured';
+    } else {
+      selectEl.value = categoryId;
+    }
+  }
+
   renderProjects();
+}
+
+function onCategoryDropdownChange(val) {
+  if (val === 'featured') {
+    isArchiveExpanded = false;
+    setFilterCategory('all');
+  } else if (val === 'all-sequenced') {
+    isArchiveExpanded = true;
+    setFilterCategory('all');
+  } else {
+    setFilterCategory(val);
+  }
+}
+
+function toggleFullArchiveView() {
+  isArchiveExpanded = !isArchiveExpanded;
+  if (isArchiveExpanded) {
+    activeCategory = 'all';
+    const selectEl = document.getElementById('catalog-category-select');
+    if (selectEl) selectEl.value = 'all-sequenced';
+    const buttons = document.querySelectorAll('.segment-btn');
+    buttons.forEach(btn => {
+      if (btn.getAttribute('data-cat-id') === 'all') btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+  } else {
+    const selectEl = document.getElementById('catalog-category-select');
+    if (selectEl) selectEl.value = 'featured';
+  }
+  renderProjects();
+
+  // Smooth scroll to work section if collapsing
+  if (!isArchiveExpanded) {
+    const workEl = document.getElementById('work');
+    if (workEl) workEl.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 // ══════════════════════════════════════════
 // 2. PROJECT CARDS & YOUTUBE POSTERS
 // ══════════════════════════════════════════
+function renderProjectCardHtml(proj, idx, isWideDefault = false) {
+  const isFeaturedWide = isWideDefault || (proj.featured && idx === 0);
+  const isVertical = proj.aspectRatio === '9/16';
+  const mediaAspectClass = isVertical ? 'aspect-9-16' : '';
+
+  // Build tags
+  const tagsHtml = (proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
+
+  // Category-specific badge class
+  let badgeCatClass = '';
+  if (proj.categorySlug === '3d-motion') badgeCatClass = 'badge-cat-3d';
+  else if (proj.categorySlug === 'ai-ugc') badgeCatClass = 'badge-cat-ai-ugc';
+  else if (proj.categorySlug === 'ai-motion') badgeCatClass = 'badge-cat-ai-motion';
+  else if (proj.categorySlug === 'commercials') badgeCatClass = 'badge-cat-commercials';
+
+  // Aspect ratio badge
+  const aspectBadgeHtml = isVertical 
+    ? `<span class="badge-aspect-pill is-shorts">9:16 SHORTS</span>`
+    : `<span class="badge-aspect-pill is-commercial">16:9 REEL</span>`;
+
+  // Dynamic thumbnail with fallback
+  const thumbUrl = proj.thumbnailImage || `https://img.youtube.com/vi/${proj.youtubeId}/maxresdefault.jpg`;
+  const fallbackThumb = `https://img.youtube.com/vi/${proj.youtubeId}/hqdefault.jpg`;
+
+  return `
+    <article class="project-card reveal-item ${isFeaturedWide ? 'featured-wide' : ''} ${isVertical ? 'card-vertical' : ''}" data-project-id="${proj.id}">
+      
+      <!-- Media Visual Viewport with Tactile Play Trigger -->
+      <div class="project-media-wrap ${mediaAspectClass}" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
+        
+        <img src="${thumbUrl}" alt="${proj.title}" class="project-poster-img" loading="lazy" onerror="if(this.src!=='${fallbackThumb}'){this.src='${fallbackThumb}';}">
+
+        <!-- Top Telemetry Badges -->
+        <div class="media-top-badges">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
+            ${aspectBadgeHtml}
+          </div>
+          <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
+        </div>
+
+        <!-- Center Play Button Trigger -->
+        <button class="card-play-trigger" aria-label="Play ${proj.title} video">
+          <svg class="play-svg-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="6 4 20 12 6 20 6 4"></polygon>
+          </svg>
+        </button>
+
+        <!-- Bottom Client Watermark -->
+        <div class="media-bottom-info">
+          <span class="media-client-name">${proj.client}</span>
+          <span class="media-aspect-tag">${proj.aspectRatio || '16:9'}</span>
+        </div>
+
+      </div>
+
+      <!-- Card Meta & Deliverables Body -->
+      <div class="project-info-body">
+        
+        <div class="project-headline-row">
+          <h3 class="project-title" onclick="openVideoModal('${proj.id}')">
+            ${proj.title}
+          </h3>
+          <span class="project-year-badge">${proj.year || '2026'}</span>
+        </div>
+
+        <p class="project-description">
+          ${proj.description}
+        </p>
+
+        <!-- Tags Strip -->
+        <div class="project-tags-strip">
+          ${tagsHtml}
+        </div>
+
+        <!-- Card Foot Actions -->
+        <div class="project-card-foot">
+          <div class="foot-client-block">
+            <span class="client-lbl">SCOPE:</span>
+            <span class="client-val">${proj.category}</span>
+          </div>
+
+          <button class="btn-card-action" onclick="openVideoModal('${proj.id}')">
+            <span>Watch Video</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+          </button>
+        </div>
+      </div>
+
+    </article>
+  `;
+}
+
 function renderProjects() {
   const grid = document.getElementById('projects-grid');
   const countEl = document.getElementById('active-project-count');
+  const countLbl = document.getElementById('active-project-label');
+  const toggleBtn = document.getElementById('btn-archive-toggle');
+  const toggleText = document.getElementById('archive-toggle-text');
+  const toggleBar = document.getElementById('archive-toggle-bar');
   if (!grid || !PORTFOLIO_DATA.projects) return;
 
-  const filtered = PORTFOLIO_DATA.projects.filter(p => {
-    if (activeCategory === 'all') return true;
-    return p.categorySlug === activeCategory;
-  });
+  // Case 1: Active category is a specific filtered category
+  if (activeCategory !== 'all') {
+    const filtered = PORTFOLIO_DATA.projects.filter(p => p.categorySlug === activeCategory);
+    if (countEl) countEl.textContent = filtered.length;
+    if (countLbl) countLbl.textContent = 'Category Works';
+    if (toggleBar) toggleBar.style.display = 'none';
 
-  if (countEl) {
-    countEl.textContent = filtered.length;
+    grid.innerHTML = filtered.map((p, idx) => renderProjectCardHtml(p, idx)).join('');
+    initCardTiltAndSheen();
+    initScrollReveals();
+    return;
   }
 
-  const bgClasses = [
-    'bg-gradient-01',
-    'bg-gradient-02',
-    'bg-gradient-03',
-    'bg-gradient-04',
-    'bg-gradient-05',
-    'bg-gradient-06'
+  // Case 2: Category is 'all' and user has NOT expanded full archive (Curated 8 Flagship Works)
+  if (!isArchiveExpanded) {
+    const featuredProjects = FEATURED_PROJECT_IDS
+      .map(id => PORTFOLIO_DATA.projects.find(p => p.id === id))
+      .filter(Boolean);
+
+    if (countEl) countEl.textContent = featuredProjects.length;
+    if (countLbl) countLbl.textContent = 'Featured Works';
+    if (toggleBar) toggleBar.style.display = 'flex';
+    if (toggleText) toggleText.textContent = 'Explore Complete Catalog (32 Projects Sequenced by Category)';
+    if (toggleBtn) toggleBtn.classList.remove('is-expanded');
+
+    grid.innerHTML = featuredProjects.map((p, idx) => renderProjectCardHtml(p, idx)).join('');
+    initCardTiltAndSheen();
+    initScrollReveals();
+    return;
+  }
+
+  // Case 3: Category is 'all' and user HAS expanded full archive (Sequenced Category Breakdown)
+  if (countEl) countEl.textContent = PORTFOLIO_DATA.projects.length;
+  if (countLbl) countLbl.textContent = 'All Works (Sequenced)';
+  if (toggleBar) toggleBar.style.display = 'flex';
+  if (toggleText) toggleText.textContent = 'Collapse to Curated Highlights';
+  if (toggleBtn) toggleBtn.classList.add('is-expanded');
+
+  // Group projects by clean editorial sequence
+  const categoryGroups = [
+    { title: '🎬 16:9 Commercial Master Films', slug: 'commercials', desc: 'High-production widescreen brand films and cinematic broadcast spec ads.' },
+    { title: '📱 9:16 AI UGC Ads & Scaling Hooks', slug: 'ai-ugc', desc: 'High-converting vertical creator ads optimized for TikTok, Instagram Reels, and YouTube Shorts.' },
+    { title: '✨ 3D Luxury Product & Cosmetic Motion', slug: '3d-motion', desc: 'Photoreal 3D fluid simulations, luxury perfume bottles, and architectural product features.' },
+    { title: '⚡ AI Motion Graphics & Directing Reels', slug: 'ai-motion', desc: 'Kinetic visual typography, generative latent experiments, and SaaS platform showcases.' }
   ];
 
-  grid.innerHTML = filtered.map((proj, idx) => {
-    const isFeaturedWide = proj.featured && idx === 0;
-    const isVertical = proj.aspectRatio === '9/16';
-    const mediaAspectClass = isVertical ? 'aspect-9-16' : '';
-
-    // Build tags
-    const tagsHtml = (proj.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('');
-
-    // Category-specific badge class
-    let badgeCatClass = '';
-    if (proj.categorySlug === '3d-motion') badgeCatClass = 'badge-cat-3d';
-    else if (proj.categorySlug === 'ai-ugc') badgeCatClass = 'badge-cat-ai-ugc';
-    else if (proj.categorySlug === 'ai-motion') badgeCatClass = 'badge-cat-ai-motion';
-    else if (proj.categorySlug === 'commercials') badgeCatClass = 'badge-cat-commercials';
-
-    // Aspect ratio badge
-    const aspectBadgeHtml = isVertical 
-      ? `<span class="badge-aspect-pill is-shorts">9:16 SHORTS</span>`
-      : `<span class="badge-aspect-pill is-commercial">16:9 REEL</span>`;
-
-    // Dynamic thumbnail with fallback
-    const thumbUrl = proj.thumbnailImage || `https://img.youtube.com/vi/${proj.youtubeId}/maxresdefault.jpg`;
-    const fallbackThumb = `https://img.youtube.com/vi/${proj.youtubeId}/hqdefault.jpg`;
-
-    return `
-      <article class="project-card reveal-item ${isFeaturedWide ? 'featured-wide' : ''} ${isVertical ? 'card-vertical' : ''}" data-project-id="${proj.id}">
-        
-        <!-- Media Visual Viewport with Tactile Play Trigger -->
-        <div class="project-media-wrap ${mediaAspectClass}" onclick="openVideoModal('${proj.id}')" title="Click to Watch Commercial">
-          
-          <img src="${thumbUrl}" alt="${proj.title}" class="project-poster-img" loading="lazy" onerror="if(this.src!=='${fallbackThumb}'){this.src='${fallbackThumb}';}">
-
-          <!-- Top Telemetry Badges -->
-          <div class="media-top-badges">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span class="badge-pill-light ${badgeCatClass}">${proj.category}</span>
-              ${aspectBadgeHtml}
-            </div>
-            <span class="badge-pill-light badge-duration">⏱ ${proj.duration || '00:30'}<span class="soundwave-bars"><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span><span class="soundwave-bar"></span></span></span>
+  let fullHtml = '';
+  categoryGroups.forEach(group => {
+    const groupProjects = PORTFOLIO_DATA.projects.filter(p => p.categorySlug === group.slug);
+    if (groupProjects.length > 0) {
+      fullHtml += `
+        <div class="category-sequenced-divider">
+          <div class="divider-header">
+            <h4 class="divider-title">${group.title}</h4>
+            <span class="divider-count">${groupProjects.length} Videos</span>
           </div>
-
-          <!-- Center Play Button Trigger -->
-          <button class="card-play-trigger" aria-label="Play ${proj.title} video">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
-          </button>
-
+          <p class="divider-desc">${group.desc}</p>
         </div>
+      `;
+      fullHtml += groupProjects.map((p, idx) => renderProjectCardHtml(p, idx)).join('');
+    }
+  });
 
-        <!-- Project Info Block -->
-        <div class="project-info-block">
-          <div>
-            <div class="project-header-row">
-              <div>
-                <span class="project-client-name">${proj.client || 'Commercial Project'}</span>
-                <h3 class="project-title">${proj.title}</h3>
-              </div>
-              <span class="project-year">${proj.year}</span>
-            </div>
-            
-            <p class="project-summary">${proj.description}</p>
-          </div>
-
-          <div class="project-footer-row">
-            <div class="project-tags-wrap">${tagsHtml}</div>
-            <button class="btn-open-study" onclick="openVideoModal('${proj.id}')">
-              <span>Watch Case Reel</span>
-              <span>→</span>
-            </button>
-          </div>
-        </div>
-
-      </article>
-    `;
-  }).join('');
-
+  grid.innerHTML = fullHtml;
   initCardTiltAndSheen();
   initScrollReveals();
 }
@@ -352,9 +473,39 @@ function renderSocials() {
   if (!container || !PORTFOLIO_DATA.profile.socials) return;
 
   const socials = PORTFOLIO_DATA.profile.socials;
-  container.innerHTML = Object.entries(socials).map(([key, url]) => `
-    <a href="${url}" target="_blank" rel="noopener" class="social-link-item">${key} ↗</a>
-  `).join('');
+  const platformMeta = {
+    instagram: {
+      label: 'Instagram',
+      icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>'
+    },
+    linkedin: {
+      label: 'LinkedIn',
+      icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>'
+    },
+    facebook: {
+      label: 'Facebook',
+      icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>'
+    },
+    x: {
+      label: 'X (Twitter)',
+      icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>'
+    },
+    youtube: {
+      label: 'YouTube',
+      icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>'
+    }
+  };
+
+  container.innerHTML = Object.entries(socials).map(([key, url]) => {
+    const meta = platformMeta[key] || { label: key, icon: '' };
+    return `
+      <a href="${url}" target="_blank" rel="noopener noreferrer" class="social-link-item" title="${meta.label}">
+        <span class="social-icon-wrap">${meta.icon}</span>
+        <span class="social-platform-name">${meta.label}</span>
+        <span class="social-arrow">↗</span>
+      </a>
+    `;
+  }).join('');
 }
 
 // ══════════════════════════════════════════
