@@ -1056,7 +1056,9 @@ function initCursorSpotlight() {
 // 12.5. HERO BACKGROUND VIDEO AUTOPLAY
 // ══════════════════════════════════════════
 function initHeroBgVideo() {
-  const videos = document.querySelectorAll('.hero-bg-video, #hero-bg-video-desktop, #hero-bg-video-mobile');
+  const desktopVid = document.getElementById('hero-bg-video-desktop');
+  const mobileVid = document.getElementById('hero-bg-video-mobile');
+  const videos = [desktopVid, mobileVid].filter(Boolean);
   if (!videos.length) return;
 
   const configureVideo = (vid) => {
@@ -1097,6 +1099,41 @@ function initHeroBgVideo() {
   };
 
   videos.forEach(v => configureVideo(v));
+
+  // Desktop Video: Enforce 10-second playback limit (loops 0s to 10s only, not complete video)
+  if (desktopVid) {
+    const DESKTOP_MAX_DURATION = 10.0; // exactly 10 seconds
+
+    // Standard timeupdate listener
+    desktopVid.addEventListener('timeupdate', () => {
+      if (desktopVid.currentTime >= DESKTOP_MAX_DURATION) {
+        desktopVid.currentTime = 0;
+      }
+    });
+
+    // High-frequency animation frame monitor for instant, seamless loop transition at 10s
+    let desktopLoopRafId = null;
+    const monitorDesktopLoop = () => {
+      if (!desktopVid.paused && desktopVid.currentTime >= DESKTOP_MAX_DURATION) {
+        desktopVid.currentTime = 0;
+      }
+      desktopLoopRafId = requestAnimationFrame(monitorDesktopLoop);
+    };
+
+    desktopVid.addEventListener('play', () => {
+      if (desktopLoopRafId) cancelAnimationFrame(desktopLoopRafId);
+      desktopLoopRafId = requestAnimationFrame(monitorDesktopLoop);
+    });
+
+    desktopVid.addEventListener('pause', () => {
+      if (desktopLoopRafId) cancelAnimationFrame(desktopLoopRafId);
+    });
+
+    desktopVid.addEventListener('ended', () => {
+      desktopVid.currentTime = 0;
+      desktopVid.play().catch(() => {});
+    });
+  }
 }
 
 // ══════════════════════════════════════════
