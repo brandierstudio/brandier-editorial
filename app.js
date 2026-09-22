@@ -1298,11 +1298,11 @@ function initCursorSpotlight() {
 function initHeroBgVideo() {
   const desktopVid = document.getElementById('hero-bg-video-desktop');
   const mobileVid = document.getElementById('hero-bg-video-mobile');
-  const videos = [desktopVid, mobileVid].filter(Boolean);
-  if (!videos.length) return;
+  if (!desktopVid && !mobileVid) return;
 
-  const configureVideo = (vid) => {
+  function activateVideo(vid, isDesktop) {
     if (!vid) return;
+
     vid.muted = true;
     vid.defaultMuted = true;
     vid.volume = 0;
@@ -1314,66 +1314,66 @@ function initHeroBgVideo() {
     vid.setAttribute('loop', '');
 
     const tryPlay = () => {
-      const playPromise = vid.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          const resumePlay = () => {
-            vid.play();
-            window.removeEventListener('click', resumePlay);
-            window.removeEventListener('scroll', resumePlay);
-            window.removeEventListener('touchstart', resumePlay);
-          };
-          window.addEventListener('click', resumePlay, { once: true });
-          window.addEventListener('scroll', resumePlay, { once: true });
-          window.addEventListener('touchstart', resumePlay, { once: true });
-        });
+      const p = vid.play();
+      if (p !== undefined) {
+        p.catch(() => {});
       }
     };
 
-    if (vid.readyState >= 2) {
-      tryPlay();
+    // Immediate attempt
+    tryPlay();
+    vid.addEventListener('loadedmetadata', tryPlay, { once: true });
+    vid.addEventListener('loadeddata', tryPlay, { once: true });
+    vid.addEventListener('canplay', tryPlay, { once: true });
+
+    if (isDesktop) {
+      // Desktop: 10-second highlight loop
+      const DESKTOP_MAX_DURATION = 10.0;
+      vid.addEventListener('timeupdate', () => {
+        if (vid.currentTime >= DESKTOP_MAX_DURATION) {
+          vid.currentTime = 0;
+          if (vid.paused) tryPlay();
+        }
+      });
+      vid.addEventListener('ended', () => {
+        vid.currentTime = 0;
+        tryPlay();
+      });
     } else {
-      vid.addEventListener('loadeddata', tryPlay, { once: true });
-      vid.addEventListener('canplay', tryPlay, { once: true });
+      // Mobile: Full loop
+      vid.addEventListener('ended', () => {
+        vid.currentTime = 0;
+        tryPlay();
+      });
+    }
+  }
+
+  // Activate both videos for immediate availability
+  activateVideo(desktopVid, true);
+  activateVideo(mobileVid, false);
+
+  // Universal gesture unlock for iOS Low Power Mode and strict mobile autoplay policies
+  const unlockActiveVideo = () => {
+    const isMobile = window.innerWidth <= 768;
+    const activeVid = isMobile ? mobileVid : desktopVid;
+    if (activeVid && activeVid.paused) {
+      activeVid.play().catch(() => {});
     }
   };
 
-  videos.forEach(v => configureVideo(v));
+  ['touchstart', 'touchend', 'click', 'scroll', 'pointerdown'].forEach(evt => {
+    window.addEventListener(evt, unlockActiveVideo, { passive: true, once: false });
+  });
 
-  // Desktop Video: Enforce 10-second playback limit (loops 0s to 10s only, not complete video)
-  if (desktopVid) {
-    const DESKTOP_MAX_DURATION = 10.0; // exactly 10 seconds
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      unlockActiveVideo();
+    }
+  });
 
-    // Standard timeupdate listener
-    desktopVid.addEventListener('timeupdate', () => {
-      if (desktopVid.currentTime >= DESKTOP_MAX_DURATION) {
-        desktopVid.currentTime = 0;
-      }
-    });
-
-    // High-frequency animation frame monitor for instant, seamless loop transition at 10s
-    let desktopLoopRafId = null;
-    const monitorDesktopLoop = () => {
-      if (!desktopVid.paused && desktopVid.currentTime >= DESKTOP_MAX_DURATION) {
-        desktopVid.currentTime = 0;
-      }
-      desktopLoopRafId = requestAnimationFrame(monitorDesktopLoop);
-    };
-
-    desktopVid.addEventListener('play', () => {
-      if (desktopLoopRafId) cancelAnimationFrame(desktopLoopRafId);
-      desktopLoopRafId = requestAnimationFrame(monitorDesktopLoop);
-    });
-
-    desktopVid.addEventListener('pause', () => {
-      if (desktopLoopRafId) cancelAnimationFrame(desktopLoopRafId);
-    });
-
-    desktopVid.addEventListener('ended', () => {
-      desktopVid.currentTime = 0;
-      desktopVid.play().catch(() => {});
-    });
-  }
+  window.addEventListener('resize', () => {
+    unlockActiveVideo();
+  }, { passive: true });
 }
 
 // ══════════════════════════════════════════
