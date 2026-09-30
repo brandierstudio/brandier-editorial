@@ -777,13 +777,16 @@ const PORTFOLIO_DATA = {
     }
   ],
 
-  // Services & Capabilities (Interactive Disclosures)
+  // Services & Capabilities (Interactive Disclosures with Video Showcases)
   services: [
     {
       number: "01",
       title: "AI UGC Ads",
       tagline: "High-Performance Paid Social Commercials",
       summary: "High-volume, conversion-engineered shortform video ads designed specifically for TikTok, Meta, and YouTube Shorts algorithms.",
+      featuredProjectId: "proj-ai-ugc-hook",
+      featuredVideoId: "xsiHXV3vzV0",
+      featuredVideoTitle: "AI UGC Hook (9:16 Short)",
       details: [
         "Rapid scripting with pattern-interrupt 1.5s hook testing",
         "Hyper-realistic synthetic creators & multi-accent voice clones",
@@ -797,6 +800,9 @@ const PORTFOLIO_DATA = {
       title: "AI Motion Graphics",
       tagline: "Frontier Latent Space Video & Kinetic Design",
       summary: "Cinematic, physics-defying motion visuals crafted through cutting-edge neural video models and prompt-directing pipelines.",
+      featuredProjectId: "proj-01",
+      featuredVideoId: "DVjIMppmh2A",
+      featuredVideoTitle: "Brandier Anthem Film (16:9)",
       details: [
         "Complex fluid dynamics, particle bursts, and liquid glass optics",
         "Camera tracking and parallax motion simulation",
@@ -810,6 +816,9 @@ const PORTFOLIO_DATA = {
       title: "3D Product Animation",
       tagline: "Photorealistic CAD Modeling, Lighting & Commercial Direction",
       summary: "High-precision 3D animations that showcase materials, internal mechanisms, and product form factors with uncompromising fidelity.",
+      featuredProjectId: "proj-dior-spec",
+      featuredVideoId: "FNH-5yhkLZs",
+      featuredVideoTitle: "Dior Spec: Haute Parfumerie (16:9)",
       details: [
         "Industrial CAD translation and precision topology refinement",
         "Custom studio lighting rigs (softbox diffusers, caustics, rim reflections)",
@@ -823,6 +832,9 @@ const PORTFOLIO_DATA = {
       title: "AI Product Visuals",
       tagline: "Virtual Studio Photography Without the Physical Studio",
       summary: "Zero-overhead product photography and launch keyart engineered through photoreal latent diffusion models.",
+      featuredProjectId: "proj-siwella-3d",
+      featuredVideoId: "0AX6C1HSDL8",
+      featuredVideoTitle: "Siwella 3D Cosmetic Bottle (9:16)",
       details: [
         "Custom fine-tuned LoRAs and depth maps to lock exact product packaging",
         "Unlimited architectural and outdoor environmental placements",
@@ -830,6 +842,76 @@ const PORTFOLIO_DATA = {
         "Rapid seasonal and e-commerce catalog refresh cycles"
       ],
       idealFor: "Beverage brands, luxury packaging, global e-commerce catalogs"
+    }
+  ],
+
+  // Editorial Insights, Case Studies & Technical Deep Dives
+  articles: [
+    {
+      id: "art-ai-ugc-playbook",
+      title: "The 2026 AI Commercial Playbook: Scaling E-Commerce ROAS by 340% with Generative UGC",
+      category: "Performance AI Ads",
+      readTime: "5 min read",
+      date: "Editorial Edition • 2026",
+      featuredProjectId: "proj-ai-ugc-hook",
+      featuredVideoId: "xsiHXV3vzV0",
+      featuredSecondaryVideoId: "DVjIMppmh2A",
+      tagline: "How Brandier Studio turns generative AI into conversion machines for DTC brands.",
+      excerpt: "Traditional studio commercials cost $25k+ and take 6 weeks to produce. Discover how our AI UGC pipelines deliver 20+ tested hooks weekly with 340% higher average ROAS.",
+      takeaways: [
+        "The 1.5-Second Visual Rule: Why the first frame dictates 70% of paid ad dropoff",
+        "Acoustic Room Resonance: Removing artificial sheen so AI synthetic voices sound raw and genuine",
+        "Matrix Production: Generating multi-angle hooks while keeping the value proposition consistent"
+      ],
+      contentParagraphs: [
+        "In modern paid social advertising across TikTok, Meta Reels, and YouTube Shorts, visual fatigue happens in under 48 hours. Brands running standard user-generated content face a brutal reality: hiring real influencers for every creative iteration is too slow, too expensive, and inconsistent in lighting and delivery.",
+        "At Brandier Studio, we engineered a unified Generative AI commercial pipeline that merges Kling 1.5 photoreal human rendering, custom fine-tuned voice models with localized vocal imperfections, and high-energy kinetic editing. Instead of waiting weeks for creator shipments, we produce 15 to 25 distinct creative angles per campaign within 72 hours.",
+        "The results speak for themselves: across our flagship beauty, supplement, and apparel partners, this framework achieved a 340% increase in ROAS and over 12.4M organic and paid impressions, establishing a new commercial benchmark for frontier brands."
+      ]
+    },
+    {
+      id: "art-3d-haute-parfumerie",
+      title: "Haute Parfumerie in 3D: Octane Caustics, Parisian Lighting, & Photoreal Crystal Physics",
+      category: "3D Cinema & Shaders",
+      readTime: "6 min read",
+      date: "Editorial Edition • 2026",
+      featuredProjectId: "proj-dior-spec",
+      featuredVideoId: "FNH-5yhkLZs",
+      featuredSecondaryVideoId: "0AX6C1HSDL8",
+      tagline: "Deconstructing luxury fragrance aesthetics through precision CAD shaders and physics.",
+      excerpt: "How we crafted the Dior Spec commercial film: spectral glass dispersion, gilded bottle caustics, and micro-droplet fluid dynamics.",
+      takeaways: [
+        "Spectral Dispersion: Splitting light through heavy crystal flacons without render artifacts",
+        "Volumetric Fog & Parisian Mood: Balancing dramatic negative space with golden rim caustics",
+        "Hybrid AI Finishing: Neural upscaling to 4K ProRes with preserved edge crispness"
+      ],
+      contentParagraphs: [
+        "Luxury perfume advertising demands sensory synesthesia—a commercial must make the viewer feel the fragrance through light, texture, and fluid physics alone. Physical camera shoots struggle with extreme macro caustics because lenses cannot easily focus inside curved liquid flacons without distortion.",
+        "In the Dior Spec Haute Parfumerie commercial, we constructed the bottle geometry with micron-level tolerance. Using Octane render nodes with unbiased path tracing, we cast multi-wavelength spectral caustics across textured slate pedestals, creating authentic optical dispersion.",
+        "By merging precision 3D rendering with AI motion passes, we achieved an expansive theatrical commercial that captures Parisian luxury while cutting physical production costs by over 80%."
+      ]
+    },
+    {
+      id: "art-kinetic-saas-motion",
+      title: "SaaS Motion Direction: Designing UI Fly-Throughs & Kinetic Typography That Convert",
+      category: "Kinetic Motion",
+      readTime: "4 min read",
+      date: "Editorial Edition • 2026",
+      featuredProjectId: "proj-booknation",
+      featuredVideoId: "k7RPSs6QWTQ",
+      featuredSecondaryVideoId: "orijUTH3Oyc",
+      tagline: "Turning complex platform workflows into visceral, cinematic brand films.",
+      excerpt: "Why typical software demos are boring—and how kinetic typography, 3D camera sweeps, and spatial sound design transform SaaS conversion rates.",
+      takeaways: [
+        "Isometric 3D Camera Fly-throughs: Making flat interfaces feel tangible and dimensional",
+        "Audio-Reactive Rhythm: Synchronizing typography bursts to sub-bass spatial impacts",
+        "Feature Distillation: Explaining complex multi-step user flows in 45 punchy seconds"
+      ],
+      contentParagraphs: [
+        "Most B2B and SaaS product explainer videos suffer from the same flaw: screen recordings with generic voiceovers that cause instant viewer dropoff. High-growth software brands need cinematic motion design that conveys product power, velocity, and enterprise reliability within seconds.",
+        "For BookNationMedia, we broke down the platform's multi-layered dashboard into modular 3D floating layers. Sweeping isometric cameras guide the audience's eye through key automation features, while kinetic typography reinforces core value metrics on every beat.",
+        "The final commercial delivered an immediate surge in product demo signups, proving that software marketing performs best when treated like high-fashion cinematic motion."
+      ]
     }
   ],
 

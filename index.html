@@ -128,6 +128,7 @@
       <nav class="dock-nav" aria-label="Main Navigation">
         <ul class="dock-nav-list">
           <li><a href="#work" class="dock-link active" data-section="work">Work</a></li>
+          <li><a href="#editorial" class="dock-link" data-section="editorial">Editorial</a></li>
           <li><a href="#services" class="dock-link" data-section="services">Services</a></li>
           <li><a href="#process" class="dock-link" data-section="process">Process</a></li>
           <li><a href="#about" class="dock-link" data-section="about">About</a></li>
@@ -233,6 +234,7 @@
 
       <nav class="mobile-menu-nav">
         <a href="#work" class="mobile-menu-link" onclick="closeMobileMenu()">Work</a>
+        <a href="#editorial" class="mobile-menu-link" onclick="closeMobileMenu()">Editorial</a>
         <a href="#services" class="mobile-menu-link" onclick="closeMobileMenu()">Services</a>
         <a href="#process" class="mobile-menu-link" onclick="closeMobileMenu()">Process</a>
         <a href="#about" class="mobile-menu-link" onclick="closeMobileMenu()">About</a>
@@ -789,6 +791,30 @@
     </section>
 
     <!-- ══════════════════════════════════════════
+         03.5 — EDITORIAL INSIGHTS & CASE STUDIES (Deep Dives & Breakdowns)
+    ══════════════════════════════════════════ -->
+    <section class="section editorial-section" id="editorial">
+      <div class="site-container">
+        
+        <div class="section-heading-row reveal-item">
+          <div>
+            <span class="section-label">EDITORIAL &bull; CASE STUDIES</span>
+            <h2 class="section-title">Insights &amp; Production Deep Dives</h2>
+          </div>
+          <p class="section-subtext">
+            Technical breakdowns, generative AI ad pipelines, and 3D shader methodologies published by Anas Bin Mehboob.
+          </p>
+        </div>
+
+        <!-- Editorial Articles Grid -->
+        <div class="editorial-grid reveal-item" id="editorial-grid">
+          <!-- Rendered dynamically from data.js -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
          04 — SERVICES SECTION (Interactive Disclosures)
     ══════════════════════════════════════════ -->
     <section class="section services-section" id="services">
@@ -1012,16 +1038,30 @@
       </div>
 
       <div class="footer-center">
-        <a href="https://tv.brandierstudio.online" target="_blank" rel="noopener noreferrer" class="footer-eco-link">
-          <span class="tv-live-beacon"></span>
-          <span>Brandier TV</span>
-          <span class="footer-arrow">↗</span>
-        </a>
-        <span class="footer-sep">&bull;</span>
-        <a href="https://brandierstudio.online" target="_blank" rel="noopener noreferrer" class="footer-eco-link">
-          <span>brandierstudio.online</span>
-          <span class="footer-arrow">↗</span>
-        </a>
+        <div class="footer-eco-links">
+          <a href="https://tv.brandierstudio.online" target="_blank" rel="noopener noreferrer" class="footer-eco-link">
+            <span class="tv-live-beacon"></span>
+            <span>Brandier TV</span>
+            <span class="footer-arrow">↗</span>
+          </a>
+          <span class="footer-sep">&bull;</span>
+          <a href="https://brandierstudio.online" target="_blank" rel="noopener noreferrer" class="footer-eco-link">
+            <span>brandierstudio.online</span>
+            <span class="footer-arrow">↗</span>
+          </a>
+        </div>
+        <!-- All Verified Social Media Profiles -->
+        <div class="footer-social-row">
+          <a href="https://www.instagram.com/anas.mehboob.ai/" target="_blank" rel="noopener noreferrer" class="footer-soc-link" title="Instagram">Instagram</a>
+          <span class="footer-soc-sep">/</span>
+          <a href="https://www.linkedin.com/in/anasmehboob/" target="_blank" rel="noopener noreferrer" class="footer-soc-link" title="LinkedIn">LinkedIn</a>
+          <span class="footer-soc-sep">/</span>
+          <a href="https://www.facebook.com/anas.bin.mehboob" target="_blank" rel="noopener noreferrer" class="footer-soc-link" title="Facebook">Facebook</a>
+          <span class="footer-soc-sep">/</span>
+          <a href="https://x.com/AnasbinMehboob" target="_blank" rel="noopener noreferrer" class="footer-soc-link" title="X (Twitter)">X</a>
+          <span class="footer-soc-sep">/</span>
+          <a href="https://www.youtube.com/@AnasBinMehboob" target="_blank" rel="noopener noreferrer" class="footer-soc-link" title="YouTube">YouTube</a>
+        </div>
       </div>
 
       <div class="footer-right">
@@ -1060,6 +1100,27 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       10 — EDITORIAL ARTICLE & PRODUCTION DEEP DIVE MODAL
+  ══════════════════════════════════════════ -->
+  <div class="article-modal-overlay" id="article-modal" aria-hidden="true">
+    <div class="article-modal-backdrop" onclick="closeArticleModal()"></div>
+    <div class="article-modal-dialog">
+      <div class="article-modal-topbar">
+        <div class="article-modal-badge-row">
+          <span class="artmodal-badge" id="artmodal-category">PERFORMANCE AI ADS</span>
+          <span class="artmodal-pill" id="artmodal-readtime">5 MIN READ</span>
+          <span class="artmodal-date" id="artmodal-date">2026 EDITION</span>
+        </div>
+        <button class="article-modal-close" onclick="closeArticleModal()" aria-label="Close article reader">✕</button>
+      </div>
+
+      <div class="article-modal-content-wrap" id="artmodal-content">
+        <!-- Injected dynamically from data.js -->
+      </div>
     </div>
   </div>
 

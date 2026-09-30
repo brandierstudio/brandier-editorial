@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPinnedMainVideo();
   renderCoreShowcase();
   renderArchiveLibrary();
+  renderEditorialArticles();
   renderServices();
   renderProcess();
   renderTools();
@@ -481,13 +482,128 @@ function initKeyboardListeners() {
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       closeVideoModal();
+      closeArticleModal();
       closeMobileMenu();
     }
   });
 }
 
 // ══════════════════════════════════════════
-// 4. SERVICES ACCORDION
+// 3.5. EDITORIAL ARTICLES & CASE STUDY READER
+// ══════════════════════════════════════════
+function renderEditorialArticles() {
+  const container = document.getElementById('editorial-grid');
+  if (!container || !PORTFOLIO_DATA.articles) return;
+
+  container.innerHTML = PORTFOLIO_DATA.articles.map(art => {
+    return `
+      <article class="editorial-card" id="${art.id}">
+        <div class="editorial-badge-row">
+          <span class="editorial-cat-badge">${art.category}</span>
+          <span class="editorial-read-pill">⏱ ${art.readTime}</span>
+        </div>
+
+        <h3 class="editorial-card-title">${art.title}</h3>
+        <p class="editorial-card-excerpt">${art.excerpt}</p>
+
+        <!-- Video Proof Trigger Pill -->
+        ${art.featuredProjectId ? `
+          <button type="button" class="editorial-video-preview-pill" onclick="openVideoModal('${art.featuredProjectId}')" title="Watch Case Study Video in 4K">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="6 4 20 12 6 20 6 4"></polygon>
+            </svg>
+            <span>Watch Production Film</span>
+          </button>
+        ` : ''}
+
+        <div class="editorial-takeaways-box">
+          <span class="editorial-takeaways-title">KEY METHODOLOGY TAKEAWAYS:</span>
+          <ul class="editorial-takeaways-list">
+            ${art.takeaways.map(t => `<li>${t}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="editorial-card-footer">
+          <button type="button" class="btn-read-article" onclick="openArticleModal('${art.id}')">
+            <span>Read Breakdown</span>
+            <span>&rarr;</span>
+          </button>
+          <span class="editorial-date-tag">${art.date}</span>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+function openArticleModal(articleId) {
+  const modal = document.getElementById('article-modal');
+  const catEl = document.getElementById('artmodal-category');
+  const readEl = document.getElementById('artmodal-readtime');
+  const dateEl = document.getElementById('artmodal-date');
+  const contentEl = document.getElementById('artmodal-content');
+  if (!modal || !contentEl || !PORTFOLIO_DATA.articles) return;
+
+  const article = PORTFOLIO_DATA.articles.find(a => a.id === articleId);
+  if (!article) return;
+
+  catEl.textContent = article.category.toUpperCase();
+  readEl.textContent = article.readTime.toUpperCase();
+  dateEl.textContent = article.date.toUpperCase();
+
+  contentEl.innerHTML = `
+    <h2 class="article-modal-title">${article.title}</h2>
+    
+    <div class="article-author-byline">
+      <img src="assets/anas-portrait.png" alt="Anas Bin Mehboob" class="author-avatar-img">
+      <div class="author-info-col">
+        <span class="author-byline-name">Anas Bin Mehboob</span>
+        <span class="author-byline-role">AI Advertising Pioneer &bull; Co-founder at Brandier Studio</span>
+      </div>
+    </div>
+
+    <div class="article-video-showcase-box">
+      <div class="article-video-showcase-title">Signature Production Film Showcase</div>
+      <div class="article-video-actions">
+        <button type="button" class="btn-article-video-play" onclick="openVideoModal('${article.featuredProjectId}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+          <span>Watch Master Video (4K)</span>
+        </button>
+        ${article.featuredSecondaryVideoId ? `
+          <button type="button" class="btn-article-video-play" style="background: rgba(255,255,255,0.15); color: #FFF;" onclick="openVideoModal('${article.featuredProjectId}')">
+            <span>Watch Secondary Angle</span>
+          </button>
+        ` : ''}
+      </div>
+    </div>
+
+    <div class="article-body-text">
+      ${article.contentParagraphs.map(p => `<p>${p}</p>`).join('')}
+    </div>
+
+    <div class="editorial-takeaways-box" style="margin-top: 32px; background: rgba(0,0,0,0.035); padding: 18px 20px;">
+      <span class="editorial-takeaways-title" style="font-size: 11px;">EXECUTIVE SUMMARY &bull; PRODUCTION TAKEAWAYS:</span>
+      <ul class="editorial-takeaways-list" style="margin-top: 10px; gap: 8px;">
+        ${article.takeaways.map(t => `<li style="font-size: 13.5px;">${t}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeArticleModal() {
+  const modal = document.getElementById('article-modal');
+  if (modal) {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+  document.body.style.overflow = '';
+}
+
+// ══════════════════════════════════════════
+// 4. SERVICES ACCORDION (With Proof Video Badges)
 // ══════════════════════════════════════════
 function renderServices() {
   const container = document.getElementById('services-container');
@@ -511,6 +627,12 @@ function renderServices() {
             <ul class="service-bullets">
               ${s.details.map(d => `<li>${d}</li>`).join('')}
             </ul>
+            ${s.featuredProjectId ? `
+              <button type="button" class="service-video-pill" onclick="openVideoModal('${s.featuredProjectId}')" title="Watch proof video for ${s.title}">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+                <span>Proof Showcase: ${s.featuredVideoTitle} ↗</span>
+              </button>
+            ` : ''}
           </div>
           <div class="service-meta-box">
             <span class="meta-box-label">IDEAL USE CASE</span>
@@ -626,7 +748,7 @@ function copyEmailToClipboard() {
 // ══════════════════════════════════════════
 function initDockScrollSpy() {
   const links = document.querySelectorAll('.dock-link');
-  const sections = ['work', 'services', 'process', 'about', 'contact'].map(id => document.getElementById(id));
+  const sections = ['work', 'editorial', 'services', 'process', 'about', 'contact'].map(id => document.getElementById(id));
 
   window.addEventListener('scroll', () => {
     const scrollPos = window.scrollY + 200;
@@ -735,7 +857,7 @@ function initScrollReveals() {
 function initCardTiltAndSheen() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
-  const cards = document.querySelectorAll('.project-card, .process-step-card, .pinned-spotlight-card');
+  const cards = document.querySelectorAll('.project-card, .process-step-card, .pinned-spotlight-card, .editorial-card');
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
