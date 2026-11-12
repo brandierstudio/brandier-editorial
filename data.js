@@ -7,9 +7,9 @@
 const PORTFOLIO_DATA = {
   profile: {
     name: "Anas Bin Mehboob",
-    title: "AI Advertising Pioneer & Creative Director",
-    tagline: "AI UGC Ads • AI Commercials • 3D Product Motion • Creative Direction",
-    bio: "Co-founder & Chief Growth Officer at Brandier Studio. Pioneering the convergence of Generative AI commercial pipelines, high-converting AI UGC ads, and 3D product motion to scale ambitious E-commerce & SaaS brands globally.",
+    title: "AI Creative Director & Digital Experience Designer",
+    tagline: "AI Ads • 3D Websites • AI Agents & Chatbots • AI Automations",
+    bio: "Co-founder & Chief Growth Officer at Brandier Studio. Creating AI ad campaigns, immersive 3D websites, AI agents, chatbots, and automations for ambitious brands.",
     availability: "Available for select commissions & commercial direction",
     location: "Global / Remote",
     email: "brandierstudio@gmail.com",
@@ -842,7 +842,45 @@ const PORTFOLIO_DATA = {
         "Rapid seasonal and e-commerce catalog refresh cycles"
       ],
       idealFor: "Beverage brands, luxury packaging, global e-commerce catalogs"
-    }
+    },
+    {
+  "number": "05",
+  "title": "3D Website Design",
+  "tagline": "Immersive Digital Experiences \u00b7 Brandier Web",
+  "summary": "Brand-led websites with interactive 3D storytelling, scroll-driven motion, and responsive layouts.",
+  "details": [
+    "Discover your audience, business goals, and visual references",
+    "Design and build a tailored website with purposeful 3D motion",
+    "Test mobile usability, performance, and enquiry flows before launch"
+  ],
+  "idealFor": "Business websites, product launches, service brands, and portfolios",
+  "serviceUrl": "https://web.brandierstudio.online/",
+  "serviceLinkLabel": "Explore Brandier Web"
+},
+    {
+  "number": "06",
+  "title": "AI Agents & Chatbots",
+  "tagline": "Useful Conversations, Connected Workflows",
+  "summary": "AI assistants built around your business knowledge to answer questions, capture enquiries, and guide customers to the next step.",
+  "details": [
+    "Define the assistant\u2019s knowledge, tasks, and boundaries",
+    "Connect relevant business tools and customer handoff flows",
+    "Test realistic conversations and refine the experience"
+  ],
+  "idealFor": "Customer support, lead qualification, FAQs, and booking enquiries"
+},
+    {
+  "number": "07",
+  "title": "AI Automations",
+  "tagline": "Less Repetition. More Time for Your Business.",
+  "summary": "Connected workflows that reduce repetitive admin across enquiries, follow-ups, and reporting.",
+  "details": [
+    "Map the manual steps and agree the workflow",
+    "Connect your forms, inbox, CRM, and business tools as needed",
+    "Test triggers, exception handling, and human review points"
+  ],
+  "idealFor": "Lead routing, follow-ups, CRM updates, and routine reporting"
+}
   ],
 
   // Editorial Insights, Case Studies & Technical Deep Dives

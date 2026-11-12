@@ -627,6 +627,7 @@ function renderServices() {
             <ul class="service-bullets">
               ${s.details.map(d => `<li>${d}</li>`).join('')}
             </ul>
+            ${s.serviceUrl ? `<a class="service-video-pill" href="${s.serviceUrl}" target="_blank" rel="noopener noreferrer">${s.serviceLinkLabel} ↗</a>` : ''}
             ${s.featuredProjectId ? `
               <button type="button" class="service-video-pill" onclick="openVideoModal('${s.featuredProjectId}')" title="Watch proof video for ${s.title}">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>

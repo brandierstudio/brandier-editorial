@@ -3518,6 +3518,8 @@ button {
 /* Footer Social Links */
 .footer-eco-links {
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: 8px;
   margin-bottom: 6px;
